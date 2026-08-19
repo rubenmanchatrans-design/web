@@ -272,7 +272,32 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 .asis-abrir:hover{background:var(--rojo-osc);transform:scale(1.06)}
 .asis-abrir.oculto{opacity:0;pointer-events:none;transform:scale(.7)}
 .asis-punto{position:absolute;top:4px;right:4px;width:13px;height:13px;border-radius:50%;
-  background:#2ECC71;border:2px solid var(--papel)}
+  background:#2ECC71;border:2px solid var(--papel);z-index:2}
+/* onda que late alrededor del boton para que se note que esta ahi */
+.asis-abrir::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--rojo);
+  animation:asisOnda 3.2s ease-out infinite;pointer-events:none}
+@keyframes asisOnda{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.7);opacity:0}}
+.asis-abrir.oculto::after{animation:none}
+
+/* globo de aviso */
+.asis-aviso{position:fixed;right:92px;bottom:26px;z-index:79;display:none;align-items:center;gap:12px;
+  background:#fff;color:var(--tinta);padding:14px 16px;max-width:288px;
+  box-shadow:0 12px 34px rgba(17,27,33,.22);border-left:3px solid var(--rojo);cursor:pointer}
+.asis-aviso.visible{display:flex;animation:asisAviso .5s cubic-bezier(.2,1.3,.4,1)}
+@keyframes asisAviso{from{opacity:0;transform:translateX(16px) scale(.9)}to{opacity:1;transform:none}}
+.asis-aviso::after{content:"";position:absolute;right:-7px;top:50%;margin-top:-7px;width:0;height:0;
+  border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:7px solid #fff}
+.asis-aviso .ico{width:34px;height:34px;background:var(--rojo);display:flex;align-items:center;justify-content:center;flex:none}
+.asis-aviso .txt{font-size:14.5px;font-weight:600;line-height:1.35}
+.asis-aviso .txt small{display:block;font-weight:400;font-size:12.5px;color:#5B7280;margin-top:2px}
+.asis-aviso .quitar{background:none;border:0;color:#8A9BA4;font-size:17px;line-height:1;cursor:pointer;padding:2px 0 2px 4px;flex:none}
+.asis-aviso .quitar:hover{color:var(--rojo)}
+@media (max-width:560px){
+  .asis-aviso{right:16px;bottom:82px;max-width:calc(100vw - 32px)}
+  .asis-aviso::after{right:22px;top:auto;bottom:-7px;margin-top:0;
+    border-left:7px solid transparent;border-right:7px solid transparent;
+    border-top:7px solid #fff;border-bottom:0}
+}
 
 .asis{position:fixed;right:20px;bottom:20px;z-index:81;width:min(390px,calc(100vw - 40px));
   max-height:min(620px,calc(100vh - 40px));background:var(--tinta);color:var(--papel);
@@ -998,6 +1023,19 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   </svg>
 </button>
 
+<div class="asis-aviso" id="asis-aviso" role="button" tabindex="0">
+  <span class="ico" aria-hidden="true">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 13v-1a8 8 0 0 1 16 0v1"/>
+      <path d="M20 15.5a2.5 2.5 0 0 1-2.5 2.5H17a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1h.5A2.5 2.5 0 0 1 20 14.5z"/>
+      <path d="M4 15.5A2.5 2.5 0 0 0 6.5 18H7a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-.5A2.5 2.5 0 0 0 4 14.5z"/>
+      <path d="M18 18v.5a2.5 2.5 0 0 1-2.5 2.5H13"/>
+    </svg>
+  </span>
+  <span class="txt">¿Necesita ayuda?<small>Consulte el estado de su expedición</small></span>
+  <button class="quitar" id="asis-quitar" aria-label="Cerrar aviso">&times;</button>
+</div>
+
 <div class="asis" id="asis" role="dialog" aria-label="Asistente de Manchatrans">
   <div class="asis-cab">
     <span class="ico" aria-hidden="true">
@@ -1198,6 +1236,7 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   /* ---------------- abrir y cerrar ---------------- */
 
   function abrirPanel(){
+    ocultarAviso();
     panel.classList.add('abierto');
     abrir.classList.add('oculto');
     if(!arrancado){
@@ -1211,6 +1250,28 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
     panel.classList.remove('abierto');
     abrir.classList.remove('oculto');
   }
+  /* Globo de aviso: sale a los 6 s, una sola vez por visita */
+  const aviso = document.getElementById('asis-aviso');
+  const quitar = document.getElementById('asis-quitar');
+  function guardado(){ try{ return sessionStorage.getItem('mt-aviso') === 'visto'; }catch(e){ return false; } }
+  function guardar(){ try{ sessionStorage.setItem('mt-aviso','visto'); }catch(e){} }
+  function ocultarAviso(){ if(aviso) aviso.classList.remove('visible'); guardar(); }
+
+  if(aviso && !guardado()){
+    setTimeout(function(){
+      if(!panel.classList.contains('abierto') && !guardado()) aviso.classList.add('visible');
+    }, 6000);
+    aviso.addEventListener('click', function(e){
+      if(e.target.closest('#asis-quitar')) return;
+      ocultarAviso(); abrirPanel();
+    });
+    aviso.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); ocultarAviso(); abrirPanel(); }
+    });
+    if(quitar) quitar.addEventListener('click', function(e){ e.stopPropagation(); ocultarAviso(); });
+    setTimeout(ocultarAviso, 20000);   // si no hace caso, se retira solo
+  }
+
   abrir.addEventListener('click', abrirPanel);
   cerrar.addEventListener('click', cerrarPanel);
   const reinicio = document.getElementById('asis-reiniciar');
