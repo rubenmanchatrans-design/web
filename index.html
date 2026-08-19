@@ -249,6 +249,67 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .rv{opacity:1;transform:none}
 }
+
+/* ===================== ASISTENTE GUIADO ===================== */
+.asis-abrir{position:fixed;right:20px;bottom:20px;z-index:80;width:60px;height:60px;border:0;border-radius:50%;
+  background:var(--rojo);color:#fff;cursor:pointer;box-shadow:0 8px 26px rgba(17,27,33,.30);
+  display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+.asis-abrir:hover{background:var(--rojo-osc);transform:scale(1.06)}
+.asis-abrir.oculto{opacity:0;pointer-events:none;transform:scale(.7)}
+.asis-punto{position:absolute;top:4px;right:4px;width:13px;height:13px;border-radius:50%;
+  background:#2ECC71;border:2px solid var(--papel)}
+
+.asis{position:fixed;right:20px;bottom:20px;z-index:81;width:min(390px,calc(100vw - 40px));
+  max-height:min(620px,calc(100vh - 40px));background:var(--tinta);color:var(--papel);
+  display:none;flex-direction:column;box-shadow:0 20px 60px rgba(17,27,33,.42);overflow:hidden}
+.asis.abierto{display:flex;animation:asisEntra .28s cubic-bezier(.2,.7,.3,1)}
+@keyframes asisEntra{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.asis-cab{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--acero);
+  border-bottom:1px solid var(--linea-osc);flex:none}
+.asis-cab .ico{width:34px;height:34px;background:var(--rojo);display:flex;align-items:center;justify-content:center;flex:none}
+.asis-cab h3{font-family:var(--display);font-weight:800;font-stretch:82%;text-transform:uppercase;font-size:15px;line-height:1.1}
+.asis-cab p{font-family:var(--dato);font-size:11px;color:#93A5AE;letter-spacing:.05em}
+.asis-cerrar{margin-left:auto;background:none;border:0;color:#93A5AE;cursor:pointer;padding:6px;font-size:20px;line-height:1}
+.asis-cerrar:hover{color:var(--papel)}
+
+.asis-cuerpo{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.burb{max-width:88%;padding:12px 14px;font-size:14.5px;line-height:1.5;animation:asisEntra .3s}
+.burb-bot{background:rgba(237,237,231,.07);align-self:flex-start;border-left:2px solid var(--rojo)}
+.burb-yo{background:var(--rojo);color:#fff;align-self:flex-end;font-family:var(--dato);font-size:13px}
+.burb b{font-weight:600}
+.burb a{color:var(--rojo);font-weight:600}
+.burb-bot a{color:#FF6B6B}
+
+.asis-pie{flex:none;padding:14px 18px 18px;border-top:1px solid var(--linea-osc);display:flex;flex-direction:column;gap:8px}
+.asis-op{background:transparent;border:1px solid var(--linea-osc);color:var(--papel);text-align:left;
+  padding:12px 14px;font-family:var(--texto);font-size:14.5px;cursor:pointer;transition:.18s}
+.asis-op:hover{border-color:var(--rojo);background:rgba(245,16,16,.10)}
+.asis-op.sec{font-family:var(--dato);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#93A5AE;border-color:transparent;padding:8px 0}
+.asis-op.sec:hover{color:var(--rojo);background:transparent}
+.asis-fila{display:flex;gap:8px}
+.asis-fila input{flex:1;background:rgba(17,27,33,.6);border:1px solid var(--linea-osc);color:var(--papel);
+  font-family:var(--dato);font-size:15px;padding:12px}
+.asis-fila input:focus{outline:none;border-color:var(--rojo)}
+.asis-fila button{background:var(--rojo);color:#fff;border:0;padding:0 18px;cursor:pointer;font-family:var(--dato);font-size:13px}
+.asis-fila button:hover{background:var(--rojo-osc)}
+
+/* resultado del envio dentro del chat */
+.asis-res{border:1px solid var(--linea-osc);padding:13px 14px;align-self:stretch}
+.asis-res .cima{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap}
+.asis-res .cima strong{font-family:var(--dato);font-size:14px}
+.asis-res ul{list-style:none;font-size:13.5px}
+.asis-res li{padding:5px 0 5px 15px;position:relative;color:#C6D0D5}
+.asis-res li::before{content:"";position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--humo)}
+.asis-res li:first-child{color:var(--papel)}
+.asis-res li:first-child::before{background:var(--rojo)}
+.asis-res .fecha{font-family:var(--dato);font-size:11.5px;color:#8B9DA6;display:block}
+
+@media (max-width:560px){
+  .asis{right:0;bottom:0;width:100vw;max-height:88vh}
+  .asis-abrir{right:16px;bottom:16px;width:54px;height:54px}
+}
+
 </style>
 </head>
 <body>
@@ -886,5 +947,220 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
       }
    ========================================================================== */
 </script>
+
+<!-- ===================== ASISTENTE GUIADO ===================== -->
+<button class="asis-abrir" id="asis-abrir" aria-label="Abrir asistente de Manchatrans">
+  <span class="asis-punto" aria-hidden="true"></span>
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-4.2-.9L3 21l1.9-4.3A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/>
+  </svg>
+</button>
+
+<div class="asis" id="asis" role="dialog" aria-label="Asistente de Manchatrans">
+  <div class="asis-cab">
+    <span class="ico" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 3h13v13H1zM14 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="17.5" cy="18.5" r="2"/>
+      </svg>
+    </span>
+    <div>
+      <h3>Asistente Manchatrans</h3>
+      <p>Le ayudo en un momento</p>
+    </div>
+    <button class="asis-cerrar" id="asis-cerrar" aria-label="Cerrar asistente">&times;</button>
+  </div>
+  <div class="asis-cuerpo" id="asis-cuerpo" aria-live="polite"></div>
+  <div class="asis-pie" id="asis-pie"></div>
+</div>
+
+<script>
+/* ==========================================================================
+   ASISTENTE GUIADO
+   Sin IA: recorre un guion de opciones. Para consultar envios llama a la
+   MISMA funcion consultarExpedicion() que usa el buscador, asi que el dia
+   que se conecte Nereid el asistente queda conectado sin tocar nada.
+   ========================================================================== */
+(function(){
+  const abrir  = document.getElementById('asis-abrir');
+  const panel  = document.getElementById('asis');
+  const cerrar = document.getElementById('asis-cerrar');
+  const cuerpo = document.getElementById('asis-cuerpo');
+  const pie    = document.getElementById('asis-pie');
+  if(!panel) return;
+
+  const TEL = '926 27 49 85', TELH = 'tel:+34926274985';
+  const MAIL = 'atencioncliente@manchatrans.com';
+  let arrancado = false, expNum = '';
+
+  const limpiar = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const abajo = () => { cuerpo.scrollTop = cuerpo.scrollHeight; };
+
+  function di(html, quien){
+    const b = document.createElement('div');
+    b.className = 'burb ' + (quien === 'yo' ? 'burb-yo' : 'burb-bot');
+    b.innerHTML = html;
+    cuerpo.appendChild(b); abajo();
+    return b;
+  }
+
+  function opciones(lista){
+    pie.innerHTML = '';
+    lista.forEach(function(o){
+      const btn = document.createElement('button');
+      btn.className = 'asis-op' + (o.sec ? ' sec' : '');
+      btn.textContent = o.txt;
+      btn.addEventListener('click', function(){
+        if(!o.sec) di(limpiar(o.txt), 'yo');
+        o.va();
+      });
+      pie.appendChild(btn);
+    });
+  }
+
+  function pedirDato(etiqueta, marcador, modo, alDar){
+    pie.innerHTML = '';
+    const fila = document.createElement('div'); fila.className = 'asis-fila';
+    const inp = document.createElement('input');
+    inp.type = 'text'; inp.placeholder = marcador; inp.inputMode = modo || 'text';
+    inp.setAttribute('aria-label', etiqueta);
+    const b = document.createElement('button'); b.textContent = 'OK';
+    function enviar(){
+      const v = inp.value.trim();
+      if(!v) { inp.focus(); return; }
+      di(limpiar(v), 'yo');
+      alDar(v);
+    }
+    b.addEventListener('click', enviar);
+    inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') enviar(); });
+    fila.appendChild(inp); fila.appendChild(b); pie.appendChild(fila);
+    const volver = document.createElement('button');
+    volver.className = 'asis-op sec'; volver.textContent = '← Volver al menú';
+    volver.addEventListener('click', menu); pie.appendChild(volver);
+    setTimeout(function(){ inp.focus(); }, 60);
+  }
+
+  /* ---------------- guion ---------------- */
+
+  function menu(){
+    di('¿Qué necesita?');
+    opciones([
+      {txt:'Saber dónde está mi envío', va: pedirNumero},
+      {txt:'No estaba y no me lo entregaron', va: ausente},
+      {txt:'Quiero enviar mercancía', va: enviarMercancia},
+      {txt:'Devolver algo o pedir recogida', va: recogida},
+      {txt:'Hablar con una persona', va: persona}
+    ]);
+  }
+
+  function pedirNumero(){
+    di('Dígame el número de expedición. Aparece en el aviso de entrega o en el correo del remitente.');
+    pedirDato('Número de expedición', 'Ej. 4400218976', 'numeric', function(v){
+      expNum = v.replace(/[\s-]/g,'');
+      pedirCP();
+    });
+  }
+
+  function pedirCP(){
+    di('Ahora el <b>código postal de entrega</b>. Se lo pido por seguridad, para no enseñar datos de envíos ajenos.');
+    pedirDato('Código postal', '13005', 'numeric', function(cp){ buscarEnvio(expNum, cp.trim()); });
+  }
+
+  async function buscarEnvio(num, cp){
+    pie.innerHTML = '';
+    const esperando = di('Consultando…');
+    let e = null, fallo = false;
+    try { e = await consultarExpedicion(num, cp); } catch(err){ fallo = true; }
+    esperando.remove();
+
+    if(fallo){
+      di('No he podido consultarlo ahora mismo. Pruebe en unos minutos o llame al <a href="' + TELH + '">' + TEL + '</a>.');
+    } else if(!e){
+      di('No encuentro ninguna expedición con esos datos. Revise el número y el código postal. Si el envío se admitió hace pocas horas puede que aún no conste.');
+    } else {
+      const etq = {entregado:['Entregada','#2ECC71'], curso:['En reparto','#F51010'], aviso:['Requiere atención','#E0A020']};
+      const et = etq[e.estado] || etq.curso;
+      const caja = document.createElement('div');
+      caja.className = 'burb burb-bot asis-res';
+      caja.innerHTML =
+        '<div class="cima"><strong>' + limpiar(num) + '</strong>'
+        + '<span style="font-family:var(--dato);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:'
+        + et[1] + '">' + et[0] + '</span></div>'
+        + '<div style="font-family:var(--dato);font-size:12px;color:#8B9DA6;margin-bottom:10px">'
+        + limpiar(e.poblacion) + ' (' + limpiar(e.cp) + ') · ' + limpiar(e.bultos) + ' bultos · ' + limpiar(e.kilos) + ' kg</div>'
+        + '<ul>' + e.eventos.slice(0,4).map(function(v){
+            return '<li>' + limpiar(v.t) + '<span class="fecha">' + limpiar(v.i) + '</span></li>';
+          }).join('') + '</ul>';
+      cuerpo.appendChild(caja); abajo();
+
+      if(e.estado === 'aviso'){
+        di('Volveremos a intentar la entrega. Si prefiere concertar día u hora, llame al <a href="' + TELH + '">' + TEL + '</a>.');
+      } else if(e.estado === 'entregado'){
+        di('El envío consta como entregado. Si no lo ha recibido, avísenos cuanto antes al <a href="' + TELH + '">' + TEL + '</a>.');
+      }
+    }
+    opciones([
+      {txt:'Consultar otro envío', va: pedirNumero},
+      {txt:'Hablar con una persona', va: persona},
+      {txt:'← Volver al menú', sec:true, va: menu}
+    ]);
+  }
+
+  function ausente(){
+    di('Cuando no hay nadie, el conductor deja aviso y <b>lo intentamos de nuevo al día siguiente laborable</b>. No hace falta que haga nada.');
+    di('Si quiere fijar un día concreto, una franja horaria o cambiar la dirección, llámenos al <a href="' + TELH + '">' + TEL + '</a> y lo dejamos apuntado en la ruta.');
+    opciones([
+      {txt:'Ver el estado de mi envío', va: pedirNumero},
+      {txt:'← Volver al menú', sec:true, va: menu}
+    ]);
+  }
+
+  function enviarMercancia(){
+    di('Perfecto. Sacamos mercancía desde la provincia a toda España a través de nuestras redes.');
+    di('Cuéntenos <b>origen, destino, qué es y cuánto pesa</b> y le damos precio el mismo día. Puede usar el <a href="#contacto">formulario de contacto</a>, escribir a <a href="mailto:' + MAIL + '">' + MAIL + '</a> o llamar al <a href="' + TELH + '">' + TEL + '</a>.');
+    opciones([
+      {txt:'Ir al formulario', va: function(){ cerrarPanel(); location.hash = '#contacto'; }},
+      {txt:'← Volver al menú', sec:true, va: menu}
+    ]);
+  }
+
+  function recogida(){
+    di('Para devoluciones y recogidas necesitamos saber <b>quién es el remitente original</b> y el número de expedición si lo tiene.');
+    di('Escríbanos a <a href="mailto:' + MAIL + '">' + MAIL + '</a> o llame al <a href="' + TELH + '">' + TEL + '</a> y lo organizamos con la ruta que pase por su zona.');
+    opciones([
+      {txt:'Ir al formulario', va: function(){ cerrarPanel(); location.hash = '#contacto'; }},
+      {txt:'← Volver al menú', sec:true, va: menu}
+    ]);
+  }
+
+  function persona(){
+    di('Claro. En horario de oficina le atiende alguien de tráfico:');
+    di('<b>Teléfono</b> <a href="' + TELH + '">' + TEL + '</a><br><b>Correo</b> <a href="mailto:' + MAIL + '">' + MAIL + '</a>');
+    opciones([{txt:'← Volver al menú', sec:true, va: menu}]);
+  }
+
+  /* ---------------- abrir y cerrar ---------------- */
+
+  function abrirPanel(){
+    panel.classList.add('abierto');
+    abrir.classList.add('oculto');
+    if(!arrancado){
+      arrancado = true;
+      di('Hola. Soy el asistente de <b>Manchatrans</b>.');
+      menu();
+    }
+    abajo();
+  }
+  function cerrarPanel(){
+    panel.classList.remove('abierto');
+    abrir.classList.remove('oculto');
+  }
+  abrir.addEventListener('click', abrirPanel);
+  cerrar.addEventListener('click', cerrarPanel);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && panel.classList.contains('abierto')) cerrarPanel();
+  });
+})();
+</script>
+
 </body>
 </html>
