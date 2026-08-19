@@ -270,7 +270,9 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 .asis-cab .ico{width:34px;height:34px;background:var(--rojo);display:flex;align-items:center;justify-content:center;flex:none}
 .asis-cab h3{font-family:var(--display);font-weight:800;font-stretch:82%;text-transform:uppercase;font-size:15px;line-height:1.1}
 .asis-cab p{font-family:var(--dato);font-size:11px;color:#93A5AE;letter-spacing:.05em}
-.asis-cerrar{margin-left:auto;background:none;border:0;color:#93A5AE;cursor:pointer;padding:6px;font-size:20px;line-height:1}
+.asis-reiniciar{margin-left:auto;background:none;border:0;color:#93A5AE;cursor:pointer;padding:7px;display:flex;transition:color .2s}
+.asis-reiniciar:hover{color:var(--rojo)}
+.asis-cerrar{background:none;border:0;color:#93A5AE;cursor:pointer;padding:6px;font-size:20px;line-height:1}
 .asis-cerrar:hover{color:var(--papel)}
 
 .asis-cuerpo{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
@@ -967,6 +969,11 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
       <h3>Asistente Manchatrans</h3>
       <p>Le ayudo en un momento</p>
     </div>
+    <button class="asis-reiniciar" id="asis-reiniciar" aria-label="Terminar y empezar de nuevo" title="Terminar chat">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>
+      </svg>
+    </button>
     <button class="asis-cerrar" id="asis-cerrar" aria-label="Cerrar asistente">&times;</button>
   </div>
   <div class="asis-cuerpo" id="asis-cuerpo" aria-live="polite"></div>
@@ -1003,8 +1010,9 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
     return b;
   }
 
-  function opciones(lista){
+  function opciones(lista, raiz){
     pie.innerHTML = '';
+    if(!raiz) lista = lista.concat([{txt:'✕ Terminar chat', sec:true, va: terminar}]);
     lista.forEach(function(o){
       const btn = document.createElement('button');
       btn.className = 'asis-op' + (o.sec ? ' sec' : '');
@@ -1033,23 +1041,32 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
     b.addEventListener('click', enviar);
     inp.addEventListener('keydown', function(e){ if(e.key === 'Enter') enviar(); });
     fila.appendChild(inp); fila.appendChild(b); pie.appendChild(fila);
-    const volver = document.createElement('button');
-    volver.className = 'asis-op sec'; volver.textContent = '← Volver al menú';
-    volver.addEventListener('click', menu); pie.appendChild(volver);
+    [['← Volver al menú', menu], ['✕ Terminar chat', terminar]].forEach(function(par){
+      const s = document.createElement('button');
+      s.className = 'asis-op sec'; s.textContent = par[0];
+      s.addEventListener('click', par[1]); pie.appendChild(s);
+    });
     setTimeout(function(){ inp.focus(); }, 60);
   }
 
   /* ---------------- guion ---------------- */
 
-  function menu(){
-    di('¿Qué necesita?');
+  function menu(intro){
+    di(typeof intro === 'string' ? intro : '¿Qué necesita?');
     opciones([
       {txt:'Saber dónde está mi envío', va: pedirNumero},
       {txt:'No estaba y no me lo entregaron', va: ausente},
       {txt:'Quiero enviar mercancía', va: enviarMercancia},
       {txt:'Devolver algo o pedir recogida', va: recogida},
       {txt:'Hablar con una persona', va: persona}
-    ]);
+    ], true);
+  }
+
+  /* Cierra la consulta, borra lo hablado y vuelve a ofrecer las preguntas */
+  function terminar(){
+    expNum = '';
+    cuerpo.innerHTML = '';
+    menu('Conversación terminada. Si necesita otra cosa, aquí sigo. ¿Qué le hace falta?');
   }
 
   function pedirNumero(){
@@ -1156,6 +1173,8 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   }
   abrir.addEventListener('click', abrirPanel);
   cerrar.addEventListener('click', cerrarPanel);
+  const reinicio = document.getElementById('asis-reiniciar');
+  if(reinicio) reinicio.addEventListener('click', terminar);
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && panel.classList.contains('abierto')) cerrarPanel();
   });
