@@ -61,11 +61,6 @@ header.pegado{background:rgba(17,27,33,.95);backdrop-filter:blur(10px);box-shado
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
 .nav-links a{font-size:14.5px;text-decoration:none;opacity:.82;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
-.nav-contacto{display:flex;align-items:center;gap:16px}
-.nav-mail{font-family:var(--dato);font-size:12.5px;text-decoration:none;opacity:.7;transition:.2s;white-space:nowrap}
-.nav-mail:hover{opacity:1;color:var(--rojo)}
-.nav-tel{font-family:var(--dato);font-size:14px;text-decoration:none;border:1px solid var(--linea-osc);padding:9px 15px;transition:.2s;white-space:nowrap}
-.nav-tel:hover{background:var(--rojo);border-color:var(--rojo)}
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
 
 /* ---------- hero ---------- */
@@ -217,14 +212,12 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 .rv.dentro{opacity:1;transform:none}
 :focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
 
-@media (max-width:1180px){ .nav-mail{display:none} }
 @media (max-width:940px){
   .nav-links{position:fixed;inset:76px 0 auto 0;background:var(--tinta);flex-direction:column;align-items:flex-start;gap:0;padding:6px var(--pad) 24px;border-top:1px solid var(--linea-osc);display:none}
   .nav-links.abierto{display:flex}
   .nav-links li{width:100%}
   .nav-links a{display:block;padding:14px 0;font-size:17px;border-bottom:1px solid var(--linea-osc)}
   .burger{display:block}
-  .nav-tel,.nav-mail{display:none}
   .hero-top,.seccion-cab,.mapa-caja,.contacto-rejilla{grid-template-columns:1fr}
   .servicio{grid-template-columns:1fr;gap:11px}
   .servicio .marcador{order:-1;padding-top:0}
@@ -253,10 +246,6 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <div class="nav-contacto">
-      <a href="mailto:atencioncliente@manchatrans.com" class="nav-mail" title="Atención al cliente">atencioncliente@manchatrans.com</a>
-      <a href="tel:+34926274985" class="nav-tel">926 27 49 85</a>
-    </div>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
       <svg width="26" height="16" viewBox="0 0 26 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 1h26M0 8h26M0 15h26"/></svg>
     </button>
