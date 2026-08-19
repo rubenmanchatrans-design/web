@@ -47,14 +47,18 @@ a{color:inherit}
 .seccion-titulo{font-size:clamp(36px,5.6vw,68px)}
 
 /* ---------- cabecera ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:60;border-bottom:1px solid var(--linea);transition:box-shadow .3s;
+header{position:fixed;inset:0 0 auto 0;z-index:60;transition:box-shadow .3s;
   background:
-    radial-gradient(130% 200% at 92% 130%, rgba(245,16,16,.10), transparent 58%),
-    linear-gradient(102deg,#F4F4F0 0%,#EDEDE7 40%,#DFE1D9 100%);}
+    radial-gradient(90% 160% at 100% 118%, rgba(245,16,16,.22), transparent 55%),
+    radial-gradient(70% 130% at 4% -20%, rgba(255,255,255,.95), transparent 60%),
+    linear-gradient(96deg,#FFFFFF 0%,#F5F5F1 24%,#E7E8E1 58%,#D4D7CD 100%);}
+/* filo rojo corporativo: arranca en el rojo del logo y muere en la tinta del hero */
+header::before{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;z-index:2;
+  background:linear-gradient(90deg,#F51010 0%,#F51010 22%,#C90A0A 52%,#5B1418 78%,#111B21 100%)}
 header.pegado{box-shadow:0 6px 24px rgba(17,27,33,.10)}
 /* marca vial discontinua, como la linea del centro de la calzada */
-header::after{content:"";position:absolute;left:0;right:0;bottom:17px;height:3px;pointer-events:none;
-  background:repeating-linear-gradient(90deg, rgba(17,27,33,.20) 0 38px, transparent 38px 72px);
+header::after{content:"";position:absolute;left:0;right:0;bottom:18px;height:3px;pointer-events:none;
+  background:repeating-linear-gradient(90deg, rgba(17,27,33,.28) 0 38px, transparent 38px 72px);
   -webkit-mask-image:linear-gradient(90deg,transparent 0,transparent 24%,#000 40%,#000 86%,transparent 100%);
   mask-image:linear-gradient(90deg,transparent 0,transparent 24%,#000 40%,#000 86%,transparent 100%);
   animation:asfalto 3.4s linear infinite}
@@ -79,8 +83,19 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:17px;height:3px
 .marca img{height:70px;width:auto;display:block}
 @media (max-width:520px){ .marca img{height:54px} }
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
-.nav-links a{font-size:14.5px;font-weight:600;letter-spacing:.01em;text-decoration:none;color:var(--rojo-osc);transition:color .2s}
+.nav-links a{position:relative;font-size:14.5px;font-weight:600;letter-spacing:.01em;text-decoration:none;color:var(--rojo-osc);transition:color .2s;padding-bottom:5px}
 .nav-links a:hover{color:var(--tinta)}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--rojo);
+  transform:scaleX(0);transform-origin:left;transition:transform .25s cubic-bezier(.3,0,.2,1)}
+.nav-links a:hover::after,.nav-links a.activo::after{transform:scaleX(1)}
+.nav-links a.activo{color:var(--tinta)}
+
+/* boton de accion en la cabecera */
+.nav-cta{display:inline-flex;align-items:center;gap:9px;background:var(--rojo);color:#fff;text-decoration:none;
+  font-family:var(--dato);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px;
+  box-shadow:0 6px 18px rgba(245,16,16,.28);transition:.2s;white-space:nowrap}
+.nav-cta:hover{background:var(--rojo-osc);transform:translateY(-1px);box-shadow:0 9px 22px rgba(245,16,16,.36)}
+@media (max-width:1080px){ .nav-cta{display:none} }
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
 
 /* ---------- hero ---------- */
@@ -348,6 +363,12 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
+    <a href="#seguimiento" class="nav-cta">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/>
+      </svg>
+      Consultar envío
+    </a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
       <svg width="26" height="16" viewBox="0 0 26 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 1h26M0 8h26M0 15h26"/></svg>
     </button>
@@ -913,6 +934,25 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   document.querySelectorAll('.rv').forEach(function(el,i){
     el.style.transitionDelay = (Math.min(i,4)*60) + 'ms'; obs.observe(el);
   });
+  /* Marca en el menu la seccion que se esta viendo */
+  (function(){
+    const enlaces = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    const mapa = new Map();
+    enlaces.forEach(function(a){
+      const s = document.querySelector(a.getAttribute('href'));
+      if(s) mapa.set(s, a);
+    });
+    if(!mapa.size) return;
+    const espia = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if(!e.isIntersecting) return;
+        enlaces.forEach(function(a){ a.classList.remove('activo'); });
+        const a = mapa.get(e.target); if(a) a.classList.add('activo');
+      });
+    }, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+    mapa.forEach(function(a, s){ espia.observe(s); });
+  })();
+
   document.getElementById('anyo').textContent = new Date().getFullYear();
 })();
 
