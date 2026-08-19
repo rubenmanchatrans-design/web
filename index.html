@@ -47,18 +47,28 @@ a{color:inherit}
 .seccion-titulo{font-size:clamp(36px,5.6vw,68px)}
 
 /* ---------- cabecera ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:60;background:var(--papel);border-bottom:1px solid var(--linea);transition:box-shadow .3s}
+header{position:fixed;inset:0 0 auto 0;z-index:60;border-bottom:1px solid var(--linea);transition:box-shadow .3s;
+  background:
+    radial-gradient(130% 200% at 92% 130%, rgba(245,16,16,.10), transparent 58%),
+    linear-gradient(102deg,#F4F4F0 0%,#EDEDE7 40%,#DFE1D9 100%);}
 header.pegado{box-shadow:0 6px 24px rgba(17,27,33,.10)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:92px;color:var(--tinta)}
+/* marca vial discontinua, como la linea del centro de la calzada */
+header::after{content:"";position:absolute;left:0;right:0;bottom:17px;height:3px;pointer-events:none;
+  background:repeating-linear-gradient(90deg, rgba(17,27,33,.20) 0 38px, transparent 38px 72px);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,transparent 24%,#000 40%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,transparent 24%,#000 40%,#000 86%,transparent 100%);
+  animation:asfalto 3.4s linear infinite}
+@keyframes asfalto{to{background-position-x:110px}}
+.nav{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:24px;height:104px;color:var(--tinta)}
 /* LOGO — cuando tengas el archivo bueno, cambia este bloque por:
    <a href="#inicio" class="marca"><img src="logo.svg" alt="Manchatrans" height="34"></a> */
 .marca{display:flex;align-items:center;text-decoration:none;transition:opacity .2s}
 .marca:hover{opacity:.75}
-.marca img{height:58px;width:auto;display:block}
-@media (max-width:520px){ .marca img{height:46px} }
+.marca img{height:70px;width:auto;display:block}
+@media (max-width:520px){ .marca img{height:54px} }
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
-.nav-links a{font-size:14.5px;text-decoration:none;color:var(--tinta);opacity:.78;transition:.2s}
-.nav-links a:hover{opacity:1;color:var(--rojo)}
+.nav-links a{font-size:14.5px;font-weight:600;letter-spacing:.01em;text-decoration:none;color:var(--rojo-osc);transition:color .2s}
+.nav-links a:hover{color:var(--tinta)}
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
 
 /* ---------- hero ---------- */
@@ -211,10 +221,10 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 :focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
 
 @media (max-width:940px){
-  .nav-links{position:fixed;inset:92px 0 auto 0;background:var(--papel);flex-direction:column;align-items:flex-start;gap:0;padding:6px var(--pad) 24px;border-bottom:1px solid var(--linea);box-shadow:0 12px 24px rgba(17,27,33,.12);display:none}
+  .nav-links{position:fixed;inset:104px 0 auto 0;background:var(--papel);flex-direction:column;align-items:flex-start;gap:0;padding:6px var(--pad) 24px;border-bottom:1px solid var(--linea);box-shadow:0 12px 24px rgba(17,27,33,.12);display:none}
   .nav-links.abierto{display:flex}
   .nav-links li{width:100%}
-  .nav-links a{display:block;padding:14px 0;font-size:17px;border-bottom:1px solid var(--linea)}
+  .nav-links a{display:block;padding:15px 0;font-size:17px;border-bottom:1px solid var(--linea)}
   .burger{display:block}
   .hero-top,.seccion-cab,.mapa-caja,.contacto-rejilla{grid-template-columns:1fr}
   .servicio{grid-template-columns:1fr;gap:11px}
@@ -250,7 +260,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
   </div>
 </header>
 
-<main id="inicio" style="padding-top:92px">
+<main id="inicio" style="padding-top:104px">
 
   <section class="hero">
     <div class="env">
