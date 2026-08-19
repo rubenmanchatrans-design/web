@@ -56,6 +56,9 @@ header.pegado{background:rgba(17,27,33,.95);backdrop-filter:blur(10px);box-shado
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
 .nav-links a{font-size:14.5px;text-decoration:none;opacity:.82;transition:opacity .2s}
 .nav-links a:hover{opacity:1}
+.nav-contacto{display:flex;align-items:center;gap:16px}
+.nav-mail{font-family:var(--dato);font-size:12.5px;text-decoration:none;opacity:.7;transition:.2s;white-space:nowrap}
+.nav-mail:hover{opacity:1;color:var(--rojo)}
 .nav-tel{font-family:var(--dato);font-size:14px;text-decoration:none;border:1px solid var(--linea-osc);padding:9px 15px;transition:.2s;white-space:nowrap}
 .nav-tel:hover{background:var(--rojo);border-color:var(--rojo)}
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
@@ -64,15 +67,17 @@ header.pegado{background:rgba(17,27,33,.95);backdrop-filter:blur(10px);box-shado
 .hero{background:var(--tinta);color:var(--papel);padding-top:132px;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(115% 85% at 82% 4%,rgba(245,16,16,.16),transparent 60%),repeating-linear-gradient(105deg,rgba(237,237,231,.026) 0 1px,transparent 1px 74px);pointer-events:none}
 .hero .env{position:relative;z-index:1}
-.hero-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr);gap:clamp(32px,5vw,64px);align-items:center;padding-bottom:54px}
-.hero h1{font-size:clamp(40px,6.4vw,80px);margin:20px 0 22px}
+.hero-top{padding:clamp(20px,4vw,44px) 0 clamp(56px,8vw,88px);max-width:900px}
+.hero h1{font-size:clamp(44px,8.6vw,104px);margin:22px 0 26px}
 .hero h1 em{font-style:normal;color:var(--rojo)}
-.hero-top>div>p{color:#B9C6CD;max-width:40ch;font-size:clamp(16px,1.7vw,18.5px)}
-.hero-enlace{display:inline-flex;align-items:center;gap:9px;margin-top:24px;font-family:var(--dato);font-size:13.5px;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--rojo);padding-bottom:5px;transition:gap .2s}
-.hero-enlace:hover{gap:15px}
+.hero-top>p{color:#B9C6CD;max-width:52ch;font-size:clamp(16.5px,1.8vw,20px)}
+.hero-acciones{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn-linea{background:transparent;border:1px solid var(--linea-osc);color:var(--papel)}
+.btn-linea:hover{background:transparent;border-color:var(--rojo);color:var(--rojo)}
 
 /* ---------- buscador ---------- */
-.buscador{background:rgba(237,237,231,.05);border:1px solid var(--linea-osc);padding:clamp(24px,3.4vw,34px)}
+.seguimiento{background:var(--papel);border-bottom:1px solid var(--linea)}
+.buscador{background:var(--tinta);color:var(--papel);padding:clamp(26px,4vw,44px);max-width:760px}
 .buscador h2{font-family:var(--display);font-weight:800;font-stretch:82%;text-transform:uppercase;font-size:clamp(21px,2.4vw,27px);line-height:1;margin-bottom:6px}
 .buscador .ayuda{font-size:14px;color:#93A5AE;margin-bottom:20px}
 .bus-campos{display:grid;grid-template-columns:1fr 150px;gap:12px}
@@ -185,6 +190,9 @@ header.pegado{background:rgba(17,27,33,.95);backdrop-filter:blur(10px);box-shado
 .campo input:focus,.campo textarea:focus,.campo select:focus{outline:none;border-color:var(--rojo)}
 .campo textarea{resize:vertical;min-height:112px}
 .legal{font-size:13px;color:#8B9DA6;margin:4px 0 18px}
+.form-aviso{margin-top:16px;font-size:14.5px;display:none}
+.form-aviso.ok{display:block;color:#7FD6A8;border-left:2px solid var(--verde);padding-left:13px}
+.form-aviso.mal{display:block;color:#FFB4B4;border-left:2px solid var(--rojo);padding-left:13px}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--dato);font-size:14px;letter-spacing:.06em;text-transform:uppercase;padding:16px 26px;text-decoration:none;border:0;background:var(--rojo);color:#fff;cursor:pointer;transition:background .2s,transform .2s}
 .btn:hover{background:var(--rojo-osc);transform:translateX(4px)}
 .datos{list-style:none}
@@ -204,13 +212,14 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 .rv.dentro{opacity:1;transform:none}
 :focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
 
+@media (max-width:1180px){ .nav-mail{display:none} }
 @media (max-width:940px){
   .nav-links{position:fixed;inset:76px 0 auto 0;background:var(--tinta);flex-direction:column;align-items:flex-start;gap:0;padding:6px var(--pad) 24px;border-top:1px solid var(--linea-osc);display:none}
   .nav-links.abierto{display:flex}
   .nav-links li{width:100%}
   .nav-links a{display:block;padding:14px 0;font-size:17px;border-bottom:1px solid var(--linea-osc)}
   .burger{display:block}
-  .nav-tel{display:none}
+  .nav-tel,.nav-mail{display:none}
   .hero-top,.seccion-cab,.mapa-caja,.contacto-rejilla{grid-template-columns:1fr}
   .servicio{grid-template-columns:1fr;gap:11px}
   .servicio .marcador{order:-1;padding-top:0}
@@ -233,13 +242,17 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       <span class="nombre">Manchatrans</span>
     </a>
     <ul class="nav-links" id="menu">
+      <li><a href="#inicio">Inicio</a></li>
       <li><a href="#seguimiento">Seguimiento</a></li>
       <li><a href="#servicios">Servicios</a></li>
       <li><a href="#cobertura">Cobertura</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a href="tel:+34926274985" class="nav-tel">926 27 49 85</a>
+    <div class="nav-contacto">
+      <a href="mailto:atencioncliente@manchatrans.com" class="nav-mail" title="Atención al cliente">atencioncliente@manchatrans.com</a>
+      <a href="tel:+34926274985" class="nav-tel">926 27 49 85</a>
+    </div>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
       <svg width="26" height="16" viewBox="0 0 26 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 1h26M0 8h26M0 15h26"/></svg>
     </button>
@@ -248,39 +261,53 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 
 <main id="inicio">
 
-  <section class="hero" id="seguimiento">
+  <section class="hero">
     <div class="env">
       <div class="hero-top">
-        <div>
-          <span class="eyebrow">Manchega de Transportes · Desde 1977</span>
-          <h1 class="display">El último<br>kilómetro en<br><em>Ciudad Real</em></h1>
-          <p>Repartimos en toda la provincia para las principales redes de distribución del país. Y sacamos la mercancía de nuestros clientes hacia el resto de España por esas mismas redes.</p>
-          <a href="#contacto" class="hero-enlace">¿Quiere enviar mercancía? →</a>
-        </div>
-
-        <div class="buscador">
-          <h2>Consulte su expedición</h2>
-          <p class="ayuda">Introduzca el número de expedición y el código postal de entrega.</p>
-          <div class="bus-campos">
-            <div class="bus-campo">
-              <label for="exp">Nº de expedición</label>
-              <input type="text" id="exp" placeholder="Ej. 4400218976" autocomplete="off" inputmode="numeric">
-            </div>
-            <div class="bus-campo">
-              <label for="cp">C. postal</label>
-              <input type="text" id="cp" placeholder="13005" autocomplete="postal-code" inputmode="numeric" maxlength="5">
-            </div>
-          </div>
-          <button class="bus-btn" id="btn-buscar">Consultar estado</button>
-          <p class="bus-demo">Datos de ejemplo: <b data-demo="4400218976|13005">4400218976 · 13005</b> · <b data-demo="7712004455|13700">7712004455 · 13700</b> · <b data-demo="9930871264|13260">9930871264 · 13260</b></p>
-
-          <div class="resultado" id="resultado" aria-live="polite"></div>
+        <span class="eyebrow">Manchega de Transportes · Desde 1977</span>
+        <h1 class="display">El último<br>kilómetro en<br><em>Ciudad Real</em></h1>
+        <p>Repartimos en toda la provincia para las principales redes de distribución del país. Y sacamos la mercancía de nuestros clientes hacia el resto de España por esas mismas redes.</p>
+        <div class="hero-acciones">
+          <a href="#seguimiento" class="btn">Consultar mi envío</a>
+          <a href="#contacto" class="btn btn-linea">Quiero enviar mercancía</a>
         </div>
       </div>
     </div>
 
     <div class="cinta" aria-hidden="true">
       <div class="cinta-pista" id="cinta"></div>
+    </div>
+  </section>
+
+  <!-- SEGUIMIENTO -->
+  <section class="seccion seguimiento" id="seguimiento">
+    <div class="env">
+      <div class="seccion-cab rv">
+        <div>
+          <span class="eyebrow">Seguimiento</span>
+          <h2 class="display seccion-titulo">¿Dónde está<br>mi envío?</h2>
+        </div>
+        <p>Consulte el estado de su expedición en cualquier momento. Si prefiere que se lo digamos nosotros, llame al 926 27 49 85.</p>
+      </div>
+
+      <div class="buscador rv">
+        <h2>Consulte su expedición</h2>
+        <p class="ayuda">Introduzca el número de expedición y el código postal de entrega.</p>
+        <div class="bus-campos">
+          <div class="bus-campo">
+            <label for="exp">Nº de expedición</label>
+            <input type="text" id="exp" placeholder="Ej. 4400218976" autocomplete="off" inputmode="numeric">
+          </div>
+          <div class="bus-campo">
+            <label for="cp">C. postal</label>
+            <input type="text" id="cp" placeholder="13005" autocomplete="postal-code" inputmode="numeric" maxlength="5">
+          </div>
+        </div>
+        <button class="bus-btn" id="btn-buscar">Consultar estado</button>
+        <p class="bus-demo">Datos de ejemplo: <b data-demo="4400218976|13005">4400218976 · 13005</b> · <b data-demo="7712004455|13700">7712004455 · 13700</b> · <b data-demo="9930871264|13260">9930871264 · 13260</b></p>
+
+        <div class="resultado" id="resultado" aria-live="polite"></div>
+      </div>
     </div>
   </section>
 
@@ -492,8 +519,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       </div>
 
       <div class="contacto-rejilla">
-        <!-- Sustituye la action por tu endpoint, o conéctalo a Firestore -->
-        <form class="rv" action="https://formspree.io/f/TU_ID" method="POST">
+        <form class="rv" id="form-contacto">
           <div class="campo">
             <label for="nombre">Nombre y empresa</label>
             <input type="text" id="nombre" name="nombre" required autocomplete="organization">
@@ -521,7 +547,8 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
             <textarea id="mensaje" name="mensaje" placeholder="Ej.: 6 palés de Daimiel a Barcelona, salida el jueves." required></textarea>
           </div>
           <p class="legal">Al enviar acepta que tratemos sus datos para responderle. Consulte la <a href="#">política de privacidad</a>.</p>
-          <button type="submit" class="btn">Enviar</button>
+          <button type="submit" class="btn" id="btn-enviar">Enviar</button>
+          <p class="form-aviso" id="form-aviso" role="status"></p>
         </form>
 
         <div class="rv">
@@ -683,6 +710,74 @@ document.querySelectorAll('[data-demo]').forEach(function(b){
     $('#exp').value = p[0]; $('#cp').value = p[1]; buscar();
   });
 });
+
+/* ==========================================================================
+   FORMULARIO DE CONTACTO  →  atencioncliente@manchatrans.com
+
+   Mientras ENDPOINT esté vacío, el formulario abre el programa de correo del
+   visitante con el mensaje ya redactado. Funciona desde el primer día, pero
+   obliga al visitante a darle a "enviar" en su correo.
+
+   Para que llegue solo, sin abrir nada: date de alta en formspree.io con
+   atencioncliente@manchatrans.com, crea un formulario y pega aquí el endpoint
+   que te den. Formato: https://formspree.io/f/xxxxxxx
+   ========================================================================== */
+const DESTINO  = 'atencioncliente@manchatrans.com';
+const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
+
+(function(){
+  const form  = document.getElementById('form-contacto');
+  const btn   = document.getElementById('btn-enviar');
+  const aviso = document.getElementById('form-aviso');
+  if(!form) return;
+
+  function decir(texto, clase){
+    aviso.textContent = texto;
+    aviso.className = 'form-aviso ' + clase;
+  }
+
+  form.addEventListener('submit', async function(ev){
+    ev.preventDefault();
+    if(!form.reportValidity()) return;
+
+    const d = {
+      nombre:   form.nombre.value.trim(),
+      email:    form.email.value.trim(),
+      telefono: form.telefono.value.trim(),
+      asunto:   form.asunto.value,
+      mensaje:  form.mensaje.value.trim()
+    };
+
+    if(!ENDPOINT){
+      const cuerpo = 'Nombre y empresa: ' + d.nombre
+                   + '\nEmail: '     + d.email
+                   + '\nTeléfono: '  + (d.telefono || '-')
+                   + '\nMotivo: '    + d.asunto
+                   + '\n\n'          + d.mensaje;
+      window.location.href = 'mailto:' + DESTINO
+        + '?subject=' + encodeURIComponent('Web · ' + d.asunto)
+        + '&body='    + encodeURIComponent(cuerpo);
+      decir('Se ha abierto su programa de correo con el mensaje preparado. Solo tiene que enviarlo.', 'ok');
+      return;
+    }
+
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    try{
+      const r = await fetch(ENDPOINT, {
+        method:'POST',
+        headers:{'Accept':'application/json','Content-Type':'application/json'},
+        body: JSON.stringify(d)
+      });
+      if(!r.ok) throw new Error();
+      form.reset();
+      decir('Mensaje enviado. Le responderemos lo antes posible.', 'ok');
+    }catch(e){
+      decir('No hemos podido enviar el mensaje. Escríbanos a ' + DESTINO + ' o llame al 926 27 49 85.', 'mal');
+    }finally{
+      btn.disabled = false; btn.textContent = 'Enviar';
+    }
+  });
+})();
 
 /* ---- cinta ---- */
 (function(){
