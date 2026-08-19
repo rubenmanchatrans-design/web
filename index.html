@@ -47,24 +47,22 @@ a{color:inherit}
 .seccion-titulo{font-size:clamp(36px,5.6vw,68px)}
 
 /* ---------- cabecera ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:60;transition:background .3s,box-shadow .3s}
-header.pegado{background:rgba(17,27,33,.95);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linea-osc)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px;color:var(--papel)}
+header{position:fixed;inset:0 0 auto 0;z-index:60;background:var(--papel);border-bottom:1px solid var(--linea);transition:box-shadow .3s}
+header.pegado{box-shadow:0 6px 24px rgba(17,27,33,.10)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:92px;color:var(--tinta)}
 /* LOGO — cuando tengas el archivo bueno, cambia este bloque por:
    <a href="#inicio" class="marca"><img src="logo.svg" alt="Manchatrans" height="34"></a> */
-/* El logotipo lleva el texto en negro, asi que sobre la cabecera oscura
-   se apoya en una placa clara. Sobre fondo claro iria sin placa. */
-.marca{display:flex;align-items:center;text-decoration:none;background:var(--papel);padding:7px 13px;transition:background .2s}
-.marca:hover{background:#fff}
-.marca img{height:38px;width:auto;display:block}
-@media (max-width:520px){ .marca img{height:31px} .marca{padding:6px 10px} }
+.marca{display:flex;align-items:center;text-decoration:none;transition:opacity .2s}
+.marca:hover{opacity:.75}
+.marca img{height:58px;width:auto;display:block}
+@media (max-width:520px){ .marca img{height:46px} }
 .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
-.nav-links a{font-size:14.5px;text-decoration:none;opacity:.82;transition:opacity .2s}
-.nav-links a:hover{opacity:1}
+.nav-links a{font-size:14.5px;text-decoration:none;color:var(--tinta);opacity:.78;transition:.2s}
+.nav-links a:hover{opacity:1;color:var(--rojo)}
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
 
 /* ---------- hero ---------- */
-.hero{background:var(--tinta);color:var(--papel);padding-top:132px;position:relative;overflow:hidden}
+.hero{background:var(--tinta);color:var(--papel);padding-top:clamp(56px,7vw,84px);position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(115% 85% at 82% 4%,rgba(245,16,16,.16),transparent 60%),repeating-linear-gradient(105deg,rgba(237,237,231,.026) 0 1px,transparent 1px 74px);pointer-events:none}
 .hero .env{position:relative;z-index:1}
 .hero-top{padding:clamp(20px,4vw,44px) 0 clamp(56px,8vw,88px);max-width:900px}
@@ -213,10 +211,10 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 :focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
 
 @media (max-width:940px){
-  .nav-links{position:fixed;inset:76px 0 auto 0;background:var(--tinta);flex-direction:column;align-items:flex-start;gap:0;padding:6px var(--pad) 24px;border-top:1px solid var(--linea-osc);display:none}
+  .nav-links{position:fixed;inset:92px 0 auto 0;background:var(--papel);flex-direction:column;align-items:flex-start;gap:0;padding:6px var(--pad) 24px;border-bottom:1px solid var(--linea);box-shadow:0 12px 24px rgba(17,27,33,.12);display:none}
   .nav-links.abierto{display:flex}
   .nav-links li{width:100%}
-  .nav-links a{display:block;padding:14px 0;font-size:17px;border-bottom:1px solid var(--linea-osc)}
+  .nav-links a{display:block;padding:14px 0;font-size:17px;border-bottom:1px solid var(--linea)}
   .burger{display:block}
   .hero-top,.seccion-cab,.mapa-caja,.contacto-rejilla{grid-template-columns:1fr}
   .servicio{grid-template-columns:1fr;gap:11px}
@@ -252,7 +250,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
   </div>
 </header>
 
-<main id="inicio">
+<main id="inicio" style="padding-top:92px">
 
   <section class="hero">
     <div class="env">
@@ -787,10 +785,20 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   const cab = document.getElementById('cabecera'),
         menu = document.getElementById('menu'),
         burger = document.getElementById('burger');
-  function pegar(){ cab.classList.toggle('pegado', window.scrollY > 24 || menu.classList.contains('abierto')); }
+  function pegar(){ cab.classList.toggle('pegado', window.scrollY > 12); }
   pegar(); window.addEventListener('scroll', pegar, {passive:true});
   burger.addEventListener('click', function(){
     burger.setAttribute('aria-expanded', menu.classList.toggle('abierto')); pegar();
+  });
+
+  /* Clic en el logo: sube del todo y cierra el menu si estaba abierto */
+  var marca = document.querySelector('.marca');
+  if(marca) marca.addEventListener('click', function(ev){
+    ev.preventDefault();
+    menu.classList.remove('abierto');
+    burger.setAttribute('aria-expanded', false);
+    window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+    history.replaceState(null, '', location.pathname + location.search);
   });
   menu.addEventListener('click', function(e){
     if(e.target.tagName === 'A'){ menu.classList.remove('abierto'); burger.setAttribute('aria-expanded', false); }
