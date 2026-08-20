@@ -84,7 +84,12 @@ header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
   font-family:var(--dato);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;padding:13px 20px;
   box-shadow:0 6px 18px rgba(245,16,16,.28);transition:.2s;white-space:nowrap}
 .nav-cta:hover{background:var(--rojo-osc);transform:translateY(-1px);box-shadow:0 9px 22px rgba(245,16,16,.36)}
-@media (max-width:1080px){ .nav-cta{display:none} }
+.nav-botones{display:flex;align-items:center;gap:10px}
+.nav-cta-linea{background:transparent;color:var(--rojo-osc);border:1.5px solid rgba(201,10,10,.45);
+  box-shadow:none;padding:11.5px 18px}
+.nav-cta-linea:hover{background:rgba(245,16,16,.08);border-color:var(--rojo);color:var(--rojo);box-shadow:none}
+@media (max-width:1280px){ .nav-cta-linea{display:none} }
+@media (max-width:1080px){ .nav-botones{display:none} }
 
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
 
@@ -98,7 +103,7 @@ header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
 .hero-top>p{color:#B9C6CD;max-width:52ch;font-size:clamp(16.5px,1.8vw,20px)}
 .hero-acciones{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 /* Banda de redes, a ancho completo bajo la cabecera */
-.banda-redes{position:relative;z-index:2;
+.banda-redes{position:relative;z-index:2;border-bottom:1px solid rgba(245,16,16,.28);
   background:
     linear-gradient(90deg, rgba(245,16,16,.20) 0%, rgba(245,16,16,.07) 42%, rgba(245,16,16,.02) 100%),
     rgba(237,237,231,.05)}
@@ -161,6 +166,13 @@ header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
 .lt-info{font-family:var(--dato);font-size:12.5px;color:#93A5AE;margin-top:2px}
 .aviso-vacio{font-size:15px;color:#D5DDE1;background:rgba(245,16,16,.09);border-left:2px solid var(--rojo);padding:15px 17px}
 .aviso-vacio span{display:block;font-size:13.5px;color:#93A5AE;margin-top:6px}
+
+/* ---------- trabaja con nosotros ---------- */
+.empleo{margin-top:clamp(56px,8vw,88px);padding-top:clamp(40px,5vw,56px);border-top:1px solid var(--linea-osc);
+  display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);gap:clamp(30px,5vw,64px)}
+.empleo h3{font-size:clamp(26px,3.4vw,40px);margin:14px 0 14px}
+.empleo-txt p{color:#A6B5BD;max-width:38ch}
+@media (max-width:940px){ .empleo{grid-template-columns:1fr} }
 
 /* ---------- carretera al pie del hero ---------- */
 .calzada{position:relative;height:var(--h-via);overflow:hidden;
@@ -414,12 +426,20 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a href="#seguimiento" class="nav-cta">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/>
-      </svg>
-      Consultar envío
-    </a>
+    <div class="nav-botones">
+      <a href="#contacto" class="nav-cta nav-cta-linea">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 5h16v14H4z"/><path d="M4 6l8 6 8-6"/>
+        </svg>
+        Contáctenos
+      </a>
+      <a href="#seguimiento" class="nav-cta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/>
+        </svg>
+        Consultar envío
+      </a>
+    </div>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
       <svg width="26" height="16" viewBox="0 0 26 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 1h26M0 8h26M0 15h26"/></svg>
     </button>
@@ -445,6 +465,21 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       </div>
     </div>
 
+
+
+    <div class="env">
+      <div class="hero-top">
+        <span class="eyebrow">Manchega de Transportes S.L. · Desde 1977</span>
+        <h1 class="display">Distribución<br>de mercancías<br>en <em>Ciudad Real</em></h1>
+        <p>Agencia de transporte y operador logístico con base en Ciudad Real. Realizamos la distribución provincial de las principales redes nacionales y damos salida a la mercancía de nuestros clientes hacia el resto de España y el extranjero.</p>
+        <div class="hero-acciones">
+          <a href="#seguimiento" class="btn">Consultar expedición</a>
+          <a href="#contacto" class="btn btn-linea">Solicitar presupuesto</a>
+        </div>
+
+      </div>
+    </div>
+
     <div class="calzada" aria-hidden="true">
       <span class="marca-vial"></span>
       <div class="via">
@@ -466,21 +501,6 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       </svg>
       </div>
     </div>
-
-    <div class="env">
-      <div class="hero-top">
-        <span class="eyebrow">Manchega de Transportes S.L. · Desde 1977</span>
-        <h1 class="display">Distribución<br>de mercancías<br>en <em>Ciudad Real</em></h1>
-        <p>Agencia de transporte y operador logístico con base en Ciudad Real. Realizamos la distribución provincial de las principales redes nacionales y damos salida a la mercancía de nuestros clientes hacia el resto de España y el extranjero.</p>
-        <div class="hero-acciones">
-          <a href="#seguimiento" class="btn">Consultar expedición</a>
-          <a href="#contacto" class="btn btn-linea">Solicitar presupuesto</a>
-        </div>
-
-      </div>
-    </div>
-
-
   </section>
 
   <!-- SEGUIMIENTO -->
@@ -771,6 +791,46 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           </ul>
         </div>
       </div>
+
+      <div class="empleo rv" id="empleo">
+        <div class="empleo-txt">
+          <span class="eyebrow">Trabaja con nosotros</span>
+          <h3 class="display">¿Quiere formar<br>parte del equipo?</h3>
+          <p>Buscamos conductores, personal de nave y administración. Rellene sus datos, adjunte el currículum al correo que se abrirá y lo tendremos en cuenta en los procesos de selección.</p>
+        </div>
+
+        <form class="empleo-form" id="form-cv">
+          <div class="campo">
+            <label for="cv-nombre">Nombre y apellidos</label>
+            <input type="text" id="cv-nombre" name="nombre" required autocomplete="name">
+          </div>
+          <div class="campo">
+            <label for="cv-email">Email</label>
+            <input type="email" id="cv-email" name="email" required autocomplete="email">
+          </div>
+          <div class="campo">
+            <label for="cv-tel">Teléfono</label>
+            <input type="tel" id="cv-tel" name="telefono" autocomplete="tel">
+          </div>
+          <div class="campo">
+            <label for="cv-puesto">Puesto que le interesa</label>
+            <select id="cv-puesto" name="puesto">
+              <option>Conductor</option>
+              <option>Personal de nave</option>
+              <option>Administración</option>
+              <option>Comercial</option>
+              <option>Cualquiera</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="cv-mensaje">Experiencia y disponibilidad</label>
+            <textarea id="cv-mensaje" name="mensaje" placeholder="Ej.: 6 años como conductor, carnet C+E y CAP en vigor, disponibilidad inmediata." required></textarea>
+          </div>
+          <p class="legal">Al pulsar se abrirá su programa de correo con los datos ya escritos. <b>Adjunte su currículum antes de enviarlo.</b></p>
+          <button type="submit" class="btn" id="cv-enviar">Continuar y adjuntar currículum</button>
+          <p class="form-aviso" id="cv-aviso" role="status"></p>
+        </form>
+      </div>
     </div>
   </section>
 </main>
@@ -1016,6 +1076,44 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
     }finally{
       btn.disabled = false; btn.textContent = 'Enviar';
     }
+  });
+})();
+
+
+/* ==========================================================================
+   CANDIDATURAS  ->  atencioncliente@manchatrans.com
+
+   Abre el correo del candidato con todo redactado. El currículum lo adjunta
+   él, porque GitHub Pages no puede recibir archivos y los servicios que sí
+   aceptan adjuntos son de pago.
+   ========================================================================== */
+const BUZON_CV = 'atencioncliente@manchatrans.com';
+
+(function(){
+  const form = document.getElementById('form-cv');
+  if(!form) return;
+  const aviso = document.getElementById('cv-aviso');
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if(!form.reportValidity()) return;
+
+    const cuerpo = 'Candidatura enviada desde la web\n\n'
+      + 'Nombre: '    + form.nombre.value.trim()
+      + '\nEmail: '    + form.email.value.trim()
+      + '\nTeléfono: ' + (form.telefono.value.trim() || '-')
+      + '\nPuesto: '   + form.puesto.value
+      + '\n\nExperiencia y disponibilidad:\n' + form.mensaje.value.trim()
+      + '\n\n----------------------------------------\n'
+      + 'ADJUNTE SU CURRÍCULUM A ESTE CORREO ANTES DE ENVIARLO.\n'
+      + '----------------------------------------';
+
+    window.location.href = 'mailto:' + BUZON_CV
+      + '?subject=' + encodeURIComponent('Candidatura · ' + form.puesto.value + ' · ' + form.nombre.value.trim())
+      + '&body='    + encodeURIComponent(cuerpo);
+
+    aviso.textContent = 'Se ha abierto su programa de correo con los datos escritos. Adjunte el currículum y pulse enviar.';
+    aviso.className = 'form-aviso ok';
   });
 })();
 
