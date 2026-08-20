@@ -92,13 +92,13 @@ header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
 .hero{background:var(--tinta);color:var(--papel);padding-top:0;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(115% 85% at 82% 4%,rgba(245,16,16,.16),transparent 60%),repeating-linear-gradient(105deg,rgba(237,237,231,.026) 0 1px,transparent 1px 74px);pointer-events:none}
 .hero .env{position:relative;z-index:1}
-.hero-top{padding:clamp(48px,7vw,84px) 0 clamp(56px,8vw,88px);max-width:900px}
+.hero-top{padding:clamp(52px,7.5vw,88px) 0 clamp(60px,8vw,96px);max-width:900px}
 .hero h1{font-size:clamp(44px,8.6vw,104px);margin:22px 0 26px}
 .hero h1 em{font-style:normal;color:var(--rojo)}
 .hero-top>p{color:#B9C6CD;max-width:52ch;font-size:clamp(16.5px,1.8vw,20px)}
 .hero-acciones{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 /* Banda de redes, a ancho completo bajo la cabecera */
-.banda-redes{position:relative;z-index:2;border-bottom:1px solid rgba(245,16,16,.28);
+.banda-redes{position:relative;z-index:2;
   background:
     linear-gradient(90deg, rgba(245,16,16,.20) 0%, rgba(245,16,16,.07) 42%, rgba(245,16,16,.02) 100%),
     rgba(237,237,231,.05)}
@@ -445,19 +445,6 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       </div>
     </div>
 
-    <div class="env">
-      <div class="hero-top">
-        <span class="eyebrow">Manchega de Transportes S.L. · Desde 1977</span>
-        <h1 class="display">Distribución<br>de mercancías<br>en <em>Ciudad Real</em></h1>
-        <p>Agencia de transporte y operador logístico con base en Ciudad Real. Realizamos la distribución provincial de las principales redes nacionales y damos salida a la mercancía de nuestros clientes hacia el resto de España y el extranjero.</p>
-        <div class="hero-acciones">
-          <a href="#seguimiento" class="btn">Consultar expedición</a>
-          <a href="#contacto" class="btn btn-linea">Solicitar presupuesto</a>
-        </div>
-
-      </div>
-    </div>
-
     <div class="calzada" aria-hidden="true">
       <span class="marca-vial"></span>
       <div class="via">
@@ -479,6 +466,21 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       </svg>
       </div>
     </div>
+
+    <div class="env">
+      <div class="hero-top">
+        <span class="eyebrow">Manchega de Transportes S.L. · Desde 1977</span>
+        <h1 class="display">Distribución<br>de mercancías<br>en <em>Ciudad Real</em></h1>
+        <p>Agencia de transporte y operador logístico con base en Ciudad Real. Realizamos la distribución provincial de las principales redes nacionales y damos salida a la mercancía de nuestros clientes hacia el resto de España y el extranjero.</p>
+        <div class="hero-acciones">
+          <a href="#seguimiento" class="btn">Consultar expedición</a>
+          <a href="#contacto" class="btn btn-linea">Solicitar presupuesto</a>
+        </div>
+
+      </div>
+    </div>
+
+
   </section>
 
   <!-- SEGUIMIENTO -->
