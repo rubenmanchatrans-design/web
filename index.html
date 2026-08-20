@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Manchatrans · Distribución en la provincia de Ciudad Real">
-<meta property="og:description" content="El último kilómetro en Ciudad Real desde 1977. Consulte su expedición o envíe mercancía a toda España.">
+<meta property="og:description" content="Distribución de mercancías en la provincia de Ciudad Real desde 1977. Consulte el estado de su expedición o solicite presupuesto.">
 <meta property="og:locale" content="es_ES">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,6 +107,11 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:18px;height:3px
 .hero h1 em{font-style:normal;color:var(--rojo)}
 .hero-top>p{color:#B9C6CD;max-width:52ch;font-size:clamp(16.5px,1.8vw,20px)}
 .hero-acciones{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.hero-redes{margin-top:clamp(38px,5vw,54px);padding-top:22px;border-top:1px solid var(--linea-osc)}
+.hero-redes-tit{display:block;font-family:var(--dato);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7E9099;margin-bottom:14px}
+.hero-redes ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 30px}
+.hero-redes li{font-family:var(--display);font-weight:800;font-stretch:80%;text-transform:uppercase;
+  font-size:clamp(15px,1.9vw,20px);letter-spacing:.02em;color:#9FB0B8}
 .btn-linea{background:transparent;border:1px solid var(--linea-osc);color:var(--papel)}
 .btn-linea:hover{background:transparent;border-color:var(--rojo);color:var(--rojo)}
 
@@ -405,12 +410,19 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
   <section class="hero">
     <div class="env">
       <div class="hero-top">
-        <span class="eyebrow">Manchega de Transportes · Desde 1977</span>
-        <h1 class="display">El último<br>kilómetro en<br><em>Ciudad Real</em></h1>
-        <p>Repartimos en toda la provincia para las principales redes de distribución del país. Y sacamos la mercancía de nuestros clientes hacia el resto de España por esas mismas redes.</p>
+        <span class="eyebrow">Manchega de Transportes S.L. · Desde 1977</span>
+        <h1 class="display">Distribución<br>de mercancías<br>en <em>Ciudad Real</em></h1>
+        <p>Agencia de transporte y operador logístico con base en Ciudad Real. Realizamos la distribución provincial de las principales redes nacionales y damos salida a la mercancía de nuestros clientes hacia el resto de España y el extranjero.</p>
         <div class="hero-acciones">
-          <a href="#seguimiento" class="btn">Consultar mi envío</a>
-          <a href="#contacto" class="btn btn-linea">Quiero enviar mercancía</a>
+          <a href="#seguimiento" class="btn">Consultar expedición</a>
+          <a href="#contacto" class="btn btn-linea">Solicitar presupuesto</a>
+        </div>
+        <div class="hero-redes">
+          <span class="hero-redes-tit">Distribuimos para</span>
+          <ul>
+            <li>Ontime</li><li>XPO</li><li>CBL</li><li>NTL</li>
+            <li>Coditral</li><li>Bemalu</li><li>Rhenus</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -459,32 +471,37 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           <span class="eyebrow">Servicios</span>
           <h2 class="display seccion-titulo">Lo que hacemos</h2>
         </div>
-        <p>No hacemos carga completa. Hacemos lo difícil: la entrega final, puerta a puerta, en cada pueblo de la provincia.</p>
+        <p>Nuestra actividad es la distribución capilar: la entrega final, puerta a puerta, en cualquier punto de la provincia. No realizamos carga completa.</p>
       </div>
       <div class="servicios">
         <div class="servicio rv">
           <h3>Distribución para operadores</h3>
-          <p>Somos la delegación en Ciudad Real de las grandes redes nacionales. Su mercancía llega a nuestra nave y sale a reparto el mismo día, con nuestros conductores y nuestros vehículos.</p>
-          <span class="marcador">ÚLTIMO KM</span>
+          <p>Actuamos como delegación en Ciudad Real de las principales redes logísticas nacionales. Recibimos la mercancía en nuestras instalaciones y la entregamos en un plazo aproximado de 24 a 72 horas, con conductores y vehículos propios.</p>
+          <span class="marcador">24/48/72 H</span>
         </div>
         <div class="servicio rv">
-          <h3>Envíos a toda España</h3>
-          <p>Si es usted una empresa de la provincia y necesita sacar mercancía fuera, la recogemos y la canalizamos por las redes de XPO y CBL. Cobertura nacional con trato local.</p>
-          <span class="marcador">SALIDA</span>
+          <h3>Envíos nacionales</h3>
+          <p>Recogemos la mercancía de las empresas de la provincia y la canalizamos hacia cualquier punto de España a través de las redes con las que operamos. Cobertura nacional con interlocución local.</p>
+          <span class="marcador">NACIONAL</span>
+        </div>
+        <div class="servicio rv">
+          <h3>Transporte internacional</h3>
+          <p>Gestionamos los envíos con destino fuera de España, habitualmente a través de la red de Rhenus. Consúltenos plazos y condiciones para el país de destino.</p>
+          <span class="marcador">INTERNACIONAL</span>
         </div>
         <div class="servicio rv">
           <h3>Entregas concertadas</h3>
-          <p>Comercios con horario partido, obras con ventana de descarga, particulares que solo están por la tarde. Llamamos antes y entregamos cuando toca.</p>
+          <p>Comercios con horario partido, obras con ventana de descarga o destinatarios con disponibilidad limitada. Contactamos previamente y ajustamos la entrega al horario acordado.</p>
           <span class="marcador">CITA PREVIA</span>
         </div>
         <div class="servicio rv">
           <h3>Recogidas y logística inversa</h3>
-          <p>Devoluciones, cambios y retornos de material. Recogemos en el domicilio del destinatario y lo devolvemos al origen por la misma red.</p>
+          <p>Devoluciones, cambios y retornos de material. Efectuamos la recogida en el domicilio del destinatario y canalizamos el retorno al origen por la misma red.</p>
           <span class="marcador">RETORNO</span>
         </div>
         <div class="servicio rv">
           <h3>Vehículos con trampilla</h3>
-          <p>La flota va equipada con trampilla elevadora. Descargamos donde no hay muelle, ni carretilla, ni sitio para maniobrar.</p>
+          <p>La flota está equipada con trampilla elevadora, lo que permite descargar en destinos sin muelle, sin carretilla o con acceso restringido.</p>
           <span class="marcador">FLOTA</span>
         </div>
       </div>
@@ -498,7 +515,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           <span class="eyebrow">Redes</span>
           <h2 class="display seccion-titulo">Con quién<br>trabajamos</h2>
         </div>
-        <p>Distribuimos en la provincia para seis de los principales operadores logísticos que operan en España.</p>
+        <p>Operamos como delegación de distribución en la provincia de Ciudad Real para las principales redes logísticas que actúan en España.</p>
       </div>
       <div class="redes-rejilla rv">
         <div class="red"><span>Ontime</span></div>
@@ -507,6 +524,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
         <div class="red"><span>NTL</span></div>
         <div class="red"><span>Coditral</span></div>
         <div class="red"><span>Bemalu</span></div>
+        <div class="red"><span>Rhenus</span></div>
       </div>
       <p class="redes-nota rv">Entre esas redes llega también el producto de grandes marcas de distribución textil, que entregamos a diario en los comercios de la provincia.</p>
     </div>
@@ -519,7 +537,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           <span class="eyebrow">Cobertura</span>
           <h2 class="display seccion-titulo">Toda la<br>provincia</h2>
         </div>
-        <p>Ciudad Real tiene casi veinte mil kilómetros cuadrados y municipios a hora y media de la capital. Llegamos a todos.</p>
+        <p>Damos servicio a la totalidad de la provincia de Ciudad Real, con un plazo de entrega habitual de 24 a 48 horas desde la recepción de la mercancía.</p>
       </div>
 
       <div class="mapa-caja">
@@ -562,15 +580,13 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 
         <div class="rv">
           <ul class="cob-lista">
-            <li><b>Capital y Miguelturra</b><span>Diario</span></li>
-            <li><b>Puertollano y comarca</b><span>Diario</span></li>
-            <li><b>Valdepeñas y Manzanares</b><span>Diario</span></li>
-            <li><b>Alcázar, Tomelloso, Criptana</b><span>Diario</span></li>
-            <li><b>Daimiel, Almagro, Bolaños</b><span>Diario</span></li>
-            <li><b>Campo de Montiel</b><span>Consultar</span></li>
-            <li><b>Valle de Alcudia y Almadén</b><span>Consultar</span></li>
+            <li><b>Ámbito</b><span>Toda la provincia</span></li>
+            <li><b>Plazo habitual de entrega</b><span>24/48 h</span></li>
+            <li><b>Entregas concertadas</b><span>Bajo petición</span></li>
+            <li><b>Vehículos con trampilla</b><span>Flota propia</span></li>
+            <li><b>Recogidas y devoluciones</b><span>Incluidas</span></li>
           </ul>
-          <p class="cob-nota">Frecuencias orientativas. Consúltenos para su localidad concreta.</p>
+          <p class="cob-nota">Los plazos son orientativos y pueden variar según el destino y la red de origen. Consúltenos para su localidad.</p>
         </div>
       </div>
     </div>
@@ -656,7 +672,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           <span class="eyebrow">Contacto</span>
           <h2 class="display seccion-titulo">Cuéntenos<br>qué mover</h2>
         </div>
-        <p>Origen, destino, qué es y cuánto pesa. Con eso le damos precio el mismo día.</p>
+        <p>Indíquenos origen, destino, tipo de mercancía y peso, y le facilitaremos presupuesto a la mayor brevedad.</p>
       </div>
 
       <div class="contacto-rejilla">
@@ -676,17 +692,19 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           <div class="campo">
             <label for="asunto">Motivo</label>
             <select id="asunto" name="asunto">
-              <option>Quiero enviar mercancía</option>
-              <option>Consulta sobre una entrega</option>
-              <option>Recogida o devolución</option>
-              <option>Trabajar con nosotros</option>
-              <option>Otro</option>
+              <option data-buzon="comercial">Solicitar presupuesto o enviar mercancía</option>
+              <option data-buzon="comercial">Transporte internacional</option>
+              <option data-buzon="atencion">Consulta sobre una entrega</option>
+              <option data-buzon="atencion">Recogida o devolución</option>
+              <option data-buzon="atencion">Reclamación o incidencia</option>
+              <option data-buzon="atencion">Otro</option>
             </select>
           </div>
           <div class="campo">
             <label for="mensaje">Cuéntenos</label>
-            <textarea id="mensaje" name="mensaje" placeholder="Ej.: 6 palés de Daimiel a Barcelona, salida el jueves." required></textarea>
+            <textarea id="mensaje" name="mensaje" placeholder="Ej.: 6 palés de Daimiel a Barcelona, recogida el jueves." required></textarea>
           </div>
+          <p class="legal" id="aviso-buzon"></p>
           <p class="legal">Al enviar acepta que tratemos sus datos para responderle. Consulte la <a href="#">política de privacidad</a>.</p>
           <button type="submit" class="btn" id="btn-enviar">Enviar</button>
           <p class="form-aviso" id="form-aviso" role="status"></p>
@@ -877,7 +895,10 @@ document.querySelectorAll('[data-demo]').forEach(function(b){
    atencioncliente@manchatrans.com, crea un formulario y pega aquí el endpoint
    que te den. Formato: https://formspree.io/f/xxxxxxx
    ========================================================================== */
-const DESTINO  = 'atencioncliente@manchatrans.com';
+const BUZONES = {
+  comercial: 'comercial@manchatrans.com',        // presupuestos y mercancía nueva
+  atencion:  'atencioncliente@manchatrans.com'   // todo lo demás
+};
 const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
 
 (function(){
@@ -891,11 +912,24 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
     aviso.className = 'form-aviso ' + clase;
   }
 
+  /* Aviso en vivo de a qué departamento llega el mensaje */
+  function avisarBuzon(){
+    const o = form.asunto.options[form.asunto.selectedIndex];
+    const b = o.dataset.buzon === 'comercial' ? 'nuestro departamento comercial' : 'atención al cliente';
+    document.getElementById('aviso-buzon').textContent = 'Su mensaje se dirigirá a ' + b + '.';
+  }
+  form.asunto.addEventListener('change', avisarBuzon);
+  avisarBuzon();
+
   form.addEventListener('submit', async function(ev){
     ev.preventDefault();
     if(!form.reportValidity()) return;
 
+    const opcion  = form.asunto.options[form.asunto.selectedIndex];
+    const DESTINO = BUZONES[opcion.dataset.buzon] || BUZONES.atencion;
+
     const d = {
+      _destino: DESTINO,
       nombre:   form.nombre.value.trim(),
       email:    form.email.value.trim(),
       telefono: form.telefono.value.trim(),
@@ -936,9 +970,9 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
 
 /* ---- cinta ---- */
 (function(){
-  const items = ['Reparto diario en toda la provincia','Flota propia con trampilla',
-    'Salidas a toda España vía XPO y CBL','Entregas concertadas','Recogidas y devoluciones',
-    'Delegación de 6 redes nacionales','Desde 1977 en Ciudad Real'];
+  const items = ['Cobertura en toda la provincia de Ciudad Real','Entregas en 24/48 horas',
+    'Flota propia con trampilla elevadora','Salidas nacionales e internacionales',
+    'Entregas concertadas','Recogidas y logística inversa','Desde 1977'];
   const grupo = items.map(function(t){ return '<span class="cinta-item">' + t + '</span>'; }).join('');
   document.getElementById('cinta').innerHTML =
     '<span style="display:inline-flex">' + grupo + '</span><span style="display:inline-flex">' + grupo + '</span>';
@@ -1089,6 +1123,7 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
 
   const TEL = '926 27 49 85', TELH = 'tel:+34926274985';
   const MAIL = 'atencioncliente@manchatrans.com';
+  const COMERCIAL = 'comercial@manchatrans.com';
   let arrancado = false, expNum = '';
 
   const limpiar = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1148,7 +1183,7 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
     opciones([
       {txt:'Saber dónde está mi envío', va: pedirNumero},
       {txt:'No estaba y no me lo entregaron', va: ausente},
-      {txt:'Quiero enviar mercancía', va: enviarMercancia},
+      {txt:'Quiero enviar mercancía o pedir presupuesto', va: enviarMercancia},
       {txt:'Devolver algo o pedir recogida', va: recogida},
       {txt:'Hablar con una persona', va: persona}
     ], true);
@@ -1227,8 +1262,8 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   }
 
   function enviarMercancia(){
-    di('Perfecto. Sacamos mercancía desde la provincia a toda España a través de nuestras redes.');
-    di('Cuéntenos <b>origen, destino, qué es y cuánto pesa</b> y le damos precio el mismo día. Puede usar el <a href="#contacto">formulario de contacto</a>, escribir a <a href="mailto:' + MAIL + '">' + MAIL + '</a> o llamar al <a href="' + TELH + '">' + TEL + '</a>.');
+    di('Damos salida a la mercancía de nuestros clientes hacia toda España y también al extranjero.');
+    di('Indíquenos <b>origen, destino, tipo de mercancía y peso</b> y le facilitaremos presupuesto. Puede usar el <a href="#contacto">formulario de contacto</a>, escribir a <a href="mailto:' + COMERCIAL + '">' + COMERCIAL + '</a> o llamar al <a href="' + TELH + '">' + TEL + '</a>.');
     opciones([
       {txt:'Ir al formulario', va: function(){ cerrarPanel(); location.hash = '#contacto'; }},
       {txt:'← Volver al menú', sec:true, va: menu}
@@ -1245,8 +1280,10 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   }
 
   function persona(){
-    di('Claro. En horario de oficina le atiende alguien de tráfico:');
-    di('<b>Teléfono</b> <a href="' + TELH + '">' + TEL + '</a><br><b>Correo</b> <a href="mailto:' + MAIL + '">' + MAIL + '</a>');
+    di('Por supuesto. En horario de oficina le atenderá nuestro equipo:');
+    di('<b>Teléfono</b> <a href="' + TELH + '">' + TEL + '</a><br>'
+     + '<b>Atención al cliente</b> <a href="mailto:' + MAIL + '">' + MAIL + '</a><br>'
+     + '<b>Comercial</b> <a href="mailto:' + COMERCIAL + '">' + COMERCIAL + '</a>');
     opciones([{txt:'← Volver al menú', sec:true, va: menu}]);
   }
 
