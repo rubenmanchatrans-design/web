@@ -33,8 +33,8 @@
   --display:"Archivo",system-ui,sans-serif;
   --texto:"IBM Plex Sans",system-ui,sans-serif;
   --dato:"IBM Plex Mono",ui-monospace,monospace;
-  --h-nav:88px;
-  --h-via:44px;
+  --h-nav:92px;
+  --h-via:56px;
   --max:1180px;
   --pad:clamp(20px,5vw,64px);
 }
@@ -49,53 +49,20 @@ a{color:inherit}
 .seccion-titulo{font-size:clamp(36px,5.6vw,68px)}
 
 /* ---------- cabecera ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:60;transition:box-shadow .35s}
+header{position:fixed;inset:0 0 auto 0;z-index:60;transition:box-shadow .35s;
+  /* fondo a TODO el ancho, difuminando hacia el rojo de izquierda a derecha */
+  background:
+    radial-gradient(58% 130% at 2% -30%, #FFFFFF, transparent 62%),
+    radial-gradient(70% 180% at 100% 130%, rgba(245,16,16,.20), transparent 60%),
+    repeating-linear-gradient(102deg, rgba(17,27,33,.020) 0 1px, transparent 1px 9px),
+    linear-gradient(96deg,#FFFFFF 0%,#FBFAF7 26%,#F5EFED 52%,#F0E2E0 76%,#EBD6D4 100%)}
+header::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.85),transparent 38%)}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,#F51010 0%,#F51010 26%,#C90A0A 58%,#7A1418 84%,#2A2F35 100%)}
 header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
-
-/* --- barra superior: logo y menu --- */
 .nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;
-  gap:24px;height:var(--h-nav);color:var(--tinta);
-  background:
-    radial-gradient(75% 150% at 96% 130%, rgba(245,16,16,.14), transparent 62%),
-    radial-gradient(60% 120% at 2% -30%, rgba(255,255,255,1), transparent 62%),
-    repeating-linear-gradient(102deg, rgba(17,27,33,.022) 0 1px, transparent 1px 9px),
-    linear-gradient(178deg,#FCFCFA 0%,#F3F3EF 46%,#E6E7E0 100%)}
-.nav::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(255,255,255,.9),transparent 42%)}
-.nav>*{position:relative;z-index:1}
-
-/* --- banda de asfalto --- */
-.calzada{position:relative;height:var(--h-via);overflow:hidden;
-  transition:height .35s cubic-bezier(.3,0,.2,1);
-  background:
-    radial-gradient(120% 300% at 50% -60%, rgba(255,255,255,.10), transparent 60%),
-    linear-gradient(180deg,#333C43 0%,#252D33 42%,#1A2126 100%)}
-header.pegado .calzada{height:0}
-/* grano del asfalto */
-.calzada::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
-  background:
-    repeating-linear-gradient(58deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(-46deg, rgba(0,0,0,.10) 0 1px, transparent 1px 3px)}
-/* lineas de borde de la calzada */
-.calzada::after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;
-  border-top:1px solid rgba(255,255,255,.16);
-  border-bottom:3px solid var(--rojo)}
-/* marca vial discontinua del centro */
-.marca-vial{position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;opacity:.5;
-  background:repeating-linear-gradient(90deg,#EDEDE7 0 34px,transparent 34px 78px);
-  animation:asfalto 2.6s linear infinite}
-@keyframes asfalto{to{background-position-x:112px}}
-
-/* --- el camion --- */
-.via{position:absolute;inset:0;pointer-events:none;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
-  mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
-.camion{position:absolute;bottom:5px;left:0;height:calc(var(--h-via) - 11px);width:auto;
-  animation:circular 19s linear infinite;
-  filter:drop-shadow(0 3px 5px rgba(0,0,0,.45))}
-@keyframes circular{
-  from{transform:translateX(-190px)}
-  to{transform:translateX(calc(100vw + 70px))}}
+  gap:24px;height:var(--h-nav);color:var(--tinta)}
 
 /* --- logotipo --- */
 .marca{display:flex;align-items:center;text-decoration:none;transition:opacity .2s}
@@ -195,12 +162,30 @@ header.pegado .calzada{height:0}
 .aviso-vacio{font-size:15px;color:#D5DDE1;background:rgba(245,16,16,.09);border-left:2px solid var(--rojo);padding:15px 17px}
 .aviso-vacio span{display:block;font-size:13.5px;color:#93A5AE;margin-top:6px}
 
-/* ---------- cinta ---------- */
-.cinta{background:var(--acero);border-top:1px solid var(--linea-osc);overflow:hidden;white-space:nowrap;color:var(--papel)}
-.cinta-pista{display:inline-flex;animation:correr 42s linear infinite}
-.cinta-item{font-family:var(--dato);font-size:13px;letter-spacing:.05em;padding:14px 28px;display:inline-flex;gap:11px;align-items:center}
-.cinta-item::after{content:"";width:4px;height:4px;background:var(--rojo);margin-left:16px}
-@keyframes correr{to{transform:translateX(-50%)}}
+/* ---------- carretera al pie del hero ---------- */
+.calzada{position:relative;height:var(--h-via);overflow:hidden;
+  background:
+    radial-gradient(130% 320% at 50% -80%, rgba(255,255,255,.12), transparent 62%),
+    linear-gradient(180deg,#39434A 0%,#2A333A 40%,#1C242A 100%)}
+.calzada::before{content:"";position:absolute;inset:0;opacity:.55;pointer-events:none;
+  background:
+    repeating-linear-gradient(58deg, rgba(255,255,255,.04) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(-46deg, rgba(0,0,0,.11) 0 1px, transparent 1px 3px)}
+.calzada::after{content:"";position:absolute;inset:0;pointer-events:none;
+  border-top:1px solid rgba(255,255,255,.18);
+  border-bottom:3px solid var(--rojo)}
+.marca-vial{position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;opacity:.55;
+  background:repeating-linear-gradient(90deg,#EDEDE7 0 34px,transparent 34px 78px);
+  animation:asfalto 2.6s linear infinite}
+@keyframes asfalto{to{background-position-x:112px}}
+.via{position:absolute;inset:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+.camion{position:absolute;bottom:6px;left:0;height:calc(var(--h-via) - 13px);width:auto;
+  animation:circular 19s linear infinite;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5))}
+@keyframes circular{
+  from{transform:translateX(-200px)}
+  to{transform:translateX(calc(100vw + 80px))}}
 
 /* ---------- secciones ---------- */
 .seccion{padding:clamp(76px,10vw,132px) 0}
@@ -440,37 +425,6 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
     </button>
   </div>
 
-  <div class="calzada" aria-hidden="true">
-    <span class="marca-vial"></span>
-    <div class="via">
-      <svg class="camion" viewBox="0 0 168 46" xmlns="http://www.w3.org/2000/svg">
-      <!-- sombra en la calzada -->
-      <ellipse cx="84" cy="43" rx="76" ry="3" fill="#000" opacity=".28"/>
-      <!-- caja de carga, blanca como la flota -->
-      <rect x="3" y="4" width="102" height="27" rx="2" fill="#FBFBF8" stroke="#0E1319" stroke-width="1.1"/>
-      <!-- rotulo -->
-      <text x="54" y="17.5" text-anchor="middle" font-family="Archivo, sans-serif"
-            font-weight="800" font-size="10.5" font-style="italic" fill="#F51010"
-            letter-spacing="-.3">MANCHATRANS</text>
-      <rect x="7" y="21.5" width="94" height="2.6" fill="#F51010"/>
-      <rect x="7" y="25.5" width="60" height="1.4" fill="#C9CDD0"/>
-      <!-- cabina -->
-      <path d="M107 31 V11 h20 l14 10.5 V31 Z" fill="#FBFBF8" stroke="#0E1319" stroke-width="1.1"/>
-      <path d="M128.5 13.5 h5 l8.5 6.5 h-13.5 Z" fill="#3A464E"/>
-      <rect x="107" y="26" width="34" height="2.2" fill="#F51010"/>
-      <!-- bastidor y faros -->
-      <rect x="3" y="31" width="138" height="3" fill="#0E1319"/>
-      <rect x="139" y="22" width="3" height="4" rx="1" fill="#FFE9A8"/>
-      <!-- ruedas -->
-      <g fill="#0E1319">
-        <circle cx="26" cy="37" r="7"/><circle cx="80" cy="37" r="7"/><circle cx="127" cy="37" r="7"/>
-      </g>
-      <g fill="#8E979D">
-        <circle cx="26" cy="37" r="2.6"/><circle cx="80" cy="37" r="2.6"/><circle cx="127" cy="37" r="2.6"/>
-      </g>
-    </svg>
-    </div>
-  </div>
 </header>
 
 <main id="inicio" style="padding-top:104px">
@@ -504,8 +458,26 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
       </div>
     </div>
 
-    <div class="cinta" aria-hidden="true">
-      <div class="cinta-pista" id="cinta"></div>
+    <div class="calzada" aria-hidden="true">
+      <span class="marca-vial"></span>
+      <div class="via">
+        <svg class="camion" viewBox="0 0 168 46" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="84" cy="43" rx="76" ry="3" fill="#000" opacity=".3"/>
+        <rect x="3" y="4" width="102" height="27" rx="2" fill="#FBFBF8" stroke="#0E1319" stroke-width="1.1"/>
+        <text x="54" y="17.5" text-anchor="middle" font-family="Archivo, sans-serif"
+              font-weight="800" font-size="10.5" font-style="italic" fill="#F51010"
+              letter-spacing="-.3">MANCHATRANS</text>
+        <rect x="7" y="21.5" width="94" height="2.6" fill="#F51010"/>
+        <rect x="7" y="25.5" width="60" height="1.4" fill="#C9CDD0"/>
+        <path d="M107 31 V11 h20 l14 10.5 V31 Z" fill="#FBFBF8" stroke="#0E1319" stroke-width="1.1"/>
+        <path d="M128.5 13.5 h5 l8.5 6.5 h-13.5 Z" fill="#3A464E"/>
+        <rect x="107" y="26" width="34" height="2.2" fill="#F51010"/>
+        <rect x="3" y="31" width="138" height="3" fill="#0E1319"/>
+        <rect x="139" y="22" width="3" height="4" rx="1" fill="#FFE9A8"/>
+        <g fill="#0E1319"><circle cx="26" cy="37" r="7"/><circle cx="80" cy="37" r="7"/><circle cx="127" cy="37" r="7"/></g>
+        <g fill="#8E979D"><circle cx="26" cy="37" r="2.6"/><circle cx="80" cy="37" r="2.6"/><circle cx="127" cy="37" r="2.6"/></g>
+      </svg>
+      </div>
     </div>
   </section>
 
@@ -1043,16 +1015,6 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
       btn.disabled = false; btn.textContent = 'Enviar';
     }
   });
-})();
-
-/* ---- cinta ---- */
-(function(){
-  const items = ['Cobertura en toda la provincia de Ciudad Real','Entregas en 24/48 horas',
-    'Flota propia con trampilla elevadora','Salidas nacionales e internacionales',
-    'Entregas concertadas','Recogidas y logística inversa','Desde 1977'];
-  const grupo = items.map(function(t){ return '<span class="cinta-item">' + t + '</span>'; }).join('');
-  document.getElementById('cinta').innerHTML =
-    '<span style="display:inline-flex">' + grupo + '</span><span style="display:inline-flex">' + grupo + '</span>';
 })();
 
 /* ---- interfaz ---- */
