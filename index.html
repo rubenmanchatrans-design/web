@@ -239,17 +239,18 @@ header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
 .cobertura{background:var(--tinta);color:var(--papel)}
 .cobertura .seccion-cab p{color:#A6B5BD}
 .mapa-caja{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,.8fr);gap:clamp(28px,5vw,56px);align-items:center}
-.mapa svg{width:100%;height:auto;overflow:visible}
-.provincia{fill:rgba(237,237,231,.06);stroke:rgba(237,237,231,.3);stroke-width:1.2;stroke-linejoin:round}
-.radio{fill:rgba(245,16,16,.07);stroke:rgba(245,16,16,.35);stroke-width:1;stroke-dasharray:5 6}
-.pueblo{fill:var(--papel);opacity:.55}
-.pueblo-txt{font-family:var(--dato);font-size:9.5px;fill:#93A5AE;letter-spacing:.04em}
-.villa{fill:var(--papel);opacity:.9}
-.villa-txt{font-family:var(--dato);font-size:11px;fill:#C6D0D5;letter-spacing:.05em}
+.mapa svg{width:100%;height:auto;overflow:visible;display:block}
+.provincia{fill:rgba(237,237,231,.07);stroke:rgba(237,237,231,.34);stroke-width:1.3;stroke-linejoin:round}
+.muni{fill:var(--papel);opacity:.34}
+.pueblo{fill:var(--papel);opacity:.66}
+.villa{fill:var(--papel);opacity:.95}
+.pueblo-txt{font-family:var(--dato);fill:#93A5AE;letter-spacing:.03em}
+.villa-txt{font-family:var(--dato);fill:#D5DDE1;letter-spacing:.04em}
 .base{fill:var(--rojo)}
-.base-anillo{fill:none;stroke:var(--rojo);stroke-width:1.5;animation:pulso 2.8s ease-out infinite}
-@keyframes pulso{0%{r:8;opacity:.85}100%{r:42;opacity:0}}
-.base-txt{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:14px;fill:var(--rojo);text-transform:uppercase;letter-spacing:.04em}
+.base-anillo{fill:none;stroke:var(--rojo);stroke-width:1.6;animation:pulso 2.8s ease-out infinite}
+@keyframes pulso{0%{r:8;opacity:.85}100%{r:34;opacity:0}}
+.base-txt{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:13.5px;
+  fill:var(--rojo);letter-spacing:.05em}
 .cob-lista{list-style:none}
 .cob-lista li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:15px 0;border-bottom:1px solid var(--linea-osc);font-family:var(--dato);font-size:13.5px}
 .cob-lista li:first-child{border-top:1px solid var(--linea-osc)}
@@ -613,39 +614,137 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 
       <div class="mapa-caja">
         <div class="mapa rv" role="img" aria-label="Mapa de la provincia de Ciudad Real con la base de Manchatrans en la capital y los principales municipios de reparto.">
-          <svg viewBox="0 0 690 420" xmlns="http://www.w3.org/2000/svg">
-            <path class="provincia" d="M68,144 L138,84 L231,63 L313,63 L383,45 L429,30 L499,33 L546,63 L604,105 L646,174 L627,234 L599,273 L569,324 L499,363 L429,375 L371,390 L289,369 L220,369 L150,345 L68,324 L33,279 L56,219 L80,174 Z"/>
-            <circle class="radio" cx="295" cy="193" r="118"/>
-
-            <g>
-              <circle class="villa" cx="253" cy="283" r="3.6"/><text class="villa-txt" x="194" y="297">PUERTOLLANO</text>
-              <circle class="villa" cx="462" cy="72" r="3.6"/><text class="villa-txt" x="398" y="66">ALCÁZAR DE S. JUAN</text>
-              <circle class="villa" cx="506" cy="142" r="3.6"/><text class="villa-txt" x="516" y="146">TOMELLOSO</text>
-              <circle class="villa" cx="422" cy="260" r="3.6"/><text class="villa-txt" x="432" y="264">VALDEPEÑAS</text>
-              <circle class="villa" cx="425" cy="189" r="3.6"/><text class="villa-txt" x="435" y="184">MANZANARES</text>
-              <circle class="villa" cx="368" cy="168" r="3.6"/><text class="villa-txt" x="322" y="159">DAIMIEL</text>
-            </g>
-            <g>
-              <circle class="pueblo" cx="455" cy="208" r="2.6"/><text class="pueblo-txt" x="463" y="213">LA SOLANA</text>
-              <circle class="pueblo" cx="559" cy="103" r="2.6"/><text class="pueblo-txt" x="567" y="107">SOCUÉLLAMOS</text>
-              <circle class="pueblo" cx="482" cy="67" r="2.6"/><text class="pueblo-txt" x="490" y="57">C. DE CRIPTANA</text>
-              <circle class="pueblo" cx="345" cy="222" r="2.6"/><text class="pueblo-txt" x="292" y="234">ALMAGRO</text>
-              <circle class="pueblo" cx="83" cy="257" r="2.6"/><text class="pueblo-txt" x="91" y="261">ALMADÉN</text>
-              <circle class="pueblo" cx="312" cy="134" r="2.6"/><text class="pueblo-txt" x="320" y="130">MALAGÓN</text>
-              <circle class="pueblo" cx="508" cy="269" r="2.6"/><text class="pueblo-txt" x="447" y="282">VVA. DE LOS INFANTES</text>
-              <circle class="pueblo" cx="238" cy="181" r="2.6"/><text class="pueblo-txt" x="168" y="177">PIEDRABUENA</text>
-              <circle class="pueblo" cx="489" cy="151" r="2.6"/><text class="pueblo-txt" x="497" y="165">ARGAMASILLA</text>
-              <circle class="pueblo" cx="427" cy="80" r="2.6"/><text class="pueblo-txt" x="435" y="87">HERENCIA</text>
-              <circle class="pueblo" cx="402" cy="296" r="2.6"/><text class="pueblo-txt" x="330" y="308">STA. CRUZ DE MUDELA</text>
-              <circle class="pueblo" cx="371" cy="122" r="2.6"/><text class="pueblo-txt" x="379" y="114">VILLARRUBIA</text>
-              <circle class="pueblo" cx="237" cy="276" r="2.6"/><text class="pueblo-txt" x="152" y="272">ALMODÓVAR</text>
-              <circle class="pueblo" cx="381" cy="332" r="2.6"/><text class="pueblo-txt" x="389" y="336">VISO DEL MARQUÉS</text>
-              <circle class="pueblo" cx="376" cy="239" r="2.6"/><text class="pueblo-txt" x="306" y="250">MORAL DE CVA.</text>
-            </g>
-
-            <circle class="base-anillo" cx="295" cy="193" r="8"/>
-            <circle class="base" cx="295" cy="193" r="6.2"/>
-            <text class="base-txt" x="295" y="179" text-anchor="middle">Ciudad Real</text>
+<svg viewBox="0 0 820 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de la provincia de Ciudad Real con sus 102 municipios y la base de Manchatrans en la capital.">
+          <defs><radialGradient id="halo"><stop offset="0" stop-color="#F51010" stop-opacity=".16"/><stop offset="1" stop-color="#F51010" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="374" cy="246" r="214" fill="url(#halo)"/>
+          <path class="provincia" d="M328.2,33.7 L355.2,30.5 L358.4,49.5 L350.1,49.7 L347.8,72.7 L334.0,72.7 L325.7,106.3 L333.3,106.4 L337.8,114.0 L346.4,105.4 L374.4,110.1 L375.9,129.2 L406.3,143.5 L424.6,131.2 L443.7,139.5 L455.4,129.3 L496.3,127.2 L511.8,113.3 L513.6,103.0 L530.2,91.4 L558.3,93.3 L556.4,80.7 L562.4,67.8 L592.7,66.6 L592.8,61.7 L600.4,58.8 L624.7,75.1 L637.7,72.7 L644.1,78.2 L656.0,76.2 L664.0,67.8 L662.9,74.2 L680.1,96.4 L672.7,104.9 L676.6,110.5 L690.0,109.6 L701.3,93.8 L706.1,94.9 L721.0,140.4 L687.6,187.7 L698.1,207.5 L697.0,225.4 L690.5,227.4 L676.5,257.6 L689.5,269.2 L701.5,269.3 L710.1,278.5 L712.6,301.7 L718.2,313.4 L728.2,313.1 L743.5,327.3 L735.8,360.7 L719.3,372.5 L709.5,368.3 L713.3,372.7 L709.0,387.6 L714.2,397.2 L705.0,410.5 L676.9,430.8 L670.1,424.7 L654.1,424.1 L645.8,431.7 L643.5,446.6 L626.0,421.7 L605.7,435.8 L566.5,428.1 L553.5,420.3 L540.0,422.8 L539.6,435.5 L518.8,449.5 L497.5,446.5 L493.8,433.4 L482.3,431.2 L478.1,450.1 L426.2,440.6 L413.9,445.0 L413.7,452.1 L407.1,458.5 L390.3,460.7 L323.3,456.2 L295.3,449.0 L290.0,453.1 L292.2,468.4 L287.1,470.0 L241.1,449.3 L224.6,426.8 L209.7,417.2 L202.1,418.8 L194.1,405.5 L171.6,395.0 L170.6,388.3 L128.2,373.3 L123.6,347.6 L88.2,344.4 L87.3,337.2 L76.5,332.3 L92.3,328.4 L105.1,287.6 L113.1,275.8 L131.8,277.6 L136.3,258.6 L112.2,251.0 L99.9,214.7 L122.8,224.1 L135.8,219.2 L137.5,212.8 L124.3,199.8 L130.2,181.3 L142.1,164.5 L187.1,176.2 L170.4,160.8 L155.7,121.3 L170.8,118.8 L171.5,105.7 L181.1,84.3 L176.1,75.1 L195.4,73.6 L195.3,62.8 L209.3,58.3 L213.0,53.5 L211.1,45.6 L216.3,41.7 L219.5,46.1 L221.2,35.4 L233.0,43.5 L225.0,49.5 L238.8,65.0 L244.2,49.1 L262.2,58.8 L299.6,65.3 L313.2,59.0 L322.7,30.0 L328.2,33.7 Z"/>
+          <path class="provincia" d="M153.9,51.8 L160.8,61.8 L161.4,73.0 L154.1,81.1 L157.3,87.4 L152.4,93.8 L125.3,104.3 L105.9,94.8 L114.9,59.6 L127.4,37.4 L153.9,51.8 Z"/>
+          <circle class="muni" cx="241.6" cy="279.1" r="2.1"/>
+          <circle class="muni" cx="139.6" cy="231.9" r="2.1"/>
+          <circle class="muni" cx="142.0" cy="351.5" r="2.1"/>
+          <circle class="muni" cx="702.2" cy="374.7" r="2.1"/>
+          <circle class="muni" cx="251.7" cy="125.1" r="2.1"/>
+          <circle class="muni" cx="603.6" cy="322.8" r="2.1"/>
+          <circle class="muni" cx="402.7" cy="335.4" r="2.1"/>
+          <circle class="muni" cx="619.6" cy="272.6" r="2.1"/>
+          <circle class="muni" cx="161.1" cy="305.2" r="2.1"/>
+          <circle class="muni" cx="181.7" cy="316.8" r="2.1"/>
+          <circle class="muni" cx="654.6" cy="371.0" r="2.1"/>
+          <circle class="muni" cx="230.0" cy="358.3" r="2.1"/>
+          <circle class="muni" cx="508.6" cy="425.0" r="2.1"/>
+          <circle class="muni" cx="133.4" cy="72.7" r="2.1"/>
+          <circle class="muni" cx="503.3" cy="161.7" r="2.1"/>
+          <circle class="muni" cx="360.3" cy="327.8" r="2.1"/>
+          <circle class="muni" cx="212.1" cy="177.4" r="2.1"/>
+          <circle class="muni" cx="381.5" cy="301.0" r="2.1"/>
+          <circle class="muni" cx="282.3" cy="373.1" r="2.1"/>
+          <circle class="muni" cx="285.0" cy="288.8" r="2.1"/>
+          <circle class="muni" cx="297.7" cy="391.9" r="2.1"/>
+          <circle class="muni" cx="433.1" cy="373.0" r="2.1"/>
+          <circle class="muni" cx="361.7" cy="294.0" r="2.1"/>
+          <circle class="muni" cx="351.6" cy="296.3" r="2.1"/>
+          <circle class="muni" cx="412.3" cy="218.2" r="2.1"/>
+          <circle class="muni" cx="648.9" cy="289.6" r="2.1"/>
+          <circle class="muni" cx="565.6" cy="402.3" r="2.1"/>
+          <circle class="muni" cx="331.5" cy="279.9" r="2.1"/>
+          <circle class="muni" cx="356.7" cy="121.2" r="2.1"/>
+          <circle class="muni" cx="619.8" cy="356.9" r="2.1"/>
+          <circle class="muni" cx="381.0" cy="191.5" r="2.1"/>
+          <circle class="muni" cx="224.9" cy="161.8" r="2.1"/>
+          <circle class="muni" cx="286.0" cy="439.0" r="2.1"/>
+          <circle class="muni" cx="654.1" cy="320.7" r="2.1"/>
+          <circle class="muni" cx="451.1" cy="319.8" r="2.1"/>
+          <circle class="muni" cx="101.9" cy="334.5" r="2.1"/>
+          <circle class="muni" cx="318.8" cy="394.0" r="2.1"/>
+          <circle class="muni" cx="189.8" cy="106.9" r="2.1"/>
+          <circle class="muni" cx="496.0" cy="144.8" r="2.1"/>
+          <circle class="muni" cx="262.0" cy="239.7" r="2.1"/>
+          <circle class="muni" cx="370.7" cy="159.4" r="2.1"/>
+          <circle class="muni" cx="553.9" cy="265.7" r="2.1"/>
+          <circle class="muni" cx="371.1" cy="419.8" r="2.1"/>
+          <circle class="muni" cx="402.6" cy="250.2" r="2.1"/>
+          <circle class="muni" cx="685.0" cy="369.8" r="2.1"/>
+          <circle class="muni" cx="195.2" cy="144.6" r="2.1"/>
+          <circle class="muni" cx="217.1" cy="70.7" r="2.1"/>
+          <circle class="muni" cx="660.1" cy="93.5" r="2.1"/>
+          <circle class="muni" cx="346.9" cy="214.4" r="2.1"/>
+          <circle class="muni" cx="283.0" cy="203.9" r="2.1"/>
+          <circle class="muni" cx="366.4" cy="260.2" r="2.1"/>
+          <circle class="muni" cx="315.6" cy="164.3" r="2.1"/>
+          <circle class="muni" cx="410.9" cy="276.7" r="2.1"/>
+          <circle class="muni" cx="313.6" cy="262.8" r="2.1"/>
+          <circle class="muni" cx="183.2" cy="198.1" r="2.1"/>
+          <circle class="muni" cx="666.3" cy="392.8" r="2.1"/>
+          <circle class="muni" cx="509.6" cy="129.9" r="2.1"/>
+          <circle class="muni" cx="296.8" cy="82.7" r="2.1"/>
+          <circle class="muni" cx="199.4" cy="249.3" r="2.1"/>
+          <circle class="muni" cx="576.7" cy="290.9" r="2.1"/>
+          <circle class="muni" cx="411.6" cy="426.8" r="2.1"/>
+          <circle class="muni" cx="677.4" cy="366.1" r="2.1"/>
+          <circle class="muni" cx="337.1" cy="429.2" r="2.1"/>
+          <circle class="muni" cx="685.2" cy="384.6" r="2.1"/>
+          <circle class="muni" cx="432.1" cy="217.7" r="2.1"/>
+          <circle class="muni" cx="580.7" cy="378.6" r="2.1"/>
+          <circle class="muni" cx="546.5" cy="365.3" r="2.1"/>
+          <circle class="muni" cx="161.1" cy="251.8" r="2.1"/>
+          <circle class="muni" cx="426.0" cy="293.5" r="2.1"/>
+          <circle class="muni" cx="687.6" cy="302.7" r="2.1"/>
+          <circle class="muni" cx="628.1" cy="411.2" r="2.1"/>
+          <circle class="muni" cx="726.1" cy="344.0" r="2.1"/>
+          <circle class="muni" cx="400.2" cy="376.9" r="2.1"/>
+          <circle class="muni" cx="374.3" cy="289.4" r="2.1"/>
+          <circle class="muni" cx="523.4" cy="160.6" r="2.1"/>
+          <circle class="muni" cx="282.4" cy="160.5" r="2.1"/>
+          <circle class="muni" cx="671.4" cy="235.5" r="2.1"/>
+          <circle class="muni" cx="632.1" cy="128.8" r="2.1"/>
+          <circle class="muni" cx="547.8" cy="194.1" r="2.1"/>
+          <circle class="villa" cx="349.8" cy="360.6" r="3.7"/>
+          <circle class="villa" cx="577.6" cy="134.3" r="3.7"/>
+          <circle class="villa" cx="652.3" cy="161.3" r="3.7"/>
+          <circle class="villa" cx="532.2" cy="311.7" r="3.7"/>
+          <circle class="villa" cx="539.7" cy="225.9" r="3.7"/>
+          <circle class="villa" cx="474.5" cy="211.6" r="3.7"/>
+          <circle class="pueblo" cx="585.0" cy="261.2" r="2.8"/>
+          <circle class="pueblo" cx="687.8" cy="144.5" r="2.8"/>
+          <circle class="pueblo" cx="621.3" cy="106.4" r="2.8"/>
+          <circle class="pueblo" cx="440.4" cy="271.7" r="2.8"/>
+          <circle class="pueblo" cx="123.7" cy="304.2" r="2.8"/>
+          <circle class="pueblo" cx="412.6" cy="148.0" r="2.8"/>
+          <circle class="pueblo" cx="634.0" cy="335.5" r="2.8"/>
+          <circle class="pueblo" cx="333.7" cy="243.8" r="2.8"/>
+          <circle class="pueblo" cx="629.4" cy="208.0" r="2.8"/>
+          <circle class="pueblo" cx="470.9" cy="267.7" r="2.8"/>
+          <circle class="pueblo" cx="535.3" cy="127.6" r="2.8"/>
+          <circle class="pueblo" cx="465.3" cy="158.7" r="2.8"/>
+          <circle class="pueblo" cx="483.6" cy="311.4" r="2.8"/>
+          <circle class="pueblo" cx="504.2" cy="364.2" r="2.8"/>
+          <circle class="pueblo" cx="315.8" cy="308.2" r="2.8"/>
+          <circle class="pueblo" cx="485.4" cy="411.6" r="2.8"/>
+          <text class="villa-txt" x="363.8" y="364.2" text-anchor="start" font-size="10">PUERTOLLANO</text>
+          <text class="villa-txt" x="577.6" y="147.8" text-anchor="middle" font-size="10">ALCÁZAR DE SAN JUAN</text>
+          <text class="villa-txt" x="666.3" y="164.9" text-anchor="start" font-size="10">TOMELLOSO</text>
+          <text class="villa-txt" x="546.2" y="315.3" text-anchor="start" font-size="10">VALDEPEÑAS</text>
+          <text class="villa-txt" x="553.7" y="229.5" text-anchor="start" font-size="10">MANZANARES</text>
+          <text class="villa-txt" x="488.5" y="215.2" text-anchor="start" font-size="10">DAIMIEL</text>
+          <text class="pueblo-txt" x="599.0" y="264.8" text-anchor="start" font-size="8.4">LA SOLANA</text>
+          <text class="pueblo-txt" x="701.8" y="148.1" text-anchor="start" font-size="8.4">SOCUÉLLAMOS</text>
+          <text class="pueblo-txt" x="635.3" y="110.0" text-anchor="start" font-size="8.4">CAMPO DE CRIPTANA</text>
+          <text class="pueblo-txt" x="440.4" y="262.7" text-anchor="middle" font-size="8.4">ALMAGRO</text>
+          <text class="pueblo-txt" x="109.7" y="307.8" text-anchor="end" font-size="8.4">ALMADÉN</text>
+          <text class="pueblo-txt" x="398.6" y="151.6" text-anchor="end" font-size="8.4">MALAGÓN</text>
+          <text class="pueblo-txt" x="620.0" y="339.1" text-anchor="end" font-size="8.4">VVA. DE LOS INFANTES</text>
+          <text class="pueblo-txt" x="333.7" y="234.8" text-anchor="middle" font-size="8.4">PIEDRABUENA</text>
+          <text class="pueblo-txt" x="643.4" y="211.6" text-anchor="start" font-size="8.4">ARGAMASILLA DE ALBA</text>
+          <text class="pueblo-txt" x="484.9" y="271.3" text-anchor="start" font-size="8.4">BOLAÑOS</text>
+          <text class="pueblo-txt" x="535.3" y="118.6" text-anchor="middle" font-size="8.4">HERENCIA</text>
+          <text class="pueblo-txt" x="451.3" y="162.3" text-anchor="end" font-size="8.4">VILLARRUBIA</text>
+          <text class="pueblo-txt" x="483.6" y="302.4" text-anchor="middle" font-size="8.4">MORAL DE CALATRAVA</text>
+          <text class="pueblo-txt" x="504.2" y="355.2" text-anchor="middle" font-size="8.4">STA. CRUZ DE MUDELA</text>
+          <text class="pueblo-txt" x="301.8" y="311.8" text-anchor="end" font-size="8.4">ALMODÓVAR DEL CAMPO</text>
+          <text class="pueblo-txt" x="499.4" y="415.2" text-anchor="start" font-size="8.4">VISO DEL MARQUÉS</text>
+          <circle class="base-anillo" cx="374.1" cy="246.0" r="8"/>
+          <circle class="base" cx="374.1" cy="246.0" r="6.4"/>
+          <text class="base-txt" x="384.1" y="239.5" text-anchor="start">CIUDAD REAL</text>
           </svg>
         </div>
 
@@ -657,7 +756,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
             <li><b>Vehículos con trampilla</b><span>Flota propia</span></li>
             <li><b>Recogidas y devoluciones</b><span>Incluidas</span></li>
           </ul>
-          <p class="cob-nota">Los plazos son orientativos y pueden variar según el destino y la red de origen. Consúltenos para su localidad.</p>
+          <p class="cob-nota">Cada punto del mapa es uno de los <b>102 municipios</b> de la provincia. Los plazos son orientativos y pueden variar según el destino y la red de origen.</p>
         </div>
       </div>
     </div>
