@@ -99,19 +99,27 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:18px;height:3px
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px}
 
 /* ---------- hero ---------- */
-.hero{background:var(--tinta);color:var(--papel);padding-top:clamp(56px,7vw,84px);position:relative;overflow:hidden}
+.hero{background:var(--tinta);color:var(--papel);padding-top:0;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(115% 85% at 82% 4%,rgba(245,16,16,.16),transparent 60%),repeating-linear-gradient(105deg,rgba(237,237,231,.026) 0 1px,transparent 1px 74px);pointer-events:none}
 .hero .env{position:relative;z-index:1}
-.hero-top{padding:clamp(20px,4vw,44px) 0 clamp(56px,8vw,88px);max-width:900px}
+.hero-top{padding:clamp(48px,7vw,84px) 0 clamp(56px,8vw,88px);max-width:900px}
 .hero h1{font-size:clamp(44px,8.6vw,104px);margin:22px 0 26px}
 .hero h1 em{font-style:normal;color:var(--rojo)}
 .hero-top>p{color:#B9C6CD;max-width:52ch;font-size:clamp(16.5px,1.8vw,20px)}
 .hero-acciones{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
-.hero-redes{margin-top:clamp(38px,5vw,54px);padding-top:22px;border-top:1px solid var(--linea-osc)}
-.hero-redes-tit{display:block;font-family:var(--dato);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7E9099;margin-bottom:14px}
-.hero-redes ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 30px}
-.hero-redes li{font-family:var(--display);font-weight:800;font-stretch:80%;text-transform:uppercase;
-  font-size:clamp(15px,1.9vw,20px);letter-spacing:.02em;color:#9FB0B8}
+/* Banda de redes, a ancho completo bajo la cabecera */
+.banda-redes{border-bottom:1px solid var(--linea-osc);background:rgba(237,237,231,.035);position:relative;z-index:2}
+.banda-redes .env{display:flex;align-items:center;gap:clamp(16px,3vw,38px);flex-wrap:wrap;padding-block:16px}
+.banda-tit{font-family:var(--dato);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7E9099;white-space:nowrap;flex:none}
+.banda-redes ul{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:8px clamp(16px,2.6vw,32px);margin:0}
+.banda-redes a{font-family:var(--display);font-weight:800;font-stretch:80%;text-transform:uppercase;
+  font-size:clamp(15px,1.8vw,20px);letter-spacing:.02em;color:#A9B8C0;text-decoration:none;
+  display:inline-block;padding:3px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.banda-redes a:hover{color:var(--papel);border-bottom-color:var(--rojo)}
+@media (max-width:620px){
+  .banda-redes .env{gap:10px}
+  .banda-tit{width:100%}
+}
 .btn-linea{background:transparent;border:1px solid var(--linea-osc);color:var(--papel)}
 .btn-linea:hover{background:transparent;border-color:var(--rojo);color:var(--rojo)}
 
@@ -408,6 +416,21 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 <main id="inicio" style="padding-top:104px">
 
   <section class="hero">
+    <div class="banda-redes">
+      <div class="env">
+        <span class="banda-tit">Distribuimos para</span>
+        <ul>
+          <li><a href="https://ontime.es" target="_blank" rel="noopener noreferrer">Ontime</a></li>
+          <li><a href="https://europe.xpo.com/es/" target="_blank" rel="noopener noreferrer">XPO</a></li>
+          <li><a href="https://www.cbl-logistica.com/" target="_blank" rel="noopener noreferrer">CBL</a></li>
+          <li><a href="https://ntl-trans.com" target="_blank" rel="noopener noreferrer">NTL</a></li>
+          <li><a href="https://coditral.com" target="_blank" rel="noopener noreferrer">Coditral</a></li>
+          <li><a href="https://www.bemalu.com" target="_blank" rel="noopener noreferrer">Bemalu</a></li>
+          <li><a href="https://www.rhenus.group" target="_blank" rel="noopener noreferrer">Rhenus</a></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="env">
       <div class="hero-top">
         <span class="eyebrow">Manchega de Transportes S.L. · Desde 1977</span>
@@ -417,13 +440,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           <a href="#seguimiento" class="btn">Consultar expedición</a>
           <a href="#contacto" class="btn btn-linea">Solicitar presupuesto</a>
         </div>
-        <div class="hero-redes">
-          <span class="hero-redes-tit">Distribuimos para</span>
-          <ul>
-            <li>Ontime</li><li>XPO</li><li>CBL</li><li>NTL</li>
-            <li>Coditral</li><li>Bemalu</li><li>Rhenus</li>
-          </ul>
-        </div>
+
       </div>
     </div>
 
@@ -518,13 +535,13 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
         <p>Operamos como delegación de distribución en la provincia de Ciudad Real para las principales redes logísticas que actúan en España.</p>
       </div>
       <div class="redes-rejilla rv">
-        <div class="red"><span>Ontime</span></div>
-        <div class="red"><span>XPO</span></div>
-        <div class="red"><span>CBL</span></div>
-        <div class="red"><span>NTL</span></div>
-        <div class="red"><span>Coditral</span></div>
-        <div class="red"><span>Bemalu</span></div>
-        <div class="red"><span>Rhenus</span></div>
+        <a class="red" href="https://ontime.es" target="_blank" rel="noopener noreferrer"><span>Ontime</span></a>
+        <a class="red" href="https://europe.xpo.com/es/" target="_blank" rel="noopener noreferrer"><span>XPO</span></a>
+        <a class="red" href="https://www.cbl-logistica.com/" target="_blank" rel="noopener noreferrer"><span>CBL</span></a>
+        <a class="red" href="https://ntl-trans.com" target="_blank" rel="noopener noreferrer"><span>NTL</span></a>
+        <a class="red" href="https://coditral.com" target="_blank" rel="noopener noreferrer"><span>Coditral</span></a>
+        <a class="red" href="https://www.bemalu.com" target="_blank" rel="noopener noreferrer"><span>Bemalu</span></a>
+        <a class="red" href="https://www.rhenus.group" target="_blank" rel="noopener noreferrer"><span>Rhenus</span></a>
       </div>
       <p class="redes-nota rv">Entre esas redes llega también el producto de grandes marcas de distribución textil, que entregamos a diario en los comercios de la provincia.</p>
     </div>
