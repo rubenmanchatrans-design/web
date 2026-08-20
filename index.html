@@ -1184,7 +1184,6 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
       {txt:'Saber dónde está mi envío', va: pedirNumero},
       {txt:'No estaba y no me lo entregaron', va: ausente},
       {txt:'Quiero enviar mercancía o pedir presupuesto', va: enviarMercancia},
-      {txt:'Devolver algo o pedir recogida', va: recogida},
       {txt:'Hablar con una persona', va: persona}
     ], true);
   }
@@ -1264,15 +1263,6 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
   function enviarMercancia(){
     di('Damos salida a la mercancía de nuestros clientes hacia toda España y también al extranjero.');
     di('Indíquenos <b>origen, destino, tipo de mercancía y peso</b> y le facilitaremos presupuesto. Puede usar el <a href="#contacto">formulario de contacto</a>, escribir a <a href="mailto:' + COMERCIAL + '">' + COMERCIAL + '</a> o llamar al <a href="' + TELH + '">' + TEL + '</a>.');
-    opciones([
-      {txt:'Ir al formulario', va: function(){ cerrarPanel(); location.hash = '#contacto'; }},
-      {txt:'← Volver al menú', sec:true, va: menu}
-    ]);
-  }
-
-  function recogida(){
-    di('Para devoluciones y recogidas necesitamos saber <b>quién es el remitente original</b> y el número de expedición si lo tiene.');
-    di('Escríbanos a <a href="mailto:' + MAIL + '">' + MAIL + '</a> o llame al <a href="' + TELH + '">' + TEL + '</a> y lo organizamos con la ruta que pase por su zona.');
     opciones([
       {txt:'Ir al formulario', va: function(){ cerrarPanel(); location.hash = '#contacto'; }},
       {txt:'← Volver al menú', sec:true, va: menu}
