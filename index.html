@@ -437,7 +437,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
         <div class="bus-campos">
           <div class="bus-campo">
             <label for="exp">Nº de expedición</label>
-            <input type="text" id="exp" placeholder="Ej. 4400218976" autocomplete="off" inputmode="numeric">
+            <input type="text" id="exp" placeholder="Ej. 999954118207" autocomplete="off" inputmode="numeric">
           </div>
           <div class="bus-campo">
             <label for="cp">C. postal</label>
@@ -445,7 +445,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
           </div>
         </div>
         <button class="bus-btn" id="btn-buscar">Consultar estado</button>
-        <p class="bus-demo">Datos de ejemplo: <b data-demo="4400218976|13005">4400218976 · 13005</b> · <b data-demo="7712004455|13700">7712004455 · 13700</b> · <b data-demo="9930871264|13260">9930871264 · 13260</b></p>
+        <p class="bus-demo">Datos de ejemplo: <b data-demo="124018842|13005">124018842 · 13005</b> · <b data-demo="999954118207|13700">999954118207 · 13700</b> · <b data-demo="290100026845|13260">290100026845 · 13260</b></p>
 
         <div class="resultado" id="resultado" aria-live="polite"></div>
       </div>
@@ -738,52 +738,66 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
    reescribir consultarExpedicion(): ver el bloque del final del script.
    ========================================================================== */
 
+/* Datos de ejemplo. Solo se usan si no hay expediciones.json disponible. */
 const DEMO = {
-  '4400218976': {
-    cp:'13005', operador:'XPO', poblacion:'Ciudad Real',
-    bultos:3, kilos:47.5, estado:'entregado',
-    eventos:[
-      {t:'Entregada', i:'14/08/2026 · 11:24 · Firmado por el destinatario', hito:true},
-      {t:'En reparto', i:'14/08/2026 · 08:05 · Ruta CR-02'},
-      {t:'Recibida en nave Ciudad Real', i:'13/08/2026 · 22:40'},
-      {t:'En tránsito', i:'13/08/2026 · 15:10 · Plataforma de origen'},
-      {t:'Expedición admitida', i:'13/08/2026 · 09:32'}
-    ]
-  },
-  '7712004455': {
-    cp:'13700', operador:'Ontime', poblacion:'Tomelloso',
-    bultos:1, kilos:12.0, estado:'curso',
-    eventos:[
-      {t:'En reparto', i:'19/08/2026 · 07:58 · Ruta CR-07', hito:true},
-      {t:'Recibida en nave Ciudad Real', i:'18/08/2026 · 21:15'},
-      {t:'En tránsito', i:'18/08/2026 · 13:44'},
-      {t:'Expedición admitida', i:'18/08/2026 · 10:02'}
-    ]
-  },
-  '9930871264': {
-    cp:'13260', operador:'CBL', poblacion:'Bolaños de Calatrava',
-    bultos:8, kilos:210.0, estado:'aviso',
-    eventos:[
-      {t:'Ausente en el domicilio', i:'18/08/2026 · 12:31 · Se reintentará la entrega', hito:true},
-      {t:'En reparto', i:'18/08/2026 · 08:12 · Ruta CR-04'},
-      {t:'Recibida en nave Ciudad Real', i:'17/08/2026 · 23:05'},
-      {t:'Expedición admitida', i:'17/08/2026 · 16:48'}
-    ]
-  }
+  '124018842': {cp:'13005', poblacion:'Ciudad Real', bultos:3, kilos:47.5,
+    operador:'XPO', estado:'entregado', etiqueta:'Entregada',
+    entregada:'14/08/2026 · 11:24', eventos:[
+      {t:'Entregada', i:'14/08/2026 · 11:24 · Confirmada por el repartidor', hito:true},
+      {t:'En reparto', i:'14/08/2026 · 08:05'},
+      {t:'Recibida en nuestra nave', i:'13/08/2026 · 22:40'},
+      {t:'Expedición admitida', i:'13/08/2026'}]},
+  '999954118207': {cp:'13700', poblacion:'Tomelloso', bultos:1, kilos:12,
+    operador:'Ontime', estado:'curso', etiqueta:'En reparto',
+    entregada:'', eventos:[
+      {t:'En reparto', i:'19/08/2026 · 07:58', hito:true},
+      {t:'Recibida en nuestra nave', i:'18/08/2026 · 21:15'},
+      {t:'Expedición admitida', i:'18/08/2026'}]},
+  '290100026845': {cp:'13260', poblacion:'Bolaños de Calatrava', bultos:8, kilos:210,
+    operador:'CBL', estado:'aviso', etiqueta:'Requiere atención',
+    entregada:'', eventos:[
+      {t:'Ausente en el domicilio', i:'Volveremos a intentar la entrega', hito:true},
+      {t:'En reparto', i:'18/08/2026 · 08:12'},
+      {t:'Recibida en nuestra nave', i:'17/08/2026 · 23:05'},
+      {t:'Expedición admitida', i:'17/08/2026'}]}
 };
 
-const CHIPS = {
-  entregado:{c:'chip-ok',    t:'Entregada'},
-  curso:    {c:'chip-curso', t:'En reparto'},
-  aviso:    {c:'chip-aviso', t:'Requiere atención'}
-};
+const CHIPS = {entregado:'chip-ok', curso:'chip-curso', aviso:'chip-aviso'};
 
-/* Async a propósito: al conectar Firestore o la API no habrá que tocar nada más. */
-async function consultarExpedicion(num, cp){
-  await new Promise(r => setTimeout(r, 550));
-  const e = DEMO[num];
-  return (e && e.cp === cp) ? e : null;
+/* ---- origen de los datos ----
+   Intenta expediciones.json (lo genera el importador de Nereid). Si no existe,
+   se queda con los datos de ejemplo. Se refresca solo cada 2 minutos. */
+let BASE = null, ORIGEN = 'ejemplo';
+
+async function cargarBase(){
+  try{
+    const r = await fetch('expediciones.json?t=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw 0;
+    const d = await r.json();
+    if(d && typeof d === 'object' && Object.keys(d).length){
+      BASE = d; ORIGEN = 'nereid';
+      return true;
+    }
+  }catch(e){}
+  if(!BASE){ BASE = DEMO; ORIGEN = 'ejemplo'; }
+  return false;
 }
+
+function normalizaClave(v){
+  return String(v || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
+}
+
+async function consultarExpedicion(num, cp){
+  if(!BASE) await cargarBase();
+  const e = BASE[normalizaClave(num)];
+  return (e && String(e.cp).trim() === String(cp).trim()) ? e : null;
+}
+
+cargarBase().then(function(ok){
+  const demo = document.querySelector('.bus-demo');
+  if(ok && demo) demo.style.display = 'none';   // con datos reales sobran los ejemplos
+});
+setInterval(cargarBase, 120000);
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -794,23 +808,23 @@ function pintar(e, num){
     caja.innerHTML = '<div class="aviso-vacio">No encontramos ninguna expedición con esos datos.'
       + '<span>Revise el número y el código postal de entrega. Si el envío se admitió hace pocas horas puede que aún no conste. También puede llamarnos al 926 27 49 85.</span></div>';
   } else {
-    const ch = CHIPS[e.estado] || CHIPS.curso;
     caja.innerHTML =
       '<div class="res-cab">'
       +   '<div class="res-num">Expedición<strong>' + esc(num) + '</strong></div>'
-      +   '<span class="chip ' + ch.c + '">' + ch.t + '</span>'
+      +   '<span class="chip ' + (CHIPS[e.estado] || CHIPS.curso) + '">' + esc(e.etiqueta) + '</span>'
       + '</div>'
       + '<div class="res-meta">'
-      +   '<span>Destino <b>' + esc(e.poblacion) + ' (' + esc(e.cp) + ')</b></span>'
+      +   (e.poblacion ? '<span>Destino <b>' + esc(e.poblacion) + ' (' + esc(e.cp) + ')</b></span>' : '')
       +   '<span>Bultos <b>' + esc(e.bultos) + '</b></span>'
       +   '<span>Peso <b>' + esc(e.kilos) + ' kg</b></span>'
-      +   '<span>Red <b>' + esc(e.operador) + '</b></span>'
+      +   (e.operador ? '<span>Red <b>' + esc(e.operador) + '</b></span>' : '')
+      +   (e.entregada ? '<span>Entregada <b>' + esc(e.entregada) + '</b></span>' : '')
       + '</div>'
       + '<ul class="linea-tiempo">'
       +   e.eventos.map(function(v){
             return '<li class="' + (v.hito ? 'hito' : '') + '">'
                  + '<div class="lt-titulo">' + esc(v.t) + '</div>'
-                 + '<div class="lt-info">' + esc(v.i) + '</div></li>';
+                 + (v.i ? '<div class="lt-info">' + esc(v.i) + '</div>' : '') + '</li>';
           }).join('')
       + '</ul>';
   }
@@ -818,7 +832,7 @@ function pintar(e, num){
 }
 
 async function buscar(){
-  const num = $('#exp').value.trim().replace(/[\s-]/g,'');
+  const num = $('#exp').value.trim();
   const cp  = $('#cp').value.trim();
   const btn = $('#btn-buscar');
   const caja = $('#resultado');
@@ -1149,7 +1163,7 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
 
   function pedirNumero(){
     di('Dígame el número de expedición. Aparece en el aviso de entrega o en el correo del remitente.');
-    pedirDato('Número de expedición', 'Ej. 4400218976', 'numeric', function(v){
+    pedirDato('Número de expedición', 'Ej. 124018842', 'numeric', function(v){
       expNum = v.replace(/[\s-]/g,'');
       pedirCP();
     });
@@ -1172,18 +1186,21 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
     } else if(!e){
       di('No encuentro ninguna expedición con esos datos. Revise el número y el código postal. Si el envío se admitió hace pocas horas puede que aún no conste.');
     } else {
-      const etq = {entregado:['Entregada','#2ECC71'], curso:['En reparto','#F51010'], aviso:['Requiere atención','#E0A020']};
-      const et = etq[e.estado] || etq.curso;
+      const colores = {entregado:'#2ECC71', curso:'#F51010', aviso:'#E0A020'};
+      const color = colores[e.estado] || colores.curso;
       const caja = document.createElement('div');
       caja.className = 'burb burb-bot asis-res';
       caja.innerHTML =
         '<div class="cima"><strong>' + limpiar(num) + '</strong>'
         + '<span style="font-family:var(--dato);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:'
-        + et[1] + '">' + et[0] + '</span></div>'
+        + color + '">' + limpiar(e.etiqueta) + '</span></div>'
         + '<div style="font-family:var(--dato);font-size:12px;color:#8B9DA6;margin-bottom:10px">'
-        + limpiar(e.poblacion) + ' (' + limpiar(e.cp) + ') · ' + limpiar(e.bultos) + ' bultos · ' + limpiar(e.kilos) + ' kg</div>'
+        +   (e.poblacion ? limpiar(e.poblacion) + ' (' + limpiar(e.cp) + ') · ' : '')
+        +   limpiar(e.bultos) + (e.bultos == 1 ? ' bulto · ' : ' bultos · ') + limpiar(e.kilos) + ' kg'
+        +   (e.entregada ? '<br>Entregada el ' + limpiar(e.entregada) : '')
+        + '</div>'
         + '<ul>' + e.eventos.slice(0,4).map(function(v){
-            return '<li>' + limpiar(v.t) + '<span class="fecha">' + limpiar(v.i) + '</span></li>';
+            return '<li>' + limpiar(v.t) + (v.i ? '<span class="fecha">' + limpiar(v.i) + '</span>' : '') + '</li>';
           }).join('') + '</ul>';
       cuerpo.appendChild(caja); abajo();
 
