@@ -1229,17 +1229,39 @@ const CHIPS = {entregado:'chip-ok', curso:'chip-curso', aviso:'chip-aviso'};
    se queda con los datos de ejemplo. Se refresca solo cada 2 minutos. */
 let BASE = null, ORIGEN = 'ejemplo';
 
+/* Textos de los eventos. El fichero los guarda como numero para no repetir
+   la misma frase miles de veces; aqui se vuelven a montar. */
+const PASOS = {
+  1: 'Expedición admitida',
+  2: 'Recibida en delegación de reparto',
+  3: 'En reparto',
+  4: 'Entregada'
+};
+
+/* Convierte una expedicion del formato compacto al que usa la pantalla */
+function expandir(e){
+  const eventos = (e.v || []).map(function(x, i){
+    const ev = x[0] === 0
+      ? {t: x[2] || 'Incidencia en la entrega', i: x[3] || ''}
+      : {t: PASOS[x[0]] || '', i: x[1] + (x[2] === '1' ? ' · Confirmada por el repartidor' : '')};
+    if(i === 0) ev.hito = true;
+    return ev;
+  });
+  return {cp:e.c, poblacion:e.p, bultos:e.b, kilos:e.g, operador:e.o,
+          estado:e.s, etiqueta:e.t, entregada:e.d, eventos:eventos};
+}
+
 async function cargarBase(){
   try{
     const r = await fetch('expediciones.json?t=' + Date.now(), {cache:'no-store'});
     if(!r.ok) throw 0;
     const d = await r.json();
-    if(d && typeof d === 'object' && Object.keys(d).length){
+    if(d && d.v === 2 && d.k && d.e){
       BASE = d; ORIGEN = 'nereid';
       return true;
     }
   }catch(e){}
-  if(!BASE){ BASE = DEMO; ORIGEN = 'ejemplo'; }
+  if(!BASE){ BASE = null; ORIGEN = 'ejemplo'; }
   return false;
 }
 
@@ -1248,8 +1270,15 @@ function normalizaClave(v){
 }
 
 async function consultarExpedicion(num, cp){
-  if(!BASE) await cargarBase();
-  const e = BASE[normalizaClave(num)];
+  if(ORIGEN === 'ejemplo' && !BASE) await cargarBase();
+  const clave = normalizaClave(num);
+  let e = null;
+  if(BASE){                                   // datos reales de Nereid
+    const i = BASE.k[clave];
+    if(i !== undefined) e = expandir(BASE.e[i]);
+  } else {                                    // datos de ejemplo
+    e = DEMO[clave] || null;
+  }
   return (e && String(e.cp).trim() === String(cp).trim()) ? e : null;
 }
 
@@ -1275,7 +1304,7 @@ function pintar(e, num){
       + '</div>'
       + '<div class="res-meta">'
       +   (e.poblacion ? '<span>Destino <b>' + esc(e.poblacion) + ' (' + esc(e.cp) + ')</b></span>' : '')
-      +   '<span>Bultos <b>' + esc(e.bultos) + '</b></span>'
+      +   '<span>' + (e.bultos == 1 ? 'Bulto' : 'Bultos') + ' <b>' + esc(e.bultos) + '</b></span>'
       +   '<span>Peso <b>' + esc(e.kilos) + ' kg</b></span>'
       +   (e.operador ? '<span>Red <b>' + esc(e.operador) + '</b></span>' : '')
       +   (e.entregada ? '<span>Entregada <b>' + esc(e.entregada) + '</b></span>' : '')
