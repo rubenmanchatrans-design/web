@@ -160,11 +160,6 @@ header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
 .chip-ok{background:var(--verde);color:#fff}
 .chip-curso{background:var(--rojo);color:#fff}
 .chip-aviso{background:var(--ambar);color:#fff}
-.res-destino{border-left:2px solid var(--rojo);padding:2px 0 2px 14px;margin-bottom:18px}
-.res-destino .et{display:block;font-family:var(--dato);font-size:10.5px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--humo);margin-bottom:2px}
-.res-destino .et:not(:first-child){margin-top:11px}
-.res-destino strong{display:block;font-size:15.5px;font-weight:500;line-height:1.35}
 .res-meta{display:flex;flex-wrap:wrap;gap:8px 26px;font-family:var(--dato);font-size:12.5px;color:#93A5AE;margin-bottom:20px}
 .res-meta b{color:#D5DDE1;font-weight:400}
 .linea-tiempo{list-style:none;position:relative;padding-left:24px}
@@ -1205,20 +1200,20 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
 
 /* Datos de ejemplo. Solo se usan si no hay expediciones.json disponible. */
 const DEMO = {
-  '124018842': {cp:'13005', poblacion:'Ciudad Real', consignatario:'Distribuciones Manchegas S.L.', direccion:'C/ Segadores 42', bultos:3, kilos:47.5,
+  '124018842': {cp:'13005', poblacion:'Ciudad Real', bultos:3, kilos:47.5,
     operador:'XPO', estado:'entregado', etiqueta:'Entregada',
     entregada:'14/08/2026 · 11:24', eventos:[
       {t:'Entregada', i:'14/08/2026 · 11:24 · Confirmada por el repartidor', hito:true},
       {t:'En reparto', i:'14/08/2026 · 08:05'},
       {t:'Recibida en delegación de reparto', i:'13/08/2026 · 22:40'},
       {t:'Expedición admitida', i:'13/08/2026'}]},
-  '999954118207': {cp:'13700', poblacion:'Tomelloso', consignatario:'Jose L. R.', direccion:'C/ Pilar', bultos:1, kilos:12,
+  '999954118207': {cp:'13700', poblacion:'Tomelloso', bultos:1, kilos:12,
     operador:'Ontime', estado:'curso', etiqueta:'En reparto',
     entregada:'', eventos:[
       {t:'En reparto', i:'19/08/2026 · 07:58', hito:true},
       {t:'Recibida en delegación de reparto', i:'18/08/2026 · 21:15'},
       {t:'Expedición admitida', i:'18/08/2026'}]},
-  '290100026845': {cp:'13260', poblacion:'Bolaños de Calatrava', consignatario:'Ferretería Calatrava S.L.', direccion:'Avda. de la Mancha 8', bultos:8, kilos:210,
+  '290100026845': {cp:'13260', poblacion:'Bolaños de Calatrava', bultos:8, kilos:210,
     operador:'CBL', estado:'aviso', etiqueta:'Requiere atención',
     entregada:'', eventos:[
       {t:'Ausente en el domicilio', i:'Volveremos a intentar la entrega', hito:true},
@@ -1278,14 +1273,8 @@ function pintar(e, num){
       +   '<div class="res-num">Expedición<strong>' + esc(num) + '</strong></div>'
       +   '<span class="chip ' + (CHIPS[e.estado] || CHIPS.curso) + '">' + esc(e.etiqueta) + '</span>'
       + '</div>'
-      + (e.consignatario || e.direccion ?
-          '<div class="res-destino">'
-          + (e.consignatario ? '<span class="et">Consignatario</span><strong>' + esc(e.consignatario) + '</strong>' : '')
-          + (e.direccion ? '<span class="et">Dirección de entrega</span><strong>' + esc(e.direccion)
-              + (e.poblacion ? ', ' + esc(e.poblacion) : '') + ' (' + esc(e.cp) + ')</strong>' : '')
-          + '</div>' : '')
       + '<div class="res-meta">'
-      +   (e.poblacion && !e.direccion ? '<span>Destino <b>' + esc(e.poblacion) + ' (' + esc(e.cp) + ')</b></span>' : '')
+      +   (e.poblacion ? '<span>Destino <b>' + esc(e.poblacion) + ' (' + esc(e.cp) + ')</b></span>' : '')
       +   '<span>Bultos <b>' + esc(e.bultos) + '</b></span>'
       +   '<span>Peso <b>' + esc(e.kilos) + ' kg</b></span>'
       +   (e.operador ? '<span>Red <b>' + esc(e.operador) + '</b></span>' : '')
@@ -1718,12 +1707,8 @@ const BUZON_CV = 'atencioncliente@manchatrans.com';
         '<div class="cima"><strong>' + limpiar(num) + '</strong>'
         + '<span style="font-family:var(--dato);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:'
         + color + '">' + limpiar(e.etiqueta) + '</span></div>'
-        + (e.consignatario ? '<div style="font-size:13.5px;font-weight:600;margin-bottom:2px">'
-            + limpiar(e.consignatario) + '</div>' : '')
-        + (e.direccion ? '<div style="font-size:12.5px;color:#C6D0D5;margin-bottom:8px">'
-            + limpiar(e.direccion) + (e.poblacion ? ', ' + limpiar(e.poblacion) : '') + '</div>' : '')
         + '<div style="font-family:var(--dato);font-size:12px;color:#8B9DA6;margin-bottom:10px">'
-        +   (e.poblacion && !e.direccion ? limpiar(e.poblacion) + ' (' + limpiar(e.cp) + ') · ' : '')
+        +   (e.poblacion ? limpiar(e.poblacion) + ' (' + limpiar(e.cp) + ') · ' : '')
         +   limpiar(e.bultos) + (e.bultos == 1 ? ' bulto · ' : ' bultos · ') + limpiar(e.kilos) + ' kg'
         +   (e.entregada ? '<br>Entregada el ' + limpiar(e.entregada) : '')
         + '</div>'
