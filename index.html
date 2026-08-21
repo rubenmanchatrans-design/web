@@ -928,7 +928,7 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
         <div class="empleo-txt">
           <span class="eyebrow">Trabaja con nosotros</span>
           <h3 class="display">¿Quiere formar<br>parte del equipo?</h3>
-          <p>Buscamos conductores, personal de nave y administración. Rellene sus datos, adjunte el currículum al correo que se abrirá y lo tendremos en cuenta en los procesos de selección.</p>
+          <p>Buscamos conductores, personal de nave y administración. Déjenos sus datos y su experiencia, y le tendremos en cuenta en nuestros procesos de selección.</p>
         </div>
 
         <form class="empleo-form" id="form-cv">
@@ -958,8 +958,8 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
             <label for="cv-mensaje">Experiencia y disponibilidad</label>
             <textarea id="cv-mensaje" name="mensaje" placeholder="Ej.: 6 años como conductor, carnet C+E y CAP en vigor, disponibilidad inmediata." required></textarea>
           </div>
-          <p class="legal">Al pulsar se abrirá su programa de correo con los datos ya escritos. <b>Adjunte su currículum antes de enviarlo.</b></p>
-          <button type="submit" class="btn" id="cv-enviar">Continuar y adjuntar currículum</button>
+          <p class="legal">Al enviar acepta que tratemos sus datos con el fin de valorar su candidatura. Consulte la <a href="#">política de privacidad</a>.</p>
+          <button type="submit" class="btn" id="cv-enviar">Enviar candidatura</button>
           <p class="form-aviso" id="cv-aviso" role="status"></p>
         </form>
       </div>
@@ -1224,10 +1224,8 @@ const ENDPOINT = '';   // <-- pegar aquí el endpoint de Formspree
 
 /* ==========================================================================
    CANDIDATURAS  ->  atencioncliente@manchatrans.com
-
-   Abre el correo del candidato con todo redactado. El currículum lo adjunta
-   él, porque GitHub Pages no puede recibir archivos y los servicios que sí
-   aceptan adjuntos son de pago.
+   Mismo funcionamiento que el formulario de contacto: abre el correo del
+   candidato con los datos ya redactados.
    ========================================================================== */
 const BUZON_CV = 'atencioncliente@manchatrans.com';
 
@@ -1245,16 +1243,13 @@ const BUZON_CV = 'atencioncliente@manchatrans.com';
       + '\nEmail: '    + form.email.value.trim()
       + '\nTeléfono: ' + (form.telefono.value.trim() || '-')
       + '\nPuesto: '   + form.puesto.value
-      + '\n\nExperiencia y disponibilidad:\n' + form.mensaje.value.trim()
-      + '\n\n----------------------------------------\n'
-      + 'ADJUNTE SU CURRÍCULUM A ESTE CORREO ANTES DE ENVIARLO.\n'
-      + '----------------------------------------';
+      + '\n\nExperiencia y disponibilidad:\n' + form.mensaje.value.trim();
 
     window.location.href = 'mailto:' + BUZON_CV
       + '?subject=' + encodeURIComponent('Candidatura · ' + form.puesto.value + ' · ' + form.nombre.value.trim())
       + '&body='    + encodeURIComponent(cuerpo);
 
-    aviso.textContent = 'Se ha abierto su programa de correo con los datos escritos. Adjunte el currículum y pulse enviar.';
+    aviso.textContent = 'Se ha abierto su programa de correo con la candidatura preparada. Solo tiene que enviarla.';
     aviso.className = 'form-aviso ok';
   });
 })();
