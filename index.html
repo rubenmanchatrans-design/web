@@ -249,17 +249,22 @@ header.pegado{box-shadow:0 8px 30px rgba(17,27,33,.16)}
 .cobertura{background:var(--tinta);color:var(--papel)}
 .cobertura .seccion-cab p{color:#A6B5BD}
 .mapa-caja{display:block}
-.mapa svg{width:100%;height:auto;overflow:visible;display:block}
+/* El mapa rompe el ancho del contenido para ganar tamano y legibilidad */
+.mapa{width:100vw;margin-left:calc(50% - 50vw);padding-inline:clamp(10px,2vw,28px)}
+.mapa svg{width:100%;height:auto;overflow:visible;display:block;max-height:82vh}
 .provincia{fill:rgba(237,237,231,.07);stroke:rgba(237,237,231,.34);stroke-width:1.3;stroke-linejoin:round}
-.muni{fill:var(--papel);opacity:.42}
+.muni{fill:var(--papel);opacity:.5}
 .villa{fill:var(--papel);opacity:.95}
-.muni-txt{font-family:var(--dato);fill:#8A9BA5;letter-spacing:.02em}
-.villa-txt{font-family:var(--dato);fill:#DCE3E7;letter-spacing:.03em}
+/* sombra detras de cada rotulo para que se lea sobre el mapa */
+.halo{font-family:var(--texto);fill:none;stroke:var(--tinta);stroke-width:2.4;stroke-linejoin:round;opacity:.92}
+.halo-cap{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:15.5px;stroke-width:3.4}
+.muni-txt{font-family:var(--texto);fill:#B9C7D0}
+.villa-txt{font-family:var(--texto);font-weight:600;fill:#F2F5F6}
 .base{fill:var(--rojo)}
 .base-anillo{fill:none;stroke:var(--rojo);stroke-width:1.5;animation:pulso 2.8s ease-out infinite}
 @keyframes pulso{0%{r:7;opacity:.85}100%{r:30;opacity:0}}
-.base-txt{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:13.5px;fill:var(--rojo);letter-spacing:.04em}
-@media (max-width:820px){ .muni-txt{display:none} }
+.base-txt{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:15.5px;fill:var(--rojo);letter-spacing:.03em}
+@media (max-width:860px){ .muni-txt,.halo:not(.halo-cap){display:none} }
 .cob-lista{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:0 clamp(20px,4vw,44px);margin-top:clamp(30px,4vw,46px)}
 .cob-lista li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;
@@ -652,214 +657,316 @@ footer{background:var(--acero);color:#A6B5BD;padding:42px 0;font-size:14px}
         <div class="mapa rv" role="img" aria-label="Mapa de la provincia de Ciudad Real con la base de Manchatrans en la capital y los principales municipios de reparto.">
 <svg viewBox="0 0 1240 830" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de la provincia de Ciudad Real con los nombres de sus 102 municipios y la base de Manchatrans en la capital.">
 <defs><radialGradient id="halo"><stop offset="0" stop-color="#F51010" stop-opacity=".14"/><stop offset="1" stop-color="#F51010" stop-opacity="0"/></radialGradient></defs>
-<circle cx="560" cy="408" r="329" fill="url(#halo)"/>
-<path class="provincia" d="M482.8,52.2 L528.0,46.8 L533.5,78.8 L519.5,79.1 L515.8,117.6 L492.5,117.7 L478.6,174.0 L491.4,174.1 L498.9,186.9 L513.3,172.4 L560.4,180.3 L562.9,212.4 L613.8,236.3 L644.5,215.8 L676.5,229.7 L696.2,212.5 L764.8,209.0 L790.7,185.7 L793.7,168.4 L821.7,149.0 L868.7,152.2 L865.6,131.1 L875.7,109.3 L926.4,107.4 L926.7,99.1 L939.3,94.2 L980.1,121.6 L1002.0,117.6 L1012.7,126.8 L1032.6,123.5 L1046.1,109.4 L1044.2,120.1 L1073.0,157.4 L1060.6,171.6 L1067.2,181.1 L1089.6,179.5 L1108.7,153.1 L1116.6,154.8 L1141.7,231.1 L1085.7,310.5 L1103.2,343.7 L1101.4,373.8 L1090.5,377.0 L1066.9,427.7 L1088.8,447.2 L1109.0,447.4 L1123.4,462.8 L1127.5,501.7 L1137.0,521.4 L1153.7,520.8 L1179.4,544.6 L1166.5,600.7 L1138.9,620.5 L1122.4,613.5 L1128.7,620.8 L1121.5,645.8 L1130.2,662.0 L1114.8,684.2 L1067.6,718.3 L1056.3,708.0 L1029.4,707.0 L1015.5,719.8 L1011.7,744.8 L982.3,703.0 L948.2,726.7 L882.5,713.7 L860.6,700.7 L838.1,704.8 L837.3,726.1 L802.4,749.6 L766.7,744.6 L760.5,722.6 L741.3,719.0 L734.3,750.7 L647.1,734.7 L626.5,742.1 L626.2,754.0 L615.2,764.6 L586.9,768.4 L474.6,760.9 L427.6,748.8 L418.7,755.6 L422.4,781.4 L413.8,784.0 L336.8,749.2 L309.0,711.6 L284.1,695.4 L271.3,698.1 L257.8,675.7 L220.1,658.2 L218.5,646.9 L147.4,621.8 L139.6,578.7 L80.3,573.3 L78.7,561.2 L60.6,553.0 L87.1,546.6 L108.7,478.0 L122.0,458.3 L153.4,461.3 L160.9,429.4 L120.4,416.6 L99.8,355.8 L138.2,371.5 L160.2,363.3 L162.9,352.6 L140.8,330.9 L150.7,299.8 L170.6,271.7 L246.1,291.1 L218.1,265.4 L193.5,199.1 L218.8,194.9 L220.0,173.0 L236.1,137.0 L227.6,121.6 L260.0,119.2 L259.8,101.1 L283.3,93.5 L289.5,85.5 L286.3,72.1 L295.1,65.6 L300.5,73.0 L303.3,55.1 L323.2,68.7 L309.7,78.7 L332.8,104.7 L341.9,78.1 L372.0,94.3 L434.9,105.1 L457.6,94.7 L473.6,46.0 L482.8,52.2 Z"/>
-<path class="provincia" d="M190.4,82.6 L202.0,99.4 L203.1,118.1 L190.8,131.7 L196.2,142.3 L187.9,153.0 L142.4,170.7 L110.0,154.6 L125.1,95.7 L146.1,58.3 L190.4,82.6 Z"/>
-<circle class="muni" cx="337.5" cy="463.8" r="2.1"><title>Abenójar</title></circle>
-<circle class="muni" cx="166.5" cy="384.7" r="2.1"><title>Agudo</title></circle>
-<circle class="muni" cx="170.5" cy="585.2" r="2.1"><title>Alamillo</title></circle>
-<circle class="muni" cx="1110.1" cy="624.1" r="2.1"><title>Albaladejo</title></circle>
-<circle class="villa" cx="901.1" cy="221.0" r="3.1"><title>Alcázar de San Juan</title></circle>
-<circle class="muni" cx="354.5" cy="205.5" r="2.1"><title>Alcoba</title></circle>
-<circle class="villa" cx="492.0" cy="404.7" r="3.1"><title>Alcolea de Calatrava</title></circle>
-<circle class="muni" cx="944.8" cy="537.2" r="2.1"><title>Alcubillas</title></circle>
-<circle class="muni" cx="607.7" cy="558.3" r="2.1"><title>Aldea del Rey</title></circle>
-<circle class="muni" cx="971.5" cy="452.8" r="2.1"><title>Alhambra</title></circle>
-<circle class="villa" cx="202.5" cy="507.6" r="3.1"><title>Almadén</title></circle>
-<circle class="muni" cx="237.2" cy="527.0" r="2.1"><title>Almadenejos</title></circle>
-<circle class="villa" cx="670.9" cy="451.4" r="3.1"><title>Almagro</title></circle>
-<circle class="muni" cx="1030.2" cy="618.0" r="2.1"><title>Almedina</title></circle>
-<circle class="villa" cx="318.2" cy="596.7" r="3.1"><title>Almodóvar del Campo</title></circle>
-<circle class="muni" cx="785.4" cy="708.5" r="2.1"><title>Almuradiel</title></circle>
-<circle class="muni" cx="156.0" cy="117.6" r="2.1"><title>Anchuras</title></circle>
-<circle class="muni" cx="776.5" cy="266.9" r="2.1"><title>Arenas de San Juan</title></circle>
-<circle class="villa" cx="988.0" cy="344.6" r="3.1"><title>Argamasilla de Alba</title></circle>
-<circle class="muni" cx="536.6" cy="545.5" r="2.1"><title>Argamasilla de Calatrava</title></circle>
-<circle class="muni" cx="288.0" cy="293.2" r="2.1"><title>Arroba de los Montes</title></circle>
-<circle class="muni" cx="572.3" cy="500.5" r="2.1"><title>Ballesteros de Calatrava</title></circle>
-<circle class="villa" cx="722.2" cy="444.7" r="3.1"><title>Bolaños de Calatrava</title></circle>
-<circle class="muni" cx="405.8" cy="621.6" r="2.1"><title>Brazatortas</title></circle>
-<circle class="muni" cx="410.3" cy="480.1" r="2.1"><title>Cabezarados</title></circle>
-<circle class="muni" cx="431.7" cy="653.0" r="2.1"><title>Cabezarrubias del Puerto</title></circle>
-<circle class="muni" cx="658.8" cy="621.3" r="2.1"><title>Calzada de Calatrava</title></circle>
-<circle class="villa" cx="974.4" cy="174.2" r="3.1"><title>Campo de Criptana</title></circle>
-<circle class="muni" cx="539.0" cy="488.8" r="2.1"><title>Cañada de Calatrava</title></circle>
-<circle class="muni" cx="522.1" cy="492.7" r="2.1"><title>Caracuel de Calatrava</title></circle>
-<circle class="muni" cx="623.9" cy="361.6" r="2.1"><title>Carrión de Calatrava</title></circle>
-<circle class="muni" cx="1020.6" cy="481.5" r="2.1"><title>Carrizosa</title></circle>
-<circle class="muni" cx="880.9" cy="670.4" r="2.1"><title>Castellar de Santiago</title></circle>
-<circle class="muni" cx="488.3" cy="465.2" r="2.1"><title>Corral de Calatrava</title></circle>
-<circle class="muni" cx="530.6" cy="198.9" r="2.1"><title>Los Cortijos</title></circle>
-<circle class="muni" cx="971.9" cy="594.3" r="2.1"><title>Cózar</title></circle>
-<circle class="muni" cx="139.8" cy="505.8" r="2.1"><title>Chillón</title></circle>
-<circle class="villa" cx="728.2" cy="350.6" r="3.1"><title>Daimiel</title></circle>
-<circle class="muni" cx="571.4" cy="316.9" r="2.1"><title>Fernán Caballero</title></circle>
-<circle class="muni" cx="309.5" cy="267.1" r="2.1"><title>Fontanarejo</title></circle>
-<circle class="muni" cx="412.1" cy="731.9" r="2.1"><title>Fuencaliente</title></circle>
-<circle class="muni" cx="1029.5" cy="533.6" r="2.1"><title>Fuenllana</title></circle>
-<circle class="muni" cx="624.3" cy="243.9" r="2.1"><title>Fuente el Fresno</title></circle>
-<circle class="muni" cx="689.0" cy="532.0" r="2.1"><title>Granátula de Calatrava</title></circle>
-<circle class="muni" cx="103.2" cy="556.7" r="2.1"><title>Guadalmez</title></circle>
-<circle class="villa" cx="830.2" cy="209.7" r="3.1"><title>Herencia</title></circle>
-<circle class="muni" cx="467.1" cy="656.5" r="2.1"><title>Hinojosas de Calatrava</title></circle>
-<circle class="muni" cx="250.6" cy="174.9" r="2.1"><title>Horcajo de los Montes</title></circle>
-<circle class="muni" cx="764.2" cy="238.5" r="2.1"><title>Las Labores</title></circle>
-<circle class="muni" cx="371.7" cy="397.7" r="2.1"><title>Luciana</title></circle>
-<circle class="villa" cx="554.1" cy="263.0" r="3.1"><title>Malagón</title></circle>
-<circle class="villa" cx="837.5" cy="374.5" r="3.1"><title>Manzanares</title></circle>
-<circle class="villa" cx="861.4" cy="441.3" r="3.1"><title>Membrilla</title></circle>
-<circle class="muni" cx="554.7" cy="699.7" r="2.1"><title>Mestanza</title></circle>
-<circle class="villa" cx="607.5" cy="415.3" r="3.1"><title>Miguelturra</title></circle>
-<circle class="muni" cx="1081.2" cy="615.9" r="2.1"><title>Montiel</title></circle>
-<circle class="villa" cx="743.5" cy="517.9" r="3.1"><title>Moral de Calatrava</title></circle>
-<circle class="muni" cx="259.7" cy="238.1" r="2.1"><title>Navalpino</title></circle>
-<circle class="muni" cx="296.5" cy="114.2" r="2.1"><title>Navas de Estena</title></circle>
-<circle class="villa" cx="1039.5" cy="152.4" r="3.1"><title>Pedro Muñoz</title></circle>
-<circle class="muni" cx="514.2" cy="355.2" r="2.1"><title>Picón</title></circle>
-<circle class="villa" cx="407.0" cy="337.6" r="3.1"><title>Piedrabuena</title></circle>
-<circle class="muni" cx="546.9" cy="432.1" r="2.1"><title>Poblete</title></circle>
-<circle class="muni" cx="461.6" cy="271.3" r="2.1"><title>Porzuna</title></circle>
-<circle class="muni" cx="621.5" cy="459.8" r="2.1"><title>Pozuelo de Calatrava</title></circle>
-<circle class="muni" cx="458.3" cy="436.4" r="2.1"><title>Los Pozuelos de Calatrava</title></circle>
-<circle class="muni" cx="239.7" cy="327.9" r="2.1"><title>Puebla de Don Rodrigo</title></circle>
-<circle class="muni" cx="1049.8" cy="654.5" r="2.1"><title>Puebla del Príncipe</title></circle>
-<circle class="muni" cx="787.1" cy="213.6" r="2.1"><title>Puerto Lápice</title></circle>
-<circle class="villa" cx="519.1" cy="600.6" r="3.1"><title>Puertollano</title></circle>
-<circle class="muni" cx="430.1" cy="134.3" r="2.1"><title>Retuerta del Bullaque</title></circle>
-<circle class="muni" cx="266.8" cy="413.9" r="2.1"><title>Saceruela</title></circle>
-<circle class="muni" cx="899.6" cy="483.6" r="2.1"><title>San Carlos del Valle</title></circle>
-<circle class="muni" cx="622.7" cy="711.6" r="2.1"><title>San Lorenzo de Calatrava</title></circle>
-<circle class="muni" cx="1068.6" cy="609.7" r="2.1"><title>Santa Cruz de los Cáñamos</title></circle>
-<circle class="villa" cx="777.9" cy="606.5" r="3.1"><title>Santa Cruz de Mudela</title></circle>
-<circle class="villa" cx="1085.9" cy="238.1" r="3.1"><title>Socuéllamos</title></circle>
-<circle class="villa" cx="913.5" cy="433.7" r="3.1"><title>La Solana</title></circle>
-<circle class="muni" cx="497.7" cy="715.6" r="2.1"><title>Solana del Pino</title></circle>
-<circle class="muni" cx="1081.6" cy="640.8" r="2.1"><title>Terrinches</title></circle>
-<circle class="villa" cx="1026.4" cy="266.3" r="3.1"><title>Tomelloso</title></circle>
-<circle class="villa" cx="657.1" cy="360.8" r="3.1"><title>Torralba de Calatrava</title></circle>
-<circle class="muni" cx="906.3" cy="630.8" r="2.1"><title>Torre de Juan Abad</title></circle>
-<circle class="muni" cx="849.0" cy="608.4" r="2.1"><title>Torrenueva</title></circle>
-<circle class="muni" cx="202.5" cy="418.1" r="2.1"><title>Valdemanco del Esteras</title></circle>
-<circle class="villa" cx="824.9" cy="518.5" r="3.1"><title>Valdepeñas</title></circle>
-<circle class="muni" cx="646.8" cy="488.0" r="2.1"><title>Valenzuela de Calatrava</title></circle>
-<circle class="muni" cx="1085.5" cy="503.5" r="2.1"><title>Villahermosa</title></circle>
-<circle class="muni" cx="985.8" cy="685.4" r="2.1"><title>Villamanrique</title></circle>
-<circle class="muni" cx="462.1" cy="512.6" r="2.1"><title>Villamayor de Calatrava</title></circle>
-<circle class="muni" cx="1150.2" cy="572.6" r="2.1"><title>Villanueva de la Fuente</title></circle>
-<circle class="villa" cx="995.8" cy="558.4" r="3.1"><title>Villanueva de los Infantes</title></circle>
-<circle class="muni" cx="603.5" cy="627.8" r="2.1"><title>Villanueva de San Carlos</title></circle>
-<circle class="muni" cx="560.2" cy="481.0" r="2.1"><title>Villar del Pozo</title></circle>
-<circle class="villa" cx="712.8" cy="261.9" r="3.1"><title>Villarrubia de los Ojos</title></circle>
-<circle class="muni" cx="810.1" cy="265.1" r="2.1"><title>Villarta de San Juan</title></circle>
-<circle class="muni" cx="746.4" cy="686.0" r="2.1"><title>Viso del Marqués</title></circle>
-<circle class="muni" cx="405.9" cy="264.8" r="2.1"><title>El Robledo</title></circle>
-<circle class="muni" cx="1058.4" cy="390.6" r="2.1"><title>Ruidera</title></circle>
-<circle class="muni" cx="992.5" cy="211.8" r="2.1"><title>Arenales de San Gregorio</title></circle>
-<circle class="muni" cx="851.2" cy="321.2" r="2.1"><title>Llanos del Caudillo</title></circle>
-<text class="villa-txt" x="209.5" y="510.7" text-anchor="start" font-size="9.4">Almadén</text>
-<text class="villa-txt" x="677.9" y="454.5" text-anchor="start" font-size="9.4">Almagro</text>
-<text class="villa-txt" x="735.2" y="353.7" text-anchor="start" font-size="9.4">Daimiel</text>
-<text class="villa-txt" x="561.1" y="266.1" text-anchor="start" font-size="9.4">Malagón</text>
-<text class="villa-txt" x="837.2" y="212.8" text-anchor="start" font-size="9.4">Herencia</text>
-<text class="villa-txt" x="854.4" y="444.4" text-anchor="end" font-size="9.4">Membrilla</text>
-<text class="villa-txt" x="920.5" y="436.8" text-anchor="start" font-size="9.4">La Solana</text>
-<text class="villa-txt" x="1033.4" y="269.4" text-anchor="start" font-size="9.4">Tomelloso</text>
-<text class="villa-txt" x="844.5" y="377.6" text-anchor="start" font-size="9.4">Manzanares</text>
-<text class="villa-txt" x="831.9" y="521.6" text-anchor="start" font-size="9.4">Valdepeñas</text>
-<text class="villa-txt" x="614.5" y="418.4" text-anchor="start" font-size="9.4">Miguelturra</text>
-<text class="villa-txt" x="1046.5" y="155.5" text-anchor="start" font-size="9.4">Pedro Muñoz</text>
-<text class="villa-txt" x="414.0" y="340.7" text-anchor="start" font-size="9.4">Piedrabuena</text>
-<text class="villa-txt" x="526.1" y="603.7" text-anchor="start" font-size="9.4">Puertollano</text>
-<text class="villa-txt" x="1092.9" y="241.2" text-anchor="start" font-size="9.4">Socuéllamos</text>
-<text class="villa-txt" x="981.4" y="177.3" text-anchor="start" font-size="9.4">Campo de Criptana</text>
-<text class="villa-txt" x="736.5" y="521.0" text-anchor="end" font-size="9.4">Moral de Calatrava</text>
-<text class="villa-txt" x="908.1" y="224.1" text-anchor="start" font-size="9.4">Alcázar de San Juan</text>
-<text class="villa-txt" x="325.2" y="599.8" text-anchor="start" font-size="9.4">Almodóvar del Campo</text>
-<text class="villa-txt" x="995.0" y="347.7" text-anchor="start" font-size="9.4">Argamasilla de Alba</text>
-<text class="villa-txt" x="485.0" y="407.8" text-anchor="end" font-size="9.4">Alcolea de Calatrava</text>
-<text class="villa-txt" x="722.2" y="438.2" text-anchor="middle" font-size="9.4">Bolaños de Calatrava</text>
-<text class="villa-txt" x="770.9" y="609.6" text-anchor="end" font-size="9.4">Santa Cruz de Mudela</text>
-<text class="villa-txt" x="664.1" y="363.9" text-anchor="start" font-size="9.4">Torralba de Calatrava</text>
-<text class="villa-txt" x="712.8" y="255.4" text-anchor="middle" font-size="9.4">Villarrubia de los Ojos</text>
-<text class="villa-txt" x="1002.8" y="561.5" text-anchor="start" font-size="9.4">Villanueva de los Infantes</text>
-<text class="muni-txt" x="173.5" y="387.8" text-anchor="start" font-size="7.3">Agudo</text>
-<text class="muni-txt" x="978.9" y="597.4" text-anchor="start" font-size="7.3">Cózar</text>
-<text class="muni-txt" x="521.2" y="358.3" text-anchor="start" font-size="7.3">Picón</text>
-<text class="muni-txt" x="361.5" y="208.6" text-anchor="start" font-size="7.3">Alcoba</text>
-<text class="muni-txt" x="146.8" y="508.9" text-anchor="start" font-size="7.3">Chillón</text>
-<text class="muni-txt" x="364.7" y="400.8" text-anchor="end" font-size="7.3">Luciana</text>
-<text class="muni-txt" x="1081.2" y="626.4" text-anchor="middle" font-size="7.3">Montiel</text>
-<text class="muni-txt" x="553.9" y="435.2" text-anchor="start" font-size="7.3">Poblete</text>
-<text class="muni-txt" x="468.6" y="274.4" text-anchor="start" font-size="7.3">Porzuna</text>
-<text class="muni-txt" x="1065.4" y="393.7" text-anchor="start" font-size="7.3">Ruidera</text>
-<text class="muni-txt" x="344.5" y="466.9" text-anchor="start" font-size="7.3">Abenójar</text>
-<text class="muni-txt" x="177.5" y="588.3" text-anchor="start" font-size="7.3">Alamillo</text>
-<text class="muni-txt" x="978.5" y="455.9" text-anchor="start" font-size="7.3">Alhambra</text>
-<text class="muni-txt" x="1023.2" y="621.1" text-anchor="end" font-size="7.3">Almedina</text>
-<text class="muni-txt" x="163.0" y="120.7" text-anchor="start" font-size="7.3">Anchuras</text>
-<text class="muni-txt" x="561.7" y="702.8" text-anchor="start" font-size="7.3">Mestanza</text>
-<text class="muni-txt" x="1027.6" y="484.6" text-anchor="start" font-size="7.3">Carrizosa</text>
-<text class="muni-txt" x="1036.5" y="536.7" text-anchor="start" font-size="7.3">Fuenllana</text>
-<text class="muni-txt" x="110.2" y="559.8" text-anchor="start" font-size="7.3">Guadalmez</text>
-<text class="muni-txt" x="266.7" y="241.2" text-anchor="start" font-size="7.3">Navalpino</text>
-<text class="muni-txt" x="273.8" y="417.0" text-anchor="start" font-size="7.3">Saceruela</text>
-<text class="muni-txt" x="1117.1" y="627.2" text-anchor="start" font-size="7.3">Albaladejo</text>
-<text class="muni-txt" x="951.8" y="540.3" text-anchor="start" font-size="7.3">Alcubillas</text>
-<text class="muni-txt" x="792.4" y="711.6" text-anchor="start" font-size="7.3">Almuradiel</text>
-<text class="muni-txt" x="1088.6" y="643.9" text-anchor="start" font-size="7.3">Terrinches</text>
-<text class="muni-txt" x="856.0" y="611.5" text-anchor="start" font-size="7.3">Torrenueva</text>
-<text class="muni-txt" x="412.9" y="267.9" text-anchor="start" font-size="7.3">El Robledo</text>
-<text class="muni-txt" x="244.2" y="530.1" text-anchor="start" font-size="7.3">Almadenejos</text>
-<text class="muni-txt" x="412.8" y="624.7" text-anchor="start" font-size="7.3">Brazatortas</text>
-<text class="muni-txt" x="417.3" y="483.2" text-anchor="start" font-size="7.3">Cabezarados</text>
-<text class="muni-txt" x="316.5" y="270.2" text-anchor="start" font-size="7.3">Fontanarejo</text>
-<text class="muni-txt" x="771.2" y="241.6" text-anchor="start" font-size="7.3">Las Labores</text>
-<text class="muni-txt" x="537.6" y="202.0" text-anchor="start" font-size="7.3">Los Cortijos</text>
-<text class="muni-txt" x="419.1" y="735.0" text-anchor="start" font-size="7.3">Fuencaliente</text>
-<text class="muni-txt" x="1092.5" y="506.6" text-anchor="start" font-size="7.3">Villahermosa</text>
-<text class="muni-txt" x="614.7" y="561.4" text-anchor="start" font-size="7.3">Aldea del Rey</text>
-<text class="muni-txt" x="780.1" y="216.7" text-anchor="end" font-size="7.3">Puerto Lápice</text>
-<text class="muni-txt" x="992.8" y="688.5" text-anchor="start" font-size="7.3">Villamanrique</text>
-<text class="muni-txt" x="303.5" y="117.3" text-anchor="start" font-size="7.3">Navas de Estena</text>
-<text class="muni-txt" x="504.7" y="718.7" text-anchor="start" font-size="7.3">Solana del Pino</text>
-<text class="muni-txt" x="567.2" y="484.1" text-anchor="start" font-size="7.3">Villar del Pozo</text>
-<text class="muni-txt" x="578.4" y="320.0" text-anchor="start" font-size="7.3">Fernán Caballero</text>
-<text class="muni-txt" x="617.3" y="247.0" text-anchor="end" font-size="7.3">Fuente el Fresno</text>
-<text class="muni-txt" x="753.4" y="689.1" text-anchor="start" font-size="7.3">Viso del Marqués</text>
-<text class="muni-txt" x="776.5" y="277.4" text-anchor="middle" font-size="7.3">Arenas de San Juan</text>
-<text class="muni-txt" x="913.3" y="633.9" text-anchor="start" font-size="7.3">Torre de Juan Abad</text>
-<text class="muni-txt" x="539.0" y="474.8" text-anchor="middle" font-size="7.3">Cañada de Calatrava</text>
-<text class="muni-txt" x="481.3" y="468.3" text-anchor="end" font-size="7.3">Corral de Calatrava</text>
-<text class="muni-txt" x="1056.8" y="657.6" text-anchor="start" font-size="7.3">Puebla del Príncipe</text>
-<text class="muni-txt" x="858.2" y="324.3" text-anchor="start" font-size="7.3">Llanos del Caudillo</text>
-<text class="muni-txt" x="295.0" y="296.3" text-anchor="start" font-size="7.3">Arroba de los Montes</text>
-<text class="muni-txt" x="665.8" y="624.4" text-anchor="start" font-size="7.3">Calzada de Calatrava</text>
-<text class="muni-txt" x="616.9" y="371.6" text-anchor="end" font-size="7.3">Carrión de Calatrava</text>
-<text class="muni-txt" x="628.5" y="462.9" text-anchor="start" font-size="7.3">Pozuelo de Calatrava</text>
-<text class="muni-txt" x="906.6" y="486.7" text-anchor="start" font-size="7.3">San Carlos del Valle</text>
-<text class="muni-txt" x="817.1" y="268.2" text-anchor="start" font-size="7.3">Villarta de San Juan</text>
-<text class="muni-txt" x="515.1" y="495.8" text-anchor="end" font-size="7.3">Caracuel de Calatrava</text>
-<text class="muni-txt" x="887.9" y="673.5" text-anchor="start" font-size="7.3">Castellar de Santiago</text>
-<text class="muni-txt" x="257.6" y="178.0" text-anchor="start" font-size="7.3">Horcajo de los Montes</text>
-<text class="muni-txt" x="246.7" y="331.0" text-anchor="start" font-size="7.3">Puebla de Don Rodrigo</text>
-<text class="muni-txt" x="437.1" y="137.4" text-anchor="start" font-size="7.3">Retuerta del Bullaque</text>
-<text class="muni-txt" x="696.0" y="535.1" text-anchor="start" font-size="7.3">Granátula de Calatrava</text>
-<text class="muni-txt" x="474.1" y="659.6" text-anchor="start" font-size="7.3">Hinojosas de Calatrava</text>
-<text class="muni-txt" x="195.5" y="421.2" text-anchor="end" font-size="7.3">Valdemanco del Esteras</text>
-<text class="muni-txt" x="653.8" y="491.1" text-anchor="start" font-size="7.3">Valenzuela de Calatrava</text>
-<text class="muni-txt" x="469.1" y="515.7" text-anchor="start" font-size="7.3">Villamayor de Calatrava</text>
-<text class="muni-txt" x="1143.2" y="575.7" text-anchor="end" font-size="7.3">Villanueva de la Fuente</text>
-<text class="muni-txt" x="543.6" y="548.6" text-anchor="start" font-size="7.3">Argamasilla de Calatrava</text>
-<text class="muni-txt" x="579.3" y="503.6" text-anchor="start" font-size="7.3">Ballesteros de Calatrava</text>
-<text class="muni-txt" x="424.7" y="656.1" text-anchor="end" font-size="7.3">Cabezarrubias del Puerto</text>
-<text class="muni-txt" x="629.7" y="714.7" text-anchor="start" font-size="7.3">San Lorenzo de Calatrava</text>
-<text class="muni-txt" x="596.5" y="630.9" text-anchor="end" font-size="7.3">Villanueva de San Carlos</text>
-<text class="muni-txt" x="992.5" y="205.3" text-anchor="middle" font-size="7.3">Arenales de San Gregorio</text>
-<text class="muni-txt" x="451.3" y="439.5" text-anchor="end" font-size="7.3">Los Pozuelos de Calatrava</text>
-<text class="muni-txt" x="1068.6" y="603.2" text-anchor="middle" font-size="7.3">Santa Cruz de los Cáñamos</text>
-<circle class="base-anillo" cx="559.8" cy="408.2" r="7"/>
-<circle class="base" cx="559.8" cy="408.2" r="5.6"/>
-<text class="base-txt" x="559.8" y="397.2" text-anchor="middle">Ciudad Real</text>
+<circle cx="561" cy="408" r="324" fill="url(#halo)"/>
+<path class="provincia" d="M485.0,58.1 L529.5,52.8 L534.9,84.2 L521.1,84.5 L517.5,122.4 L494.6,122.5 L480.9,177.9 L493.5,178.0 L500.8,190.6 L515.1,176.4 L561.3,184.1 L563.8,215.7 L613.9,239.2 L644.1,219.0 L675.6,232.7 L694.9,215.8 L762.4,212.4 L787.9,189.4 L790.9,172.4 L818.4,153.3 L864.7,156.5 L861.6,135.7 L871.5,114.3 L921.4,112.4 L921.7,104.2 L934.1,99.4 L974.3,126.4 L995.8,122.5 L1006.3,131.5 L1025.9,128.2 L1039.2,114.4 L1037.3,124.9 L1065.6,161.6 L1053.4,175.5 L1059.9,184.9 L1082.0,183.4 L1100.7,157.3 L1108.6,159.1 L1133.2,234.1 L1078.1,312.2 L1095.3,344.9 L1093.6,374.4 L1082.8,377.7 L1059.7,427.5 L1081.2,446.6 L1101.0,446.9 L1115.2,462.0 L1119.2,500.3 L1128.6,519.7 L1145.0,519.0 L1170.3,542.5 L1157.6,597.7 L1130.4,617.2 L1114.2,610.3 L1120.4,617.5 L1113.4,642.0 L1121.9,657.9 L1106.8,679.8 L1060.3,713.4 L1049.2,703.2 L1022.8,702.3 L1009.1,714.8 L1005.3,739.4 L976.4,698.3 L942.8,721.6 L878.3,708.9 L856.7,696.0 L834.5,700.1 L833.8,721.0 L799.5,744.1 L764.3,739.2 L758.2,717.6 L739.4,714.0 L732.4,745.2 L646.7,729.5 L626.4,736.8 L626.1,748.5 L615.3,758.9 L587.4,762.7 L477.0,755.3 L430.7,743.4 L422.0,750.1 L425.6,775.4 L417.2,778.0 L341.4,743.8 L314.1,706.8 L289.6,690.8 L277.0,693.5 L263.7,671.5 L226.6,654.2 L225.0,643.2 L155.1,618.4 L147.4,576.0 L89.0,570.7 L87.5,558.9 L69.7,550.7 L95.7,544.4 L117.0,477.0 L130.1,457.5 L161.0,460.5 L168.4,429.2 L128.6,416.6 L108.3,356.8 L146.0,372.2 L167.6,364.2 L170.3,353.6 L148.6,332.2 L158.3,301.6 L177.9,274.0 L252.2,293.2 L224.6,267.9 L200.5,202.6 L225.3,198.5 L226.5,176.9 L242.3,141.6 L234.0,126.4 L265.8,124.0 L265.7,106.2 L288.8,98.8 L294.9,90.8 L291.8,77.7 L300.4,71.3 L305.7,78.6 L308.5,60.9 L328.0,74.3 L314.7,84.1 L337.5,109.8 L346.5,83.6 L376.1,99.5 L437.9,110.2 L460.2,99.9 L476.0,52.0 L485.0,58.1 Z"/>
+<path class="provincia" d="M197.4,88.0 L208.8,104.5 L209.9,123.0 L197.7,136.3 L203.1,146.7 L194.9,157.2 L150.2,174.6 L118.2,158.9 L133.1,100.9 L153.8,64.1 L197.4,88.0 Z"/>
+<circle class="muni" cx="342.1" cy="463.0" r="2.1"><title>Abenójar</title></circle>
+<circle class="muni" cx="173.9" cy="385.2" r="2.1"><title>Agudo</title></circle>
+<circle class="muni" cx="177.8" cy="582.5" r="2.1"><title>Alamillo</title></circle>
+<circle class="muni" cx="1102.2" cy="620.7" r="2.1"><title>Albaladejo</title></circle>
+<circle class="villa" cx="896.6" cy="224.1" r="3.1"><title>Alcázar de San Juan</title></circle>
+<circle class="muni" cx="358.8" cy="208.9" r="2.1"><title>Alcoba</title></circle>
+<circle class="villa" cx="494.1" cy="404.9" r="3.1"><title>Alcolea de Calatrava</title></circle>
+<circle class="muni" cx="939.5" cy="535.2" r="2.1"><title>Alcubillas</title></circle>
+<circle class="muni" cx="607.9" cy="555.9" r="2.1"><title>Aldea del Rey</title></circle>
+<circle class="muni" cx="965.8" cy="452.2" r="2.1"><title>Alhambra</title></circle>
+<circle class="villa" cx="209.3" cy="506.1" r="3.1"><title>Almadén</title></circle>
+<circle class="muni" cx="243.4" cy="525.2" r="2.1"><title>Almadenejos</title></circle>
+<circle class="villa" cx="670.1" cy="450.8" r="3.1"><title>Almagro</title></circle>
+<circle class="muni" cx="1023.5" cy="614.7" r="2.1"><title>Almedina</title></circle>
+<circle class="villa" cx="323.1" cy="593.7" r="3.1"><title>Almodóvar del Campo</title></circle>
+<circle class="muni" cx="782.8" cy="703.7" r="2.1"><title>Almuradiel</title></circle>
+<circle class="muni" cx="163.6" cy="122.4" r="2.1"><title>Anchuras</title></circle>
+<circle class="muni" cx="774.0" cy="269.3" r="2.1"><title>Arenas de San Juan</title></circle>
+<circle class="villa" cx="982.0" cy="345.8" r="3.1"><title>Argamasilla de Alba</title></circle>
+<circle class="muni" cx="537.9" cy="543.4" r="2.1"><title>Argamasilla de Calatrava</title></circle>
+<circle class="muni" cx="293.4" cy="295.1" r="2.1"><title>Arroba de los Montes</title></circle>
+<circle class="muni" cx="573.1" cy="499.1" r="2.1"><title>Ballesteros de Calatrava</title></circle>
+<circle class="villa" cx="720.6" cy="444.2" r="3.1"><title>Bolaños de Calatrava</title></circle>
+<circle class="muni" cx="409.3" cy="618.2" r="2.1"><title>Brazatortas</title></circle>
+<circle class="muni" cx="413.7" cy="479.0" r="2.1"><title>Cabezarados</title></circle>
+<circle class="muni" cx="434.7" cy="649.1" r="2.1"><title>Cabezarrubias del Puerto</title></circle>
+<circle class="muni" cx="658.2" cy="618.0" r="2.1"><title>Calzada de Calatrava</title></circle>
+<circle class="villa" cx="968.7" cy="178.1" r="3.1"><title>Campo de Criptana</title></circle>
+<circle class="muni" cx="540.3" cy="487.6" r="2.1"><title>Cañada de Calatrava</title></circle>
+<circle class="muni" cx="523.7" cy="491.4" r="2.1"><title>Caracuel de Calatrava</title></circle>
+<circle class="muni" cx="623.8" cy="362.5" r="2.1"><title>Carrión de Calatrava</title></circle>
+<circle class="muni" cx="1014.1" cy="480.4" r="2.1"><title>Carrizosa</title></circle>
+<circle class="muni" cx="876.7" cy="666.2" r="2.1"><title>Castellar de Santiago</title></circle>
+<circle class="muni" cx="490.5" cy="464.3" r="2.1"><title>Corral de Calatrava</title></circle>
+<circle class="muni" cx="532.1" cy="202.4" r="2.1"><title>Los Cortijos</title></circle>
+<circle class="muni" cx="966.2" cy="591.4" r="2.1"><title>Cózar</title></circle>
+<circle class="muni" cx="147.6" cy="504.4" r="2.1"><title>Chillón</title></circle>
+<circle class="villa" cx="726.5" cy="351.7" r="3.1"><title>Daimiel</title></circle>
+<circle class="muni" cx="572.2" cy="318.5" r="2.1"><title>Fernán Caballero</title></circle>
+<circle class="muni" cx="314.5" cy="269.5" r="2.1"><title>Fontanarejo</title></circle>
+<circle class="muni" cx="415.4" cy="726.8" r="2.1"><title>Fuencaliente</title></circle>
+<circle class="muni" cx="1022.8" cy="531.7" r="2.1"><title>Fuenllana</title></circle>
+<circle class="muni" cx="624.2" cy="246.7" r="2.1"><title>Fuente el Fresno</title></circle>
+<circle class="muni" cx="687.9" cy="530.1" r="2.1"><title>Granátula de Calatrava</title></circle>
+<circle class="muni" cx="111.6" cy="554.4" r="2.1"><title>Guadalmez</title></circle>
+<circle class="villa" cx="826.8" cy="213.0" r="3.1"><title>Herencia</title></circle>
+<circle class="muni" cx="469.6" cy="652.6" r="2.1"><title>Hinojosas de Calatrava</title></circle>
+<circle class="muni" cx="256.6" cy="178.8" r="2.1"><title>Horcajo de los Montes</title></circle>
+<circle class="muni" cx="761.9" cy="241.4" r="2.1"><title>Las Labores</title></circle>
+<circle class="muni" cx="375.8" cy="398.0" r="2.1"><title>Luciana</title></circle>
+<circle class="villa" cx="555.2" cy="265.5" r="3.1"><title>Malagón</title></circle>
+<circle class="villa" cx="834.0" cy="375.2" r="3.1"><title>Manzanares</title></circle>
+<circle class="villa" cx="857.4" cy="440.9" r="3.1"><title>Membrilla</title></circle>
+<circle class="muni" cx="555.8" cy="695.1" r="2.1"><title>Mestanza</title></circle>
+<circle class="villa" cx="607.7" cy="415.3" r="3.1"><title>Miguelturra</title></circle>
+<circle class="muni" cx="1073.7" cy="612.6" r="2.1"><title>Montiel</title></circle>
+<circle class="villa" cx="741.5" cy="516.2" r="3.1"><title>Moral de Calatrava</title></circle>
+<circle class="muni" cx="265.5" cy="241.0" r="2.1"><title>Navalpino</title></circle>
+<circle class="muni" cx="301.8" cy="119.1" r="2.1"><title>Navas de Estena</title></circle>
+<circle class="villa" cx="1032.7" cy="156.7" r="3.1"><title>Pedro Muñoz</title></circle>
+<circle class="muni" cx="515.9" cy="356.2" r="2.1"><title>Picón</title></circle>
+<circle class="villa" cx="410.5" cy="338.9" r="3.1"><title>Piedrabuena</title></circle>
+<circle class="muni" cx="548.1" cy="431.9" r="2.1"><title>Poblete</title></circle>
+<circle class="muni" cx="464.2" cy="273.6" r="2.1"><title>Porzuna</title></circle>
+<circle class="muni" cx="621.4" cy="459.1" r="2.1"><title>Pozuelo de Calatrava</title></circle>
+<circle class="muni" cx="460.9" cy="436.1" r="2.1"><title>Los Pozuelos de Calatrava</title></circle>
+<circle class="muni" cx="245.8" cy="329.3" r="2.1"><title>Puebla de Don Rodrigo</title></circle>
+<circle class="muni" cx="1042.8" cy="650.6" r="2.1"><title>Puebla del Príncipe</title></circle>
+<circle class="muni" cx="784.4" cy="216.9" r="2.1"><title>Puerto Lápice</title></circle>
+<circle class="villa" cx="520.7" cy="597.6" r="3.1"><title>Puertollano</title></circle>
+<circle class="muni" cx="433.2" cy="138.9" r="2.1"><title>Retuerta del Bullaque</title></circle>
+<circle class="muni" cx="272.5" cy="413.9" r="2.1"><title>Saceruela</title></circle>
+<circle class="muni" cx="895.0" cy="482.5" r="2.1"><title>San Carlos del Valle</title></circle>
+<circle class="muni" cx="622.6" cy="706.7" r="2.1"><title>San Lorenzo de Calatrava</title></circle>
+<circle class="muni" cx="1061.3" cy="606.5" r="2.1"><title>Santa Cruz de los Cáñamos</title></circle>
+<circle class="villa" cx="775.4" cy="603.4" r="3.1"><title>Santa Cruz de Mudela</title></circle>
+<circle class="villa" cx="1078.3" cy="241.0" r="3.1"><title>Socuéllamos</title></circle>
+<circle class="villa" cx="908.8" cy="433.4" r="3.1"><title>La Solana</title></circle>
+<circle class="muni" cx="499.7" cy="710.7" r="2.1"><title>Solana del Pino</title></circle>
+<circle class="muni" cx="1074.1" cy="637.1" r="2.1"><title>Terrinches</title></circle>
+<circle class="villa" cx="1019.8" cy="268.7" r="3.1"><title>Tomelloso</title></circle>
+<circle class="villa" cx="656.5" cy="361.6" r="3.1"><title>Torralba de Calatrava</title></circle>
+<circle class="muni" cx="901.6" cy="627.2" r="2.1"><title>Torre de Juan Abad</title></circle>
+<circle class="muni" cx="845.2" cy="605.3" r="2.1"><title>Torrenueva</title></circle>
+<circle class="muni" cx="209.3" cy="418.0" r="2.1"><title>Valdemanco del Esteras</title></circle>
+<circle class="villa" cx="821.6" cy="516.8" r="3.1"><title>Valdepeñas</title></circle>
+<circle class="muni" cx="646.4" cy="486.8" r="2.1"><title>Valenzuela de Calatrava</title></circle>
+<circle class="muni" cx="1078.0" cy="502.0" r="2.1"><title>Villahermosa</title></circle>
+<circle class="muni" cx="979.9" cy="681.0" r="2.1"><title>Villamanrique</title></circle>
+<circle class="muni" cx="464.6" cy="511.0" r="2.1"><title>Villamayor de Calatrava</title></circle>
+<circle class="muni" cx="1141.6" cy="570.1" r="2.1"><title>Villanueva de la Fuente</title></circle>
+<circle class="villa" cx="989.7" cy="556.1" r="3.1"><title>Villanueva de los Infantes</title></circle>
+<circle class="muni" cx="603.8" cy="624.3" r="2.1"><title>Villanueva de San Carlos</title></circle>
+<circle class="muni" cx="561.1" cy="479.9" r="2.1"><title>Villar del Pozo</title></circle>
+<circle class="villa" cx="711.3" cy="264.4" r="3.1"><title>Villarrubia de los Ojos</title></circle>
+<circle class="muni" cx="807.0" cy="267.6" r="2.1"><title>Villarta de San Juan</title></circle>
+<circle class="muni" cx="744.4" cy="681.6" r="2.1"><title>Viso del Marqués</title></circle>
+<circle class="muni" cx="409.4" cy="267.2" r="2.1"><title>El Robledo</title></circle>
+<circle class="muni" cx="1051.3" cy="391.0" r="2.1"><title>Ruidera</title></circle>
+<circle class="muni" cx="986.5" cy="215.1" r="2.1"><title>Arenales de San Gregorio</title></circle>
+<circle class="muni" cx="847.4" cy="322.8" r="2.1"><title>Llanos del Caudillo</title></circle>
+<text class="halo" x="217.3" y="509.5" text-anchor="start" font-size="11.4">Almadén</text>
+<text class="villa-txt" x="217.3" y="509.5" text-anchor="start" font-size="11.4">Almadén</text>
+<text class="halo" x="670.1" y="443.3" text-anchor="middle" font-size="11.4">Almagro</text>
+<text class="villa-txt" x="670.1" y="443.3" text-anchor="middle" font-size="11.4">Almagro</text>
+<text class="halo" x="734.5" y="355.1" text-anchor="start" font-size="11.4">Daimiel</text>
+<text class="villa-txt" x="734.5" y="355.1" text-anchor="start" font-size="11.4">Daimiel</text>
+<text class="halo" x="563.2" y="268.9" text-anchor="start" font-size="11.4">Malagón</text>
+<text class="villa-txt" x="563.2" y="268.9" text-anchor="start" font-size="11.4">Malagón</text>
+<text class="halo" x="834.8" y="216.4" text-anchor="start" font-size="11.4">Herencia</text>
+<text class="villa-txt" x="834.8" y="216.4" text-anchor="start" font-size="11.4">Herencia</text>
+<text class="halo" x="849.4" y="444.3" text-anchor="end" font-size="11.4">Membrilla</text>
+<text class="villa-txt" x="849.4" y="444.3" text-anchor="end" font-size="11.4">Membrilla</text>
+<text class="halo" x="916.8" y="436.8" text-anchor="start" font-size="11.4">La Solana</text>
+<text class="villa-txt" x="916.8" y="436.8" text-anchor="start" font-size="11.4">La Solana</text>
+<text class="halo" x="1027.8" y="272.1" text-anchor="start" font-size="11.4">Tomelloso</text>
+<text class="villa-txt" x="1027.8" y="272.1" text-anchor="start" font-size="11.4">Tomelloso</text>
+<text class="halo" x="842.0" y="378.6" text-anchor="start" font-size="11.4">Manzanares</text>
+<text class="villa-txt" x="842.0" y="378.6" text-anchor="start" font-size="11.4">Manzanares</text>
+<text class="halo" x="829.6" y="520.2" text-anchor="start" font-size="11.4">Valdepeñas</text>
+<text class="villa-txt" x="829.6" y="520.2" text-anchor="start" font-size="11.4">Valdepeñas</text>
+<text class="halo" x="615.7" y="418.7" text-anchor="start" font-size="11.4">Miguelturra</text>
+<text class="villa-txt" x="615.7" y="418.7" text-anchor="start" font-size="11.4">Miguelturra</text>
+<text class="halo" x="1040.7" y="160.1" text-anchor="start" font-size="11.4">Pedro Muñoz</text>
+<text class="villa-txt" x="1040.7" y="160.1" text-anchor="start" font-size="11.4">Pedro Muñoz</text>
+<text class="halo" x="418.5" y="342.3" text-anchor="start" font-size="11.4">Piedrabuena</text>
+<text class="villa-txt" x="418.5" y="342.3" text-anchor="start" font-size="11.4">Piedrabuena</text>
+<text class="halo" x="528.7" y="601.0" text-anchor="start" font-size="11.4">Puertollano</text>
+<text class="villa-txt" x="528.7" y="601.0" text-anchor="start" font-size="11.4">Puertollano</text>
+<text class="halo" x="1086.3" y="244.4" text-anchor="start" font-size="11.4">Socuéllamos</text>
+<text class="villa-txt" x="1086.3" y="244.4" text-anchor="start" font-size="11.4">Socuéllamos</text>
+<text class="halo" x="976.7" y="181.5" text-anchor="start" font-size="11.4">Campo de Criptana</text>
+<text class="villa-txt" x="976.7" y="181.5" text-anchor="start" font-size="11.4">Campo de Criptana</text>
+<text class="halo" x="733.5" y="519.6" text-anchor="end" font-size="11.4">Moral de Calatrava</text>
+<text class="villa-txt" x="733.5" y="519.6" text-anchor="end" font-size="11.4">Moral de Calatrava</text>
+<text class="halo" x="904.6" y="235.6" text-anchor="start" font-size="11.4">Alcázar de San Juan</text>
+<text class="villa-txt" x="904.6" y="235.6" text-anchor="start" font-size="11.4">Alcázar de San Juan</text>
+<text class="halo" x="331.1" y="597.1" text-anchor="start" font-size="11.4">Almodóvar del Campo</text>
+<text class="villa-txt" x="331.1" y="597.1" text-anchor="start" font-size="11.4">Almodóvar del Campo</text>
+<text class="halo" x="990.0" y="349.2" text-anchor="start" font-size="11.4">Argamasilla de Alba</text>
+<text class="villa-txt" x="990.0" y="349.2" text-anchor="start" font-size="11.4">Argamasilla de Alba</text>
+<text class="halo" x="486.1" y="416.4" text-anchor="end" font-size="11.4">Alcolea de Calatrava</text>
+<text class="villa-txt" x="486.1" y="416.4" text-anchor="end" font-size="11.4">Alcolea de Calatrava</text>
+<text class="halo" x="720.6" y="464.2" text-anchor="middle" font-size="11.4">Bolaños de Calatrava</text>
+<text class="villa-txt" x="720.6" y="464.2" text-anchor="middle" font-size="11.4">Bolaños de Calatrava</text>
+<text class="halo" x="767.4" y="606.8" text-anchor="end" font-size="11.4">Santa Cruz de Mudela</text>
+<text class="villa-txt" x="767.4" y="606.8" text-anchor="end" font-size="11.4">Santa Cruz de Mudela</text>
+<text class="halo" x="656.5" y="354.1" text-anchor="middle" font-size="11.4">Torralba de Calatrava</text>
+<text class="villa-txt" x="656.5" y="354.1" text-anchor="middle" font-size="11.4">Torralba de Calatrava</text>
+<text class="halo" x="711.3" y="256.9" text-anchor="middle" font-size="11.4">Villarrubia de los Ojos</text>
+<text class="villa-txt" x="711.3" y="256.9" text-anchor="middle" font-size="11.4">Villarrubia de los Ojos</text>
+<text class="halo" x="997.7" y="559.5" text-anchor="start" font-size="11.4">Villanueva de los Infantes</text>
+<text class="villa-txt" x="997.7" y="559.5" text-anchor="start" font-size="11.4">Villanueva de los Infantes</text>
+<text class="halo" x="181.9" y="388.6" text-anchor="start" font-size="8.9">Agudo</text>
+<text class="muni-txt" x="181.9" y="388.6" text-anchor="start" font-size="8.9">Agudo</text>
+<text class="halo" x="974.2" y="594.8" text-anchor="start" font-size="8.9">Cózar</text>
+<text class="muni-txt" x="974.2" y="594.8" text-anchor="start" font-size="8.9">Cózar</text>
+<text class="halo" x="523.9" y="359.6" text-anchor="start" font-size="8.9">Picón</text>
+<text class="muni-txt" x="523.9" y="359.6" text-anchor="start" font-size="8.9">Picón</text>
+<text class="halo" x="366.8" y="212.3" text-anchor="start" font-size="8.9">Alcoba</text>
+<text class="muni-txt" x="366.8" y="212.3" text-anchor="start" font-size="8.9">Alcoba</text>
+<text class="halo" x="155.6" y="507.8" text-anchor="start" font-size="8.9">Chillón</text>
+<text class="muni-txt" x="155.6" y="507.8" text-anchor="start" font-size="8.9">Chillón</text>
+<text class="halo" x="383.8" y="401.4" text-anchor="start" font-size="8.9">Luciana</text>
+<text class="muni-txt" x="383.8" y="401.4" text-anchor="start" font-size="8.9">Luciana</text>
+<text class="halo" x="1073.7" y="624.6" text-anchor="middle" font-size="8.9">Montiel</text>
+<text class="muni-txt" x="1073.7" y="624.6" text-anchor="middle" font-size="8.9">Montiel</text>
+<text class="halo" x="556.1" y="435.3" text-anchor="start" font-size="8.9">Poblete</text>
+<text class="muni-txt" x="556.1" y="435.3" text-anchor="start" font-size="8.9">Poblete</text>
+<text class="halo" x="472.2" y="277.0" text-anchor="start" font-size="8.9">Porzuna</text>
+<text class="muni-txt" x="472.2" y="277.0" text-anchor="start" font-size="8.9">Porzuna</text>
+<text class="halo" x="1059.3" y="394.4" text-anchor="start" font-size="8.9">Ruidera</text>
+<text class="muni-txt" x="1059.3" y="394.4" text-anchor="start" font-size="8.9">Ruidera</text>
+<text class="halo" x="350.1" y="466.4" text-anchor="start" font-size="8.9">Abenójar</text>
+<text class="muni-txt" x="350.1" y="466.4" text-anchor="start" font-size="8.9">Abenójar</text>
+<text class="halo" x="185.8" y="585.9" text-anchor="start" font-size="8.9">Alamillo</text>
+<text class="muni-txt" x="185.8" y="585.9" text-anchor="start" font-size="8.9">Alamillo</text>
+<text class="halo" x="973.8" y="455.6" text-anchor="start" font-size="8.9">Alhambra</text>
+<text class="muni-txt" x="973.8" y="455.6" text-anchor="start" font-size="8.9">Alhambra</text>
+<text class="halo" x="1015.5" y="618.1" text-anchor="end" font-size="8.9">Almedina</text>
+<text class="muni-txt" x="1015.5" y="618.1" text-anchor="end" font-size="8.9">Almedina</text>
+<text class="halo" x="171.6" y="125.8" text-anchor="start" font-size="8.9">Anchuras</text>
+<text class="muni-txt" x="171.6" y="125.8" text-anchor="start" font-size="8.9">Anchuras</text>
+<text class="halo" x="563.8" y="698.5" text-anchor="start" font-size="8.9">Mestanza</text>
+<text class="muni-txt" x="563.8" y="698.5" text-anchor="start" font-size="8.9">Mestanza</text>
+<text class="halo" x="1022.1" y="483.8" text-anchor="start" font-size="8.9">Carrizosa</text>
+<text class="muni-txt" x="1022.1" y="483.8" text-anchor="start" font-size="8.9">Carrizosa</text>
+<text class="halo" x="1030.8" y="535.1" text-anchor="start" font-size="8.9">Fuenllana</text>
+<text class="muni-txt" x="1030.8" y="535.1" text-anchor="start" font-size="8.9">Fuenllana</text>
+<text class="halo" x="119.6" y="557.8" text-anchor="start" font-size="8.9">Guadalmez</text>
+<text class="muni-txt" x="119.6" y="557.8" text-anchor="start" font-size="8.9">Guadalmez</text>
+<text class="halo" x="273.5" y="244.4" text-anchor="start" font-size="8.9">Navalpino</text>
+<text class="muni-txt" x="273.5" y="244.4" text-anchor="start" font-size="8.9">Navalpino</text>
+<text class="halo" x="280.5" y="417.3" text-anchor="start" font-size="8.9">Saceruela</text>
+<text class="muni-txt" x="280.5" y="417.3" text-anchor="start" font-size="8.9">Saceruela</text>
+<text class="halo" x="1110.2" y="624.1" text-anchor="start" font-size="8.9">Albaladejo</text>
+<text class="muni-txt" x="1110.2" y="624.1" text-anchor="start" font-size="8.9">Albaladejo</text>
+<text class="halo" x="947.5" y="538.6" text-anchor="start" font-size="8.9">Alcubillas</text>
+<text class="muni-txt" x="947.5" y="538.6" text-anchor="start" font-size="8.9">Alcubillas</text>
+<text class="halo" x="790.8" y="707.1" text-anchor="start" font-size="8.9">Almuradiel</text>
+<text class="muni-txt" x="790.8" y="707.1" text-anchor="start" font-size="8.9">Almuradiel</text>
+<text class="halo" x="1082.1" y="640.5" text-anchor="start" font-size="8.9">Terrinches</text>
+<text class="muni-txt" x="1082.1" y="640.5" text-anchor="start" font-size="8.9">Terrinches</text>
+<text class="halo" x="853.2" y="608.7" text-anchor="start" font-size="8.9">Torrenueva</text>
+<text class="muni-txt" x="853.2" y="608.7" text-anchor="start" font-size="8.9">Torrenueva</text>
+<text class="halo" x="401.4" y="270.6" text-anchor="end" font-size="8.9">El Robledo</text>
+<text class="muni-txt" x="401.4" y="270.6" text-anchor="end" font-size="8.9">El Robledo</text>
+<text class="halo" x="251.4" y="528.6" text-anchor="start" font-size="8.9">Almadenejos</text>
+<text class="muni-txt" x="251.4" y="528.6" text-anchor="start" font-size="8.9">Almadenejos</text>
+<text class="halo" x="417.3" y="621.6" text-anchor="start" font-size="8.9">Brazatortas</text>
+<text class="muni-txt" x="417.3" y="621.6" text-anchor="start" font-size="8.9">Brazatortas</text>
+<text class="halo" x="421.7" y="482.4" text-anchor="start" font-size="8.9">Cabezarados</text>
+<text class="muni-txt" x="421.7" y="482.4" text-anchor="start" font-size="8.9">Cabezarados</text>
+<text class="halo" x="306.5" y="272.9" text-anchor="end" font-size="8.9">Fontanarejo</text>
+<text class="muni-txt" x="306.5" y="272.9" text-anchor="end" font-size="8.9">Fontanarejo</text>
+<text class="halo" x="769.9" y="244.8" text-anchor="start" font-size="8.9">Las Labores</text>
+<text class="muni-txt" x="769.9" y="244.8" text-anchor="start" font-size="8.9">Las Labores</text>
+<text class="halo" x="540.1" y="205.8" text-anchor="start" font-size="8.9">Los Cortijos</text>
+<text class="muni-txt" x="540.1" y="205.8" text-anchor="start" font-size="8.9">Los Cortijos</text>
+<text class="halo" x="423.4" y="730.2" text-anchor="start" font-size="8.9">Fuencaliente</text>
+<text class="muni-txt" x="423.4" y="730.2" text-anchor="start" font-size="8.9">Fuencaliente</text>
+<text class="halo" x="1086.0" y="505.4" text-anchor="start" font-size="8.9">Villahermosa</text>
+<text class="muni-txt" x="1086.0" y="505.4" text-anchor="start" font-size="8.9">Villahermosa</text>
+<text class="halo" x="615.9" y="559.3" text-anchor="start" font-size="8.9">Aldea del Rey</text>
+<text class="muni-txt" x="615.9" y="559.3" text-anchor="start" font-size="8.9">Aldea del Rey</text>
+<text class="halo" x="776.4" y="220.3" text-anchor="end" font-size="8.9">Puerto Lápice</text>
+<text class="muni-txt" x="776.4" y="220.3" text-anchor="end" font-size="8.9">Puerto Lápice</text>
+<text class="halo" x="987.9" y="684.4" text-anchor="start" font-size="8.9">Villamanrique</text>
+<text class="muni-txt" x="987.9" y="684.4" text-anchor="start" font-size="8.9">Villamanrique</text>
+<text class="halo" x="309.8" y="122.5" text-anchor="start" font-size="8.9">Navas de Estena</text>
+<text class="muni-txt" x="309.8" y="122.5" text-anchor="start" font-size="8.9">Navas de Estena</text>
+<text class="halo" x="507.7" y="714.1" text-anchor="start" font-size="8.9">Solana del Pino</text>
+<text class="muni-txt" x="507.7" y="714.1" text-anchor="start" font-size="8.9">Solana del Pino</text>
+<text class="halo" x="569.1" y="483.3" text-anchor="start" font-size="8.9">Villar del Pozo</text>
+<text class="muni-txt" x="569.1" y="483.3" text-anchor="start" font-size="8.9">Villar del Pozo</text>
+<text class="halo" x="580.2" y="321.9" text-anchor="start" font-size="8.9">Fernán Caballero</text>
+<text class="muni-txt" x="580.2" y="321.9" text-anchor="start" font-size="8.9">Fernán Caballero</text>
+<text class="halo" x="616.2" y="250.1" text-anchor="end" font-size="8.9">Fuente el Fresno</text>
+<text class="muni-txt" x="616.2" y="250.1" text-anchor="end" font-size="8.9">Fuente el Fresno</text>
+<text class="halo" x="752.4" y="685.0" text-anchor="start" font-size="8.9">Viso del Marqués</text>
+<text class="muni-txt" x="752.4" y="685.0" text-anchor="start" font-size="8.9">Viso del Marqués</text>
+<text class="halo" x="774.0" y="281.3" text-anchor="middle" font-size="8.9">Arenas de San Juan</text>
+<text class="muni-txt" x="774.0" y="281.3" text-anchor="middle" font-size="8.9">Arenas de San Juan</text>
+<text class="halo" x="909.6" y="630.6" text-anchor="start" font-size="8.9">Torre de Juan Abad</text>
+<text class="muni-txt" x="909.6" y="630.6" text-anchor="start" font-size="8.9">Torre de Juan Abad</text>
+<text class="halo" x="540.3" y="471.6" text-anchor="middle" font-size="8.9">Cañada de Calatrava</text>
+<text class="muni-txt" x="540.3" y="471.6" text-anchor="middle" font-size="8.9">Cañada de Calatrava</text>
+<text class="halo" x="482.5" y="467.7" text-anchor="end" font-size="8.9">Corral de Calatrava</text>
+<text class="muni-txt" x="482.5" y="467.7" text-anchor="end" font-size="8.9">Corral de Calatrava</text>
+<text class="halo" x="1050.8" y="654.0" text-anchor="start" font-size="8.9">Puebla del Príncipe</text>
+<text class="muni-txt" x="1050.8" y="654.0" text-anchor="start" font-size="8.9">Puebla del Príncipe</text>
+<text class="halo" x="855.4" y="326.2" text-anchor="start" font-size="8.9">Llanos del Caudillo</text>
+<text class="muni-txt" x="855.4" y="326.2" text-anchor="start" font-size="8.9">Llanos del Caudillo</text>
+<text class="halo" x="301.4" y="298.5" text-anchor="start" font-size="8.9">Arroba de los Montes</text>
+<text class="muni-txt" x="301.4" y="298.5" text-anchor="start" font-size="8.9">Arroba de los Montes</text>
+<text class="halo" x="666.2" y="621.4" text-anchor="start" font-size="8.9">Calzada de Calatrava</text>
+<text class="muni-txt" x="666.2" y="621.4" text-anchor="start" font-size="8.9">Calzada de Calatrava</text>
+<text class="halo" x="623.8" y="374.5" text-anchor="middle" font-size="8.9">Carrión de Calatrava</text>
+<text class="muni-txt" x="623.8" y="374.5" text-anchor="middle" font-size="8.9">Carrión de Calatrava</text>
+<text class="halo" x="613.4" y="454.1" text-anchor="end" font-size="8.9">Pozuelo de Calatrava</text>
+<text class="muni-txt" x="613.4" y="454.1" text-anchor="end" font-size="8.9">Pozuelo de Calatrava</text>
+<text class="halo" x="903.0" y="485.9" text-anchor="start" font-size="8.9">San Carlos del Valle</text>
+<text class="muni-txt" x="903.0" y="485.9" text-anchor="start" font-size="8.9">San Carlos del Valle</text>
+<text class="halo" x="815.0" y="271.0" text-anchor="start" font-size="8.9">Villarta de San Juan</text>
+<text class="muni-txt" x="815.0" y="271.0" text-anchor="start" font-size="8.9">Villarta de San Juan</text>
+<text class="halo" x="515.7" y="494.8" text-anchor="end" font-size="8.9">Caracuel de Calatrava</text>
+<text class="muni-txt" x="515.7" y="494.8" text-anchor="end" font-size="8.9">Caracuel de Calatrava</text>
+<text class="halo" x="884.7" y="669.6" text-anchor="start" font-size="8.9">Castellar de Santiago</text>
+<text class="muni-txt" x="884.7" y="669.6" text-anchor="start" font-size="8.9">Castellar de Santiago</text>
+<text class="halo" x="264.6" y="182.2" text-anchor="start" font-size="8.9">Horcajo de los Montes</text>
+<text class="muni-txt" x="264.6" y="182.2" text-anchor="start" font-size="8.9">Horcajo de los Montes</text>
+<text class="halo" x="253.8" y="332.7" text-anchor="start" font-size="8.9">Puebla de Don Rodrigo</text>
+<text class="muni-txt" x="253.8" y="332.7" text-anchor="start" font-size="8.9">Puebla de Don Rodrigo</text>
+<text class="halo" x="441.2" y="142.3" text-anchor="start" font-size="8.9">Retuerta del Bullaque</text>
+<text class="muni-txt" x="441.2" y="142.3" text-anchor="start" font-size="8.9">Retuerta del Bullaque</text>
+<text class="halo" x="695.9" y="533.5" text-anchor="start" font-size="8.9">Granátula de Calatrava</text>
+<text class="muni-txt" x="695.9" y="533.5" text-anchor="start" font-size="8.9">Granátula de Calatrava</text>
+<text class="halo" x="477.6" y="656.0" text-anchor="start" font-size="8.9">Hinojosas de Calatrava</text>
+<text class="muni-txt" x="477.6" y="656.0" text-anchor="start" font-size="8.9">Hinojosas de Calatrava</text>
+<text class="halo" x="201.3" y="421.4" text-anchor="end" font-size="8.9">Valdemanco del Esteras</text>
+<text class="muni-txt" x="201.3" y="421.4" text-anchor="end" font-size="8.9">Valdemanco del Esteras</text>
+<text class="halo" x="654.4" y="490.2" text-anchor="start" font-size="8.9">Valenzuela de Calatrava</text>
+<text class="muni-txt" x="654.4" y="490.2" text-anchor="start" font-size="8.9">Valenzuela de Calatrava</text>
+<text class="halo" x="472.6" y="514.4" text-anchor="start" font-size="8.9">Villamayor de Calatrava</text>
+<text class="muni-txt" x="472.6" y="514.4" text-anchor="start" font-size="8.9">Villamayor de Calatrava</text>
+<text class="halo" x="1133.6" y="573.5" text-anchor="end" font-size="8.9">Villanueva de la Fuente</text>
+<text class="muni-txt" x="1133.6" y="573.5" text-anchor="end" font-size="8.9">Villanueva de la Fuente</text>
+<text class="halo" x="545.9" y="546.8" text-anchor="start" font-size="8.9">Argamasilla de Calatrava</text>
+<text class="muni-txt" x="545.9" y="546.8" text-anchor="start" font-size="8.9">Argamasilla de Calatrava</text>
+<text class="halo" x="581.1" y="502.5" text-anchor="start" font-size="8.9">Ballesteros de Calatrava</text>
+<text class="muni-txt" x="581.1" y="502.5" text-anchor="start" font-size="8.9">Ballesteros de Calatrava</text>
+<text class="halo" x="426.7" y="652.5" text-anchor="end" font-size="8.9">Cabezarrubias del Puerto</text>
+<text class="muni-txt" x="426.7" y="652.5" text-anchor="end" font-size="8.9">Cabezarrubias del Puerto</text>
+<text class="halo" x="630.6" y="710.1" text-anchor="start" font-size="8.9">San Lorenzo de Calatrava</text>
+<text class="muni-txt" x="630.6" y="710.1" text-anchor="start" font-size="8.9">San Lorenzo de Calatrava</text>
+<text class="halo" x="595.8" y="627.7" text-anchor="end" font-size="8.9">Villanueva de San Carlos</text>
+<text class="muni-txt" x="595.8" y="627.7" text-anchor="end" font-size="8.9">Villanueva de San Carlos</text>
+<text class="halo" x="994.5" y="218.5" text-anchor="start" font-size="8.9">Arenales de San Gregorio</text>
+<text class="muni-txt" x="994.5" y="218.5" text-anchor="start" font-size="8.9">Arenales de San Gregorio</text>
+<text class="halo" x="452.9" y="439.5" text-anchor="end" font-size="8.9">Los Pozuelos de Calatrava</text>
+<text class="muni-txt" x="452.9" y="439.5" text-anchor="end" font-size="8.9">Los Pozuelos de Calatrava</text>
+<text class="halo" x="1061.3" y="599.0" text-anchor="middle" font-size="8.9">Santa Cruz de los Cáñamos</text>
+<text class="muni-txt" x="1061.3" y="599.0" text-anchor="middle" font-size="8.9">Santa Cruz de los Cáñamos</text>
+<circle class="base-anillo" cx="560.8" cy="408.3" r="7"/>
+<circle class="base" cx="560.8" cy="408.3" r="5.6"/>
+<text class="halo halo-cap" x="560.8" y="397.3" text-anchor="middle">Ciudad Real</text>
+<text class="base-txt" x="560.8" y="397.3" text-anchor="middle">Ciudad Real</text>
 </svg>
         </div>
 
